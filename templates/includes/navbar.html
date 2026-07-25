@@ -1,0 +1,109 @@
+{% load static %}
+
+<header id="header">
+
+    <nav class="navbar">
+
+        <div class="container navbar-container">
+
+            <!-- ================= Logo ================= -->
+
+            <a href="{% url 'home' %}" class="logo">
+
+                <img src="{% static 'images/logo.png' %}" alt="OSHARI ITNS Logo">
+
+                <div class="brand-text">
+
+                    <span class="brand-main">OSHARI</span>
+
+                    <span class="brand-sub">ITNS</span>
+
+                </div>
+
+            </a>
+
+            <!-- ============== Desktop Navigation ============== -->
+
+            <ul class="nav-links">
+
+                <li><a href="{% url 'home' %}" class="active">Home</a></li>
+
+                <li><a href="#">Shop</a></li>
+
+                <li><a href="#">About</a></li>
+
+                <li><a href="#">Contact</a></li>
+
+            </ul>
+
+            <!-- ================= Right Icons ================= -->
+
+            <div class="nav-actions">
+
+                <button class="nav-icon" id="search-btn" aria-label="Search">
+                    <i data-lucide="search"></i>
+                </button>
+
+                <button class="nav-icon" id="theme-toggle" aria-label="Toggle Theme">
+                    <i data-lucide="moon"></i>
+                </button>
+
+                <button class="nav-icon" aria-label="Shopping Bag">
+                    <i data-lucide="shopping-bag"></i>
+                </button>
+
+                <button class="nav-icon" aria-label="Account">
+                    <i data-lucide="user"></i>
+                </button>
+
+                <button class="menu-btn" id="menu-btn" aria-label="Open Menu">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- ================= Mobile Menu ================= -->
+
+    <aside class="mobile-menu" id="mobile-menu">
+
+        <div class="mobile-header">
+
+            <h2>Menu</h2>
+
+            <button id="close-menu">&times;</button>
+
+        </div>
+
+        <ul>
+
+            <li><a href="{% url 'home' %}">Home</a></li>
+
+            <li><a href="#">Shop</a></li>
+
+            <li><a href="#">About</a></li>
+
+            <li><a href="#">Contact</a></li>
+
+        </ul>
+
+        <div class="mobile-socials">
+
+            <a href="#">Instagram</a>
+
+            <a href="#">TikTok</a>
+
+            <a href="#">WhatsApp</a>
+
+        </div>
+
+    </aside>
+
+</header>

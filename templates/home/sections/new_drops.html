@@ -1,0 +1,81 @@
+{% load static %}
+{% load price_filters %}
+
+<section class="new-drops">
+
+    <div class="container">
+
+        <!-- Section Header -->
+
+        <div class="section-header">
+
+            <span class="section-tag">
+                NEW ARRIVALS
+            </span>
+
+            <h2>
+                New Drops
+            </h2>
+
+            <p>
+                Discover the latest streetwear pieces crafted for confidence, comfort, and everyday style.
+            </p>
+
+        </div>
+
+        <!-- Products -->
+
+        <div class="products-grid">
+
+            {% for product in new_drops %}
+
+            <article class="product-card">
+
+                <div class="product-image">
+
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+                </div>
+
+                <div class="product-info">
+
+                    <h3>{{ product.name }}</h3>
+
+                    <span class="price">
+                        ₦{{ product.price|naira }}
+                    </span>
+
+                    <a href="#" class="view-btn">
+                        
+                        View Product
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>
+
+            {% empty %}
+
+            <p>No products available yet.</p>
+
+            {% endfor %}
+
+        </div>
+
+        
+        <!-- View All -->
+
+        <div class="view-all-wrapper">
+
+            <a href="#" class="btn btn-primary">
+
+                View All Drops
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>

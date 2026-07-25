@@ -1,0 +1,90 @@
+{% load static %}
+
+<section class="hero">
+
+    <div class="hero-background"></div>
+
+        
+
+    <div class="container hero-container">
+
+        <!-- ================= Left Content ================= -->
+
+        <div class="hero-content">
+
+            <span class="hero-tag">
+
+                <i data-lucide="sparkles"></i>
+                
+                NEW COLLECTION 2026
+            </span>
+
+            <h1>
+                THE NEW<br>
+                STYLE.
+            </h1>
+
+            <p>
+                Modern streetwear designed for confidence,
+                comfort, and everyday expression.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#" class="btn btn-primary">
+                    Shop Now
+                </a>
+
+                <a href="#" class="btn btn-secondary">
+                    Explore Collection
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- ================= Right Image Slider ================= -->
+
+        <div class="hero-image">
+
+            <div class="hero-slider">
+
+                <img src="{% static 'images/hero/model-1.jpg' %}" class="slide active" alt="Model One">
+
+                <img src="{% static 'images/hero/model-2.jpg' %}" class="slide" alt="Model Two">
+
+                <img src="{% static 'images/hero/model-3.jpg' %}" class="slide" alt="Model Three">
+
+                <img src="{% static 'images/hero/model-4.jpg' %}" class="slide" alt="Model Four">
+
+                <img src="{% static 'images/hero/model-5.jpg' %}" class="slide" alt="Model Five">
+
+            </div>
+
+            <!-- Navigation Arrows -->
+
+            <button class="hero-arrow prev" aria-label="Previous Slide">
+                <i data-lucide="chevron-left"></i>
+            </button>
+
+            <button class="hero-arrow next" aria-label="Next Slide">
+                <i data-lucide="chevron-right"></i>
+            </button>
+
+            <!-- Slider Dots -->
+
+            <div class="hero-dots">
+
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

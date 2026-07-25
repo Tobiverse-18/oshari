@@ -1,0 +1,139 @@
+/* ==========================================
+   RESET
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:var(--body-font);
+    background:var(--background-color);
+    color:var(--text-color);
+    line-height:1.6;
+    transition:var(--transition);
+    overflow-x:hidden;
+}
+
+/* ==========================================
+   TYPOGRAPHY
+========================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+    font-family:var(--heading-font);
+    color:var(--text-color);
+    font-weight:700;
+    line-height:1.2;
+}
+
+p{
+    color:var(--text-light);
+    font-size:var(--fs-md);
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+    transition:var(--transition);
+}
+
+ul{
+    list-style:none;
+}
+
+img{
+    width:100%;
+    display:block;
+    object-fit:cover;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:inherit;
+    border:none;
+    outline:none;
+}
+
+/* ==========================================
+   LAYOUT
+========================================== */
+
+.container{
+    width:min(92%, 1400px);
+    margin:0 auto;
+}
+
+section{
+    padding:90px 0;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:16px 34px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    position:relative;
+}
+
+.btn-primary{
+    background:var(--primary-color);
+    color:white;
+}
+
+.btn-primary:hover{
+    transform:translateY(-5px);
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
+}
+
+.btn-secondary{
+    border:2px solid var(--primary-color);
+    color:var(--primary-color);
+    background:transparent;
+}
+
+.btn-secondary:hover{
+    background:var(--primary-color);
+    color:white;
+    transform:translateY(-5px);
+}
+
+/* ==========================================
+   UTILITIES
+========================================== */
+
+.text-center{
+    text-align:center;
+}
+
+.hidden{
+    display:none;
+}
