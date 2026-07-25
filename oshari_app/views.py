@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import Product
 
-
 def home(request):
     new_drops = Product.objects.filter(
         is_available=True,

@@ -2,9 +2,17 @@
 {% load static %}
 
 {% block title %}
-OSHARI
+OSHARI ITNS | Premium Urban Fashion
 {% endblock %}
 
 {% block content %}
-<h1>Hello Render</h1>
+    {% include 'home/sections/hero.html' %}
+    {% include 'home/sections/new_drops.html' %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/hero.css' %}">
+<link rel="stylesheet" href="{% static 'css/new_drops.css' %}">
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 {% endblock %}
