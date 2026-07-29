@@ -33,23 +33,45 @@
 
                 <div class="product-image">
 
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    <span class="drop-badge">
+                        NEW
+                    </span>
+
+                    <img src="{{ product.image.url }}" 
+                        alt="{{ product.name }}">
 
                 </div>
 
+
                 <div class="product-info">
 
-                    <h3>{{ product.name }}</h3>
+                    <h3>
+                        {{ product.name }}
+                    </h3>
 
-                    <span class="price">
-                        ₦{{ product.price|naira }}
-                    </span>
 
-                    <a href="#" class="view-btn">
-                        
-                        View Product
-                        <i data-lucide="arrow-right"></i>
-                    </a>
+                    <p class="product-description">
+                        {{ product.description|truncatewords:10 }}
+                    </p>
+
+
+                    <div class="product-bottom">
+
+                        <span class="price">
+                            ₦{{ product.price|naira }}
+                        </span>
+
+
+                        <a href="#" class="view-btn">
+
+                            View
+
+                            <i data-lucide="arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
 
                 </div>
 

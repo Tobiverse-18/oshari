@@ -2,109 +2,273 @@
    OSHARI ITNS DESIGN SYSTEM
 ========================================== */
 
+
+/* ==========================================
+   LIGHT THEME
+========================================== */
+
 :root {
 
+
     /* =====================
-       COLORS - LIGHT THEME
+       BRAND COLORS
     ===================== */
 
-    --primary-color: #111111;
-    --secondary-color: #C9A227;
+    --primary-color:#111111;
+    --secondary-color:#C9A227;
 
-    --background-color: #F7F5F2;
-    --surface-color: #FFFFFF;
 
-    --text-color: #111111;
-    --text-light: #6B7280;
+    /* =====================
+       BACKGROUNDS
+    ===================== */
 
-    --border-color: #E5E7EB;
+    --background-color:#F7F5F2;
+    --surface-color:#FFFFFF;
+    --card-bg:#FFFFFF;
+    --navbar-bg:rgba(255,255,255,.92);
+    --footer-bg:#FFFFFF;
 
-    --success-color: #16A34A;
-    --warning-color: #F59E0B;
-    --danger-color: #DC2626;
+
+    /* =====================
+       TEXT COLORS
+    ===================== */
+
+    --text-color:#111111;
+    --text-light:#6B7280;
+    --heading-color:#111111;
+
+    --white-color:#FFFFFF;
+
+
+    /* =====================
+       BORDERS
+    ===================== */
+
+    --border-color:#E5E7EB;
+
+
+    /* =====================
+       EFFECT COLORS
+    ===================== */
+
+    --secondary-light:rgba(201,162,39,.12);
+
+    --overlay-dark:rgba(0,0,0,.45);
+
+    --dot-color:#DDDDDD;
+
+
+
+    /* =====================
+       BUTTONS
+    ===================== */
+
+    --button-bg:#111111;
+    --button-text:#FFFFFF;
+
+
+
+    /* =====================
+       STATUS COLORS
+    ===================== */
+
+    --success-color:#16A34A;
+    --warning-color:#F59E0B;
+    --danger-color:#DC2626;
+
+
 
     /* =====================
        TYPOGRAPHY
     ===================== */
 
-    --heading-font: "Space Grotesk", sans-serif;
-    --body-font: "Inter", sans-serif;
+    --heading-font:"Space Grotesk", sans-serif;
+    --body-font:"Inter", sans-serif;
+
+
 
     /* =====================
        FONT SIZES
     ===================== */
 
-    --fs-xs: 0.75rem;
-    --fs-sm: 0.875rem;
-    --fs-md: 1rem;
-    --fs-lg: 1.125rem;
-    --fs-xl: 1.25rem;
-    --fs-2xl: 1.5rem;
-    --fs-3xl: 2rem;
-    --fs-4xl: 3rem;
-    --fs-5xl: 4rem;
+    --fs-xs:.75rem;
+    --fs-sm:.875rem;
+    --fs-md:1rem;
+    --fs-lg:1.125rem;
+    --fs-xl:1.25rem;
+    --fs-2xl:1.5rem;
+    --fs-3xl:2rem;
+    --fs-4xl:3rem;
+    --fs-5xl:4rem;
+
+
 
     /* =====================
        FONT WEIGHTS
     ===================== */
 
-    --fw-light: 300;
-    --fw-regular: 400;
-    --fw-medium: 500;
-    --fw-semibold: 600;
-    --fw-bold: 700;
+    --fw-light:300;
+    --fw-regular:400;
+    --fw-medium:500;
+    --fw-semibold:600;
+    --fw-bold:700;
+
+
 
     /* =====================
        SPACING
     ===================== */
 
-    --space-xs: 8px;
-    --space-sm: 12px;
-    --space-md: 16px;
-    --space-lg: 24px;
-    --space-xl: 32px;
-    --space-2xl: 48px;
-    --space-3xl: 64px;
-    --space-4xl: 96px;
+    --space-xs:8px;
+    --space-sm:12px;
+    --space-md:16px;
+    --space-lg:24px;
+    --space-xl:32px;
+    --space-2xl:48px;
+    --space-3xl:64px;
+    --space-4xl:96px;
+
+
 
     /* =====================
        BORDER RADIUS
     ===================== */
 
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
-    --radius-round: 50%;
+    --radius-sm:8px;
+    --radius-md:12px;
+    --radius-lg:16px;
+    --radius-xl:24px;
+    --radius-round:50%;
+
+
 
     /* =====================
        SHADOWS
     ===================== */
 
-    --shadow-sm: 0 2px 8px rgba(0,0,0,.05);
-    --shadow-md: 0 8px 20px rgba(0,0,0,.08);
-    --shadow-lg: 0 15px 35px rgba(0,0,0,.12);
+    --shadow-sm:0 2px 8px rgba(0,0,0,.05);
+    --shadow-md:0 8px 20px rgba(0,0,0,.08);
+    --shadow-lg:0 15px 35px rgba(0,0,0,.12);
+
+
 
     /* =====================
        TRANSITIONS
     ===================== */
 
-    --transition: .3s ease;
+    --transition:.3s ease;
+
 }
+
 
 
 /* ==========================================
    DARK THEME
 ========================================== */
 
+
 body.dark-theme{
 
-    --background-color:#111111;
-    --surface-color:#1B1B1B;
+
+    /* =====================
+       BRAND COLORS
+    ===================== */
+
+    --primary-color:#F5F5F5;
+    --secondary-color:#D4AF37;
+
+
+
+    /* =====================
+       BACKGROUNDS
+    ===================== */
+
+    --background-color:#0E0E0E;
+    --surface-color:#181818;
+    --card-bg:#1B1B1B;
+
+    --navbar-bg:rgba(14,14,14,.92);
+    --footer-bg:#181818;
+
+
+
+    /* =====================
+       TEXT COLORS
+    ===================== */
 
     --text-color:#F5F5F5;
+    --heading-color:#FFFFFF;
     --text-light:#CFCFCF;
+
+    --white-color:#FFFFFF;
+
+
+
+    /* =====================
+       BORDERS
+    ===================== */
 
     --border-color:#333333;
 
+
+
+    /* =====================
+       EFFECT COLORS
+    ===================== */
+
+    --secondary-light:rgba(212,175,55,.18);
+
+    --overlay-dark:rgba(0,0,0,.65);
+
+    --dot-color:#555555;
+
+
+
+    /* =====================
+       BUTTONS
+    ===================== */
+
+    --button-bg:#F5F5F5;
+    --button-text:#111111;
+
+
+
+    /* =====================
+       SHADOWS
+    ===================== */
+
+    --shadow-sm:0 2px 8px rgba(0,0,0,.45);
+    --shadow-md:0 8px 20px rgba(0,0,0,.55);
+    --shadow-lg:0 15px 35px rgba(0,0,0,.65);
+
 }
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   THEME TRANSITION
+========================================== */
+
+body,
+.navbar,
+.card,
+button,
+section,
+footer,
+input,
+textarea {
+    transition:
+        background-color var(--transition),
+        color var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+

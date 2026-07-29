@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{% static 'css/hero.css' %}">
     <link rel="stylesheet" href="{% static 'css/new_drops.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/brand_story.css' %}">
 
     <!-- Extra CSS -->
     {% block extra_css %}{% endblock %}
@@ -58,8 +59,13 @@
     <!-- Footer -->
     {% include 'includes/footer.html' %}
 
-    <!-- Global JavaScript -->
+    <!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+
+<!-- Global JavaScript -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="{% static 'js/theme.js' %}"></script>
     <script src="{% static 'js/navbar.js' %}"></script>
     <script src="{% static 'js/hero.js' %}"></script>
@@ -67,12 +73,17 @@
     <script src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/scroll.js' %}"></script>
 
+    <script src="{% static 'js/brand_story.js' %}"></script>
+
+
+    <script>lucide.createIcons();</script>
+
     
     <!-- Extra JavaScript -->
     {% block extra_js %}{% endblock %}
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+    
+    <script src="{% static 'js/brand_story.js' %}"></script>
 
 </body>
 </html>

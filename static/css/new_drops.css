@@ -18,7 +18,7 @@
     padding:10px 20px;
     margin-bottom:20px;
 
-    background:rgba(201,162,39,.12);
+    background: var(--secondary-light);
     color:var(--secondary-color);
 
     border-radius:50px;
@@ -227,5 +227,39 @@
         height:280px;
 
     }
+
+}
+
+/* NEW BADGE */
+
+.drop-badge{
+
+    position:absolute;
+
+    top:20px;
+    left:20px;
+
+    background:var(--secondary-color);
+
+    color:white;
+
+    padding:8px 15px;
+
+    border-radius:30px;
+
+    font-size:.75rem;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    z-index:2;
+
+}
+
+
+.product-image{
+
+    position:relative;
 
 }

@@ -17,7 +17,7 @@
 }
 
 .navbar.scrolled{
-    background: rgba(255,255,255,.92);
+    background: var(--navbar-bg);
     backdrop-filter: blur(18px);
     box-shadow: 0 8px 25px rgba(0,0,0,.08);
 }
@@ -104,21 +104,50 @@
     gap:12px;
 }
 
+
 .nav-icon{
+
     width:42px;
     height:42px;
+
     border-radius:50%;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     background:transparent;
+
+    color:var(--text-color);
+
+    border:1px solid var(--border-color);
+
     cursor:pointer;
-    transition:.3s;
+
+    transition:var(--transition);
+
 }
 
+
+.nav-icon svg{
+
+    width:20px;
+    height:20px;
+
+    stroke:currentColor;
+
+}
+
+
+
 .nav-icon:hover{
+
     background:var(--secondary-color);
-    color:#fff;
+
+    color:#ffffff;
+
+    transform:translateY(-2px);
+
 }
 
 /* ===========================

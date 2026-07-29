@@ -1,0 +1,200 @@
+/* ===========================
+   BRAND STORY
+=========================== */
+
+.brand-story{
+    padding:100px 0;
+    background:var(--background-color);
+}
+
+.story-wrapper{
+
+    display:flex;
+    align-items:center;
+    gap:70px;
+
+}
+
+.story-content{
+
+    flex:1;
+
+}
+
+.story-image{
+
+    flex:1;
+
+}
+
+.section-tag{
+
+    display:inline-block;
+    padding:10px 20px;
+
+    border-radius:50px;
+
+    background: var(--secondary-light);
+
+    color:var(--secondary-color);
+
+    letter-spacing:2px;
+
+    font-size:.85rem;
+
+    margin-bottom:20px;
+
+}
+
+.story-content h2{
+
+    font-size:3rem;
+
+    margin-bottom:25px;
+
+}
+
+.story-content p{
+
+    margin-bottom:20px;
+
+    line-height:1.8;
+
+    color:var(--text-light);
+
+}
+
+/* ===========================
+DESKTOP SLIDER
+=========================== */
+
+.story-image{
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    height:650px;
+
+}
+
+.story-track{
+
+    display:flex;
+
+    width:200%;
+
+    height:100%;
+
+    transition:transform .8s ease-in-out;
+
+}
+
+.story-track img{
+
+    width:50%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+/* ===========================
+MOBILE
+=========================== */
+
+.mobile-slider{
+
+    display:none;
+
+}
+
+.overlay{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    padding:30px;
+
+    background:linear-gradient(
+        transparent,
+        rgba(0,0,0,.75)
+    );
+
+}
+
+.overlay h3{
+
+    color:#fff;
+
+    font-size:1.8rem;
+
+    max-width:250px;
+
+}
+
+@media(max-width:768px){
+
+.story-wrapper{
+
+    display:block;
+
+}
+
+.story-image{
+
+    display:none;
+
+}
+
+.story-content h2{
+
+    font-size:2.2rem;
+
+}
+
+.mobile-slider{
+
+    display:block;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    margin:30px 0;
+
+    height:420px;
+
+}
+
+.mobile-track{
+
+    display:flex;
+
+    width:200%;
+
+    height:100%;
+
+    transition:transform .8s ease-in-out;
+
+}
+
+.mobile-track img{
+
+    width:50%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+}
