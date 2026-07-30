@@ -54,11 +54,31 @@
 
                 </div>
 
-                <button class="btn btn-primary add-cart">
+                <form
+                    id="add-to-cart-form"
+                    action="{% url 'add_to_cart' product.id %}"
+                    method="POST"
+                >
 
-                    Add to Cart
+                    {% csrf_token %}
 
-                </button>
+                    <input
+                        type="hidden"
+                        name="quantity"
+                        id="hidden-quantity"
+                        value="1"
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary add-cart"
+                    >
+
+                        Add to Cart
+
+                    </button>
+
+                </form>
 
                 <button class="btn btn-secondary buy-now">
 

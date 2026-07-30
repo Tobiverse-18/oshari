@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% load static %}
+{% load price_filters %}
+
+{% block title %}
+Shopping Cart | OSHARI ITNS
+{% endblock %}
+
+{% block content %}
+
+<section class="cart-page">
+
+    <div class="container">
+
+        <div class="cart-header">
+
+            <h1>Shopping Cart</h1>
+
+            <p>Review your items before checkout.</p>
+
+        </div>
+
+        {% if cart %}
+
+        <div class="cart-wrapper">
+
+        <form style="display:none;">
+            {% csrf_token %}
+        </form>
+
+            {% for item in cart %}
+
+            <div class="cart-item">
+
+                <div class="cart-image">
+
+                    <img
+                        src="{{ item.product.image.url }}"
+                        alt="{{ item.product.name }}"
+                    >
+
+                </div>
+
+                <div class="cart-info">
+
+                    <h3>
+
+                        {{ item.product.name }}
+
+                    </h3>
+
+                    <span class="cart-price">
+
+                        ₦{{ item.product.price|naira }}
+
+                    </span>
+
+                    <div class="cart-quantity">
+
+                        Quantity
+
+                        <div class="quantity-box" data-id="{{ item.product.id }}">
+
+                            <button type="button" class="qty-btn minus">
+
+                                -
+
+                            </button>
+
+                            <input
+                                type="number"
+                                value="{{ item.quantity }}"
+                                min="1"
+                                readonly
+                            >
+
+                            <button type="button" class="qty-btn plus">
+
+                                +
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="cart-right">
+
+                    <span class="subtotal" data-subtotal="{{ item.product.id }}">
+
+
+                        ₦{{ item.total_price|naira }}
+
+                    </span>
+
+                    <a
+
+                        href="{% url 'remove_from_cart' item.product.id %}"
+
+                        class="remove"
+
+                    >
+
+                        Remove
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+            <div class="cart-total">
+
+                <h2>
+
+                    Total
+
+                </h2>
+
+                <span id="cart-total">
+
+                    ₦{{ cart.get_total_price|naira }}
+
+                </span>
+
+            </div>
+
+            <div class="cart-buttons">
+
+                <a
+                    href="{% url 'shop' %}"
+                    class="btn btn-secondary"
+                >
+
+                    Continue Shopping
+
+                </a>
+
+                <a
+                    href="#"
+                    class="btn btn-primary"
+                >
+
+                    Checkout
+
+                </a>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-cart">
+
+            <h2>
+
+                Your cart is empty
+
+            </h2>
+
+            <p>
+
+                Start shopping to add products.
+
+            </p>
+
+            <a
+
+                href="{% url 'shop' %}"
+
+                class="btn btn-primary"
+
+            >
+
+                Shop Now
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

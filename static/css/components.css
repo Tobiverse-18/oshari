@@ -1,0 +1,241 @@
+/*==============================
+TOAST
+==============================*/
+
+#toast{
+
+    position:fixed;
+
+    top:30px;
+
+    right:-450px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    background:var(--card-bg);
+
+    color:var(--text-color);
+
+    padding:18px 22px;
+
+    border-radius:16px;
+
+    box-shadow:var(--shadow-lg);
+
+    z-index:9999;
+
+    transition:.45s ease;
+
+    min-width:320px;
+
+    border:1px solid var(--border-color);
+
+}
+
+#toast.show{
+
+    right:30px;
+
+}
+
+.toast-icon{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:var(--success-color);
+
+    color:white;
+
+    font-weight:bold;
+
+    font-size:1.2rem;
+
+}
+
+#toast h4{
+
+    margin:0;
+
+    font-size:1rem;
+
+}
+
+#toast p{
+
+    margin-top:4px;
+
+    color:var(--text-light);
+
+    font-size:.9rem;
+
+}
+
+.toast-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+#toast-product{
+
+    margin:4px 0;
+
+    font-weight:600;
+
+}
+
+#toast-quantity{
+
+    color:var(--text-light);
+
+    margin-bottom:10px;
+
+}
+
+.toast-link{
+
+    text-decoration:none;
+
+    color:var(--secondary-color);
+
+    font-weight:600;
+
+}
+
+.toast-link:hover{
+
+    opacity:.8;
+
+}
+
+/*==============================
+FLOATING CART
+==============================*/
+
+#floating-cart{
+
+    position:fixed;
+
+    bottom:30px;
+
+    right:30px;
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    background:var(--secondary-color);
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-decoration:none;
+
+    box-shadow:var(--shadow-lg);
+
+    z-index:9998;
+
+    transition:.3s;
+
+}
+
+#floating-cart:hover{
+
+    transform:translateY(-5px);
+
+}
+
+#floating-cart svg{
+
+    width:28px;
+
+    height:28px;
+
+}
+
+#floating-cart-count{
+
+    position:absolute;
+
+    top:-6px;
+
+    right:-6px;
+
+    width:24px;
+
+    height:24px;
+
+    border-radius:50%;
+
+    background:#ff3b30;
+
+    color:#fff;
+
+    font-size:.8rem;
+
+    font-weight:700;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.cart-bounce{
+
+    animation:cartBounce .45s ease;
+
+}
+
+@keyframes cartBounce{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    40%{
+
+        transform:scale(1.2);
+
+    }
+
+    70%{
+
+        transform:scale(.92);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}

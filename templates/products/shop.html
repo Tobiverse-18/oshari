@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+{% load price_filters %}
+
+{% block title %}
+Shop | OSHARI ITNS
+{% endblock %}
+
+{% block content %}
+
+<section class="shop-page">
+
+    <div class="container">
+
+        <div class="shop-header">
+
+            <span class="section-tag">
+                SHOP
+            </span>
+
+            <h1>
+                Premium Streetwear Collection
+            </h1>
+
+            <p>
+                Discover every drop from OSHARI ITNS.
+            </p>
+
+        </div>
+
+        <!-- SEARCH -->
+
+        <form method="GET" class="shop-search">
+
+            <input
+                type="text"
+                name="search"
+                value="{{ search }}"
+                placeholder="Search products..."
+            >
+
+            <button type="submit">
+
+                <i data-lucide="search"></i>
+
+            </button>
+
+        </form>
+
+        <!-- PRODUCTS -->
+
+        <div class="products-grid">
+
+            {% for product in products %}
+
+            <article class="product-card">
+
+                <div class="product-image">
+
+                    <img
+                        src="{{ product.image.url }}"
+                        alt="{{ product.name }}"
+                    >
+
+                </div>
+
+                <div class="product-info">
+
+                    <h3>
+
+                        {{ product.name }}
+
+                    </h3>
+
+                    <span class="price">
+
+                        ₦{{ product.price|naira }}
+
+                    </span>
+
+                    <a
+                        href="{% url 'product_detail' product.id %}"
+                        class="btn btn-primary"
+                    >
+
+                        View Product
+
+                    </a>
+
+                </div>
+
+            </article>
+
+            {% empty %}
+
+            <div class="empty-products">
+
+                <h3>
+
+                    No products found
+
+                </h3>
+
+                <p>
+
+                    Try searching for another product.
+
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="load-more">
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

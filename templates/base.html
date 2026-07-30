@@ -54,6 +54,8 @@
     <link rel="stylesheet" href="{% static 'css/customer_reviews.css' %}">
     <link rel="stylesheet" href="{% static 'css/newsletter.css' %}">
     <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
 
 
     <!-- Extra CSS -->
@@ -156,6 +158,60 @@
     {% block extra_js %}
 
     {% endblock %}
+
+    <div id="toast">
+
+        <div class="toast-icon">
+
+            ✓
+
+        </div>
+
+        <div class="toast-content">
+
+            <h4 id="toast-title">
+
+                Added to Cart
+
+            </h4>
+
+            <p id="toast-product">
+
+                Product Name
+
+            </p>
+
+            <small id="toast-quantity">
+
+                1 item added
+
+            </small>
+
+            <a
+                href="{% url 'cart' %}"
+                class="toast-link"
+            >
+
+                View Cart →
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <a href="{% url 'cart' %}" id="floating-cart">
+
+        <i data-lucide="shopping-bag"></i>
+
+        <span id="floating-cart-count">
+
+            {{ request.session.cart|length|default:"0" }}
+
+        </span>
+
+    </a>
 
 </body>
 
