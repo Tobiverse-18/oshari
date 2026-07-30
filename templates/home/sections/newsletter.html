@@ -1,0 +1,59 @@
+{% load static %}
+
+<section class="newsletter">
+
+    <div class="container">
+
+        <div class="newsletter-wrapper">
+
+            <span class="section-tag">
+                JOIN THE COMMUNITY
+            </span>
+
+            <h2>
+                Never Miss a Drop.
+            </h2>
+
+            <p>
+                Be the first to know about new collections, exclusive releases,
+                members-only offers and premium streetwear updates from OSHARI ITNS.
+            </p>
+
+            <form class="newsletter-form">
+
+                {% csrf_token %}
+
+                <input
+                    type="email"
+                    name="email"
+                    class="newsletter-input"
+                    placeholder="Enter your email address"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Subscribe
+                </button>
+
+            </form>
+
+            <p class="newsletter-message"></p>
+
+            <div class="newsletter-features">
+
+                <span>✓ Exclusive Drops</span>
+
+                <span>✓ Early Access</span>
+
+                <span>✓ No Spam</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

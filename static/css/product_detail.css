@@ -1,0 +1,199 @@
+/*==================================
+PRODUCT DETAIL
+==================================*/
+
+.product-detail{
+
+    padding:120px 0;
+
+    background:var(--background-color);
+
+}
+
+.product-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:70px;
+
+    align-items:start;
+
+}
+
+.product-image{
+
+    background:var(--card-bg);
+
+    border-radius:var(--radius-xl);
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.product-image img{
+
+    width:100%;
+
+    height:700px;
+
+    object-fit:cover;
+
+}
+
+.product-info h1{
+
+    font-size:3rem;
+
+    color:var(--heading-color);
+
+    margin-bottom:20px;
+
+}
+
+.price{
+
+    display:block;
+
+    font-size:2rem;
+
+    color:var(--secondary-color);
+
+    font-weight:700;
+
+    margin-bottom:40px;
+
+}
+
+.quantity{
+
+    margin-bottom:35px;
+
+}
+
+.quantity label{
+
+    display:block;
+
+    margin-bottom:15px;
+
+    font-weight:600;
+
+}
+
+.quantity-box{
+
+    display:flex;
+
+    align-items:center;
+
+    width:180px;
+
+    border:1px solid var(--border-color);
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+}
+
+.qty-btn{
+
+    width:55px;
+
+    height:55px;
+
+    background:transparent;
+
+    cursor:pointer;
+
+    color:var(--text-color);
+
+    font-size:1.3rem;
+
+}
+
+.quantity-box input{
+
+    width:70px;
+
+    text-align:center;
+
+    background:transparent;
+
+    color:var(--text-color);
+
+    font-size:1rem;
+
+}
+
+.add-cart{
+
+    width:100%;
+
+    margin-bottom:15px;
+
+}
+
+.buy-now{
+
+    width:100%;
+
+    margin-bottom:40px;
+
+}
+
+.description{
+
+    border-top:1px solid var(--border-color);
+
+    padding-top:30px;
+
+}
+
+.description h3{
+
+    margin-bottom:15px;
+
+    color:var(--heading-color);
+
+}
+
+.description p{
+
+    line-height:1.9;
+
+}
+
+@media(max-width:900px){
+
+.product-grid{
+
+    grid-template-columns:1fr;
+
+    gap:40px;
+
+}
+
+.product-image img{
+
+    height:500px;
+
+}
+
+.product-info h1{
+
+    font-size:2.2rem;
+
+}
+
+.price{
+
+    font-size:1.7rem;
+
+}
+
+}

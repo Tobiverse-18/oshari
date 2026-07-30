@@ -29,57 +29,53 @@
 
             {% for product in new_drops %}
 
-            <article class="product-card">
+            <a href="{% url 'product_detail' product.pk %}" class="product-card-link">
 
-                <div class="product-image">
+                <article class="product-card">
 
-                    <span class="drop-badge">
-                        NEW
-                    </span>
+                    <div class="product-image">
 
-                    <img src="{{ product.image.url }}" 
-                        alt="{{ product.name }}">
-
-                </div>
-
-
-                <div class="product-info">
-
-                    <h3>
-                        {{ product.name }}
-                    </h3>
-
-
-                    <p class="product-description">
-                        {{ product.description|truncatewords:10 }}
-                    </p>
-
-
-                    <div class="product-bottom">
-
-                        <span class="price">
-                            ₦{{ product.price|naira }}
+                        <span class="drop-badge">
+                            NEW
                         </span>
 
-
-                        <a href="#" class="view-btn">
-
-                            View
-
-                            <i data-lucide="arrow-right"></i>
-
-                        </a>
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
 
                     </div>
 
+                    <div class="product-info">
 
-                </div>
+                        <h3>{{ product.name }}</h3>
 
-            </article>
+                        <p class="product-description">
+                            {{ product.description|truncatewords:10 }}
+                        </p>
+
+                        <div class="product-bottom">
+
+                            <span class="price">
+                                ₦{{ product.price|naira }}
+                            </span>
+
+                            <span class="view-btn">
+
+                                View
+
+                                <i data-lucide="arrow-right"></i>
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </a>
 
             {% empty %}
 
-            <p>No products available yet.</p>
+                <p>No products available yet.</p>
 
             {% endfor %}
 

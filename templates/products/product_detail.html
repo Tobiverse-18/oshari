@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ product.name }} | OSHARI ITNS
+{% endblock %}
+
+{% block content %}
+
+<section class="product-detail">
+
+    <div class="container">
+
+        <div class="product-grid">
+
+            <!-- IMAGE -->
+
+            <div class="product-image">
+
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+            </div>
+
+            <!-- INFO -->
+
+            <div class="product-info">
+
+                <h1>{{ product.name }}</h1>
+
+                <span class="price">
+
+                    ₦{{ product.price }}
+
+                </span>
+
+                <div class="quantity">
+
+                    <label>Quantity</label>
+
+                    <div class="quantity-box">
+
+                        <button class="qty-btn minus">−</button>
+
+                        <input
+                            type="number"
+                            value="1"
+                            min="1"
+                            id="quantity"
+                        >
+
+                        <button class="qty-btn plus">+</button>
+
+                    </div>
+
+                </div>
+
+                <button class="btn btn-primary add-cart">
+
+                    Add to Cart
+
+                </button>
+
+                <button class="btn btn-secondary buy-now">
+
+                    Buy Now
+
+                </button>
+
+                <div class="description">
+
+                    <h3>Description</h3>
+
+                    <p>
+
+                        {{ product.description }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

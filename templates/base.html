@@ -1,89 +1,162 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Basic Meta -->
+
+    <!-- ==========================================
+         META
+    =========================================== -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta name="description" content="{% block description %}OSHARI ITNS - Premium Urban Fashion & Luxury Streetwear{% endblock %}">
     <meta name="keywords" content="Streetwear, Fashion, Clothing, Urban Fashion, Oshari ITNS">
     <meta name="author" content="OSHARI ITNS">
 
-    <!-- Title -->
     <title>{% block title %}OSHARI ITNS{% endblock %}</title>
 
     <!-- Favicon -->
+
     <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
 
     <!-- Google Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Global CSS -->
+
+    <!-- ==========================================
+         GLOBAL CSS
+    =========================================== -->
+
     <link rel="stylesheet" href="{% static 'css/variables.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/components.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+
+    <!-- ==========================================
+         HOME PAGE CSS
+    =========================================== -->
+
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="{% static 'css/hero.css' %}">
     <link rel="stylesheet" href="{% static 'css/new_drops.css' %}">
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <link rel="stylesheet" href="{% static 'css/brand_story.css' %}">
+    <link rel="stylesheet" href="{% static 'css/why_choose_us.css' %}">
+    <link rel="stylesheet" href="{% static 'css/customer_reviews.css' %}">
+    <link rel="stylesheet" href="{% static 'css/newsletter.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+
 
     <!-- Extra CSS -->
-    {% block extra_css %}{% endblock %}
+
+    {% block extra_css %}
+
+    {% endblock %}
+
 </head>
 
 <body>
 
-    <!-- Loading Screen -->
+
+    <!-- ==========================================
+         LOADER
+    =========================================== -->
+
     <div id="loader"></div>
 
-    <!-- Announcement Bar -->
-    {% comment %}
-        Announcement Bar goes here later
-    {% endcomment %}
 
-    <!-- Navbar -->
+    <!-- ==========================================
+         NAVBAR
+    =========================================== -->
+
     {% include 'includes/navbar.html' %}
 
-    <!-- Main Content -->
+
+    <!-- ==========================================
+         MAIN CONTENT
+    =========================================== -->
+
     <main>
+
         {% block content %}
+
         {% endblock %}
+
     </main>
 
-    <!-- Footer -->
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
     {% include 'includes/footer.html' %}
 
-    <!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- ==========================================
+         LUCIDE ICONS
+    =========================================== -->
 
-<!-- Global JavaScript -->
-    <script src="{% static 'js/main.js' %}"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+
+
+    <!-- ==========================================
+         GLOBAL JAVASCRIPT
+    =========================================== -->
+
+    <script src="{% static 'js/main.js' %}"></script>
+
     <script src="{% static 'js/theme.js' %}"></script>
+
     <script src="{% static 'js/navbar.js' %}"></script>
-    <script src="{% static 'js/hero.js' %}"></script>
+
     <script src="{% static 'js/animations.js' %}"></script>
-    <script src="{% static 'js/cart.js' %}"></script>
+
     <script src="{% static 'js/scroll.js' %}"></script>
 
+    <script src="{% static 'js/cart.js' %}"></script>
+
+    <script src="{% static 'js/product_detail.js' %}"></script>
+
+
+    <!-- ==========================================
+         HOME PAGE JAVASCRIPT
+    =========================================== -->
+
+    <script src="{% static 'js/hero.js' %}"></script>
+
     <script src="{% static 'js/brand_story.js' %}"></script>
 
+    <script src="{% static 'js/newsletter.js' %}"></script>
 
-    <script>lucide.createIcons();</script>
 
-    
-    <!-- Extra JavaScript -->
-    {% block extra_js %}{% endblock %}
+    <!-- ==========================================
+         INITIALIZE LUCIDE
+    =========================================== -->
 
-    
-    <script src="{% static 'js/brand_story.js' %}"></script>
+    <script>
+
+        lucide.createIcons();
+
+    </script>
+
+
+    <!-- ==========================================
+         PAGE SPECIFIC JAVASCRIPT
+    =========================================== -->
+
+    {% block extra_js %}
+
+    {% endblock %}
 
 </body>
+
 </html>
