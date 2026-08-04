@@ -1,0 +1,165 @@
+{% load static %}
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <!-- BRAND -->
+
+            <div class="footer-column">
+
+                <div class="footer-logo">
+
+                    <img src="{% static 'images/logo.png' %}" alt="OSHARI ITNS">
+
+                    <div>
+
+                        <h2>OSHARI</h2>
+
+                        <span>ITNS</span>
+
+                    </div>
+
+                </div>
+
+                <p class="footer-text">
+
+                    Premium Urban Fashion crafted for those who appreciate confidence, quality and timeless streetwear.
+
+                </p>
+
+                <div class="footer-socials">
+
+                    <a href="https://instagram.com/oshari_itns" target="_blank">Instagram</a>
+
+                    <a href="https://www.tiktok.com/@oshari_itns?_r=1&_t=ZS-98ZkL3XI4F2" target="_blank">TikTok</a>
+
+                    <a href="https://wa.me/qr/AJQ7VK3W5UVBK1" target="_blank">WhatsApp</a>
+
+                </div>
+
+            </div>
+
+            <!-- SHOP -->
+
+            <div class="footer-column">
+
+                <h3>Shop</h3>
+
+                <ul>
+
+                    <li><a href="{% url 'shop' %}">New Drops</a></li>
+
+                    <li><a href="{% url 'shop' %}">Shop All</a></li>
+
+                    <li><a href="{% url 'track_order' %}">Track Order</a></li>
+
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+
+                </ul>
+
+            </div>
+
+            <!-- COMPANY -->
+
+            <div class="footer-column">
+
+                <h3>Company</h3>
+
+                <ul>
+
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+
+                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
+
+                    <li><a href="{% url 'contact' %}">Delivery Information</a></li>
+
+                    <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+
+                </ul>
+
+            </div>
+
+            <!-- SUPPORT -->
+
+            <div class="footer-column">
+
+                <h3>Support</h3>
+
+                <p><strong>Email</strong></p>
+
+                <span>oshari.itns@gmail.com</span>
+
+                <br><br>
+
+                <p><strong>Phone</strong></p>
+
+                <span>+234 806 658 4424</span>
+
+                <br><br>
+
+                <p><strong>Business Hours</strong></p>
+
+                <span>Monday - Sunday</span>
+
+                <span>24 Hours</span>
+
+            </div>
+
+            <!-- NEWSLETTER -->
+
+            <div class="footer-column">
+
+                <h3>Stay Updated</h3>
+
+                <p>
+
+                    Subscribe to receive new drops, exclusive offers and updates.
+
+                </p>
+
+                <form
+                    action="{% url 'subscribe_newsletter' %}"
+                    method="POST"
+                    class="newsletter-form"
+                >
+
+                    {% csrf_token %}
+
+                    {{ newsletter_form.email }}
+
+                    <button type="submit">
+
+                        Subscribe
+
+                    </button>
+
+                    <div class="newsletter-message"></div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+
+                © 2026 OSHARI ITNS. All Rights Reserved.
+
+            </p>
+
+            <p>
+
+                Designed & Developed by Tovia.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>

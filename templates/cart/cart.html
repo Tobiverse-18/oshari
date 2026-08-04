@@ -30,7 +30,7 @@ Shopping Cart | OSHARI ITNS
 
             {% for item in cart %}
 
-            <div class="cart-item">
+            <div class="cart-item" data-cart-item="{{ item.product.id }}">
 
                 <div class="cart-image">
 
@@ -95,17 +95,13 @@ Shopping Cart | OSHARI ITNS
 
                     </span>
 
-                    <a
-
-                        href="{% url 'remove_from_cart' item.product.id %}"
-
+                    <button
+                        type="button"
                         class="remove"
-
+                        data-remove="{{ item.product.id }}"
                     >
-
                         Remove
-
-                    </a>
+                    </button>
 
                 </div>
 
@@ -141,12 +137,10 @@ Shopping Cart | OSHARI ITNS
                 </a>
 
                 <a
-                    href="#"
+                    href="{% url 'checkout' %}"
                     class="btn btn-primary"
                 >
-
-                    Checkout
-
+                    Proceed to Checkout
                 </a>
 
             </div>

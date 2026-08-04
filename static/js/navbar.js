@@ -1,44 +1,44 @@
-// ================================
-// Sticky Navbar
-// ================================
+document.addEventListener("DOMContentLoaded", () => {
 
-const navbar = document.querySelector(".navbar");
+    const menuBtn = document.getElementById("menu-btn");
 
-window.addEventListener("scroll", () => {
+    const closeBtn = document.getElementById("close-menu");
 
-    if (window.scrollY > 50) {
-        navbar.classList.add("scrolled");
-    } else {
-        navbar.classList.remove("scrolled");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    const overlay = document.getElementById("mobile-overlay");
+
+    const links = document.querySelectorAll(".mobile-nav-links a");
+
+    function openMenu(){
+
+        mobileMenu.classList.add("active");
+
+        overlay.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+
     }
 
-});
-
-
-// ================================
-// Mobile Menu
-// ================================
-
-const menuBtn = document.getElementById("menu-btn");
-const closeBtn = document.getElementById("close-menu");
-const mobileMenu = document.getElementById("mobile-menu");
-
-menuBtn.addEventListener("click", () => {
-    mobileMenu.classList.add("active");
-});
-
-closeBtn.addEventListener("click", () => {
-    mobileMenu.classList.remove("active");
-});
-
-
-// Close menu when a link is clicked
-
-document.querySelectorAll(".mobile-menu a").forEach(link => {
-
-    link.addEventListener("click", () => {
+    function closeMenu(){
 
         mobileMenu.classList.remove("active");
+
+        overlay.classList.remove("active");
+
+        document.body.style.overflow = "";
+
+    }
+
+    menuBtn.addEventListener("click", openMenu);
+
+    closeBtn.addEventListener("click", closeMenu);
+
+    overlay.addEventListener("click", closeMenu);
+
+    links.forEach(link=>{
+
+        link.addEventListener("click", closeMenu);
 
     });
 

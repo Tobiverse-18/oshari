@@ -30,10 +30,11 @@
 
                 <li><a href="{% url 'shop' %}">Shop</a></li>
 
-                <li><a href="#">About</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
 
-                <li><a href="#">Contact</a></li>
-                <li><a href="{% url 'cart' %}">Cart</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                
+                <li><a href="{% url 'track_order' %}">Track Order</a></li>
 
             </ul>
 
@@ -41,20 +42,8 @@
 
             <div class="nav-actions">
 
-                <button class="nav-icon" id="search-btn" aria-label="Search">
-                    <i data-lucide="search"></i>
-                </button>
-
                 <button class="nav-icon" id="theme-toggle" aria-label="Toggle Theme">
                     <i data-lucide="moon"></i>
-                </button>
-
-                <button class="nav-icon" aria-label="Shopping Bag">
-                    <i data-lucide="shopping-bag"></i>
-                </button>
-
-                <button class="nav-icon" aria-label="Account">
-                    <i data-lucide="user"></i>
                 </button>
 
                 <button class="menu-btn" id="menu-btn" aria-label="Open Menu">
@@ -71,40 +60,76 @@
 
     </nav>
 
-    <!-- ================= Mobile Menu ================= -->
+    <!-- ============== Mobile Menu ============== -->
 
     <aside class="mobile-menu" id="mobile-menu">
 
         <div class="mobile-header">
 
-            <h2>Menu</h2>
+            <h2>OSHARI</h2>
 
             <button id="close-menu">&times;</button>
 
         </div>
 
-        <ul>
+        <ul class="mobile-nav-links">
 
-            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>
 
-            <li><a href="{% url 'shop' %}">Shop</a></li>
+                <a href="{% url 'home' %}">Home</a>
 
-            <li><a href="#">About</a></li>
+            </li>
 
-            <li><a href="#">Contact</a></li>
+            <li>
+
+                <a href="{% url 'shop' %}">Shop</a>
+
+            </li>
+
+            <li>
+
+                <a href="{% url 'about' %}">About</a>
+
+            </li>
+
+            <li>
+
+                <a href="{% url 'contact' %}">Contact</a>
+
+            </li>
+
+            <li>
+
+                <a href="{% url 'track_order' %}">Track Order</a>
+
+            </li>
 
         </ul>
 
         <div class="mobile-socials">
 
-            <a href="#">Instagram</a>
+            <a href="https://instagram.com/oshari_itns" target="_blank">
 
-            <a href="#">TikTok</a>
+                Instagram
 
-            <a href="#">WhatsApp</a>
+            </a>
+
+            <a href="https://www.tiktok.com/@oshari_itns?_r=1&_t=ZS-98ZkL3XI4F2" target="_blank">
+
+                TikTok
+
+            </a>
+
+            <a href="https://wa.me/qr/AJQ7VK3W5UVBK1" target="_blank">
+
+                WhatsApp
+
+            </a>
 
         </div>
 
     </aside>
+
+    <div class="mobile-overlay" id="mobile-overlay"></div>
 
 </header>

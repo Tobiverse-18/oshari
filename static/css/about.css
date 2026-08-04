@@ -1,0 +1,181 @@
+/* ===========================
+   ABOUT HERO
+=========================== */
+
+.about-hero{
+    padding:120px 0 90px;
+    text-align:center;
+    background:var(--bg-color);
+}
+
+.about-hero h1{
+    font-size:3rem;
+    font-weight:700;
+    margin-bottom:20px;
+    color:var(--text-color);
+}
+
+.about-hero p{
+    max-width:650px;
+    margin:auto;
+    font-size:1.1rem;
+    color:var(--text-light);
+    line-height:1.8;
+}
+
+
+/* ===========================
+   STORY
+=========================== */
+
+.about-story{
+    padding:90px 0;
+    background:var(--card-bg);
+}
+
+.about-content{
+    max-width:850px;
+    margin:auto;
+    text-align:center;
+}
+
+.about-content h2{
+    font-size:2.2rem;
+    margin-bottom:25px;
+    color:var(--text-color);
+}
+
+.about-content p{
+    margin-bottom:20px;
+    color:var(--text-light);
+    line-height:1.9;
+}
+
+
+/* ===========================
+   VALUES
+=========================== */
+
+.about-values{
+    padding:100px 0;
+}
+
+.about-values h2{
+    text-align:center;
+    margin-bottom:60px;
+    font-size:2.2rem;
+}
+
+.values-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:30px;
+}
+
+.value-card{
+    background:var(--card-bg);
+    border-radius:18px;
+    padding:35px 25px;
+    text-align:center;
+    transition:.35s ease;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.value-card:hover{
+    transform:translateY(-10px);
+}
+
+.value-card span{
+    font-size:2.5rem;
+}
+
+.value-card h3{
+    margin:20px 0 15px;
+    color:var(--text-color);
+}
+
+.value-card p{
+    color:var(--text-light);
+    line-height:1.7;
+}
+
+
+/* ===========================
+   WHY US
+=========================== */
+
+.about-choose{
+    padding:100px 0;
+    background:var(--card-bg);
+}
+
+.about-choose h2{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:2.2rem;
+}
+
+.about-choose ul{
+    max-width:650px;
+    margin:auto;
+    list-style:none;
+}
+
+.about-choose li{
+    background:var(--bg-color);
+    margin-bottom:18px;
+    padding:18px 22px;
+    border-radius:12px;
+    font-size:1rem;
+    color:var(--text-color);
+}
+
+
+/* ===========================
+   CTA
+=========================== */
+
+.about-cta{
+    padding:100px 0;
+    text-align:center;
+}
+
+.about-cta h2{
+    font-size:2.3rem;
+    margin-bottom:20px;
+}
+
+.about-cta p{
+    max-width:650px;
+    margin:0 auto 35px;
+    color:var(--text-light);
+    line-height:1.8;
+}
+
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:768px){
+
+    .about-hero{
+        padding:90px 0 70px;
+    }
+
+    .about-hero h1{
+        font-size:2.2rem;
+    }
+
+    .about-content h2,
+    .about-values h2,
+    .about-choose h2,
+    .about-cta h2{
+        font-size:1.8rem;
+    }
+
+    .values-grid{
+        grid-template-columns:1fr;
+    }
+
+}

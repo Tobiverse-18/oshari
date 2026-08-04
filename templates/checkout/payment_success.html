@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="success-page">
+
+    <div class="container">
+
+        <h1>🎉 Payment Successful</h1>
+
+        <p>
+            Thank you for shopping with OSHARI ITNS.
+        </p>
+
+        <p>
+
+            Order Number:
+            <strong>{{ order.order_number }}</strong>
+
+        </p>
+
+        <a
+            href="{% url 'shop' %}"
+            class="btn btn-primary"
+        >
+            Continue Shopping
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

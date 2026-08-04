@@ -49,8 +49,12 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
+
                 'django.contrib.auth.context_processors.auth',
+
                 'django.contrib.messages.context_processors.messages',
+
+                'oshari_app.context_processors.newsletter_form',
             ],
         },
     },
@@ -90,6 +94,16 @@ CLOUDINARY_STORAGE = {
     "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
     "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
 }
+
+PAYSTACK_PUBLIC_KEY = os.getenv("PAYSTACK_PUBLIC_KEY")
+PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY")
+
+RESEND_API_KEY = os.getenv("RESEND_API_KEY")
+RESEND_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL")
+
+ADMIN_ORDER_EMAIL = os.getenv("ADMIN_ORDER_EMAIL")
+
+DEFAULT_FROM_EMAIL = f"OSHARI ITNS <{RESEND_FROM_EMAIL}>"
 
 STORAGES = {
     "default": {

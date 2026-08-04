@@ -388,3 +388,29 @@ RESPONSIVE
 }
 
 }
+
+.remove{
+
+    background:none;
+
+    border:none;
+
+    color:#d62828;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    padding:0;
+
+    transition:.3s;
+
+}
+
+.remove:hover{
+
+    color:#ff3b3b;
+
+}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load price_filters %}
+
+{% block title %}
+Secure Payment | OSHARI ITNS
+{% endblock %}
+
+{% block content %}
+
+<section class="checkout">
+
+    <div class="container">
+
+        <div class="payment-card">
+
+            <h1>
+
+                Order Created Successfully
+
+            </h1>
+
+            <p class="order-number">
+
+                Order Number
+
+                <strong>{{ order.order_number }}</strong>
+
+            </p>
+
+            <div class="payment-total">
+
+                <span>Total Due Now</span>
+
+                <h2>
+
+                    ₦{{ order.total|naira }}
+
+                </h2>
+
+            </div>
+
+            <div class="delivery-notice">
+
+                <h3>
+
+                    Delivery Information
+
+                </h3>
+
+                <p>
+
+                    The amount above covers your products only.
+
+                </p>
+
+                <p>
+
+                    Delivery charges vary depending on your exact delivery location.
+
+                </p>
+
+                <p>
+
+                    After your payment has been confirmed, our team will contact you with the delivery fee before your order is shipped.
+
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'initialize_payment' order.id %}"
+                class="btn btn-primary payment-btn"
+            >
+
+                Pay Securely with Paystack
+
+            </a>
+
+            <p class="payment-security">
+
+                🔒 Your payment is processed securely through Paystack.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

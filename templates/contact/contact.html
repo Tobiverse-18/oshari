@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Contact Us | OSHARI ITNS
+{% endblock %}
+
+{% block content %}
+
+<section class="contact-page">
+
+    <div class="container">
+
+        <div class="contact-header">
+
+            <h1>Get In Touch</h1>
+
+            <p>
+                Have a question about an order, delivery or our latest drops?
+                We'd love to hear from you.
+            </p>
+
+        </div>
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="success-message">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+        <div class="contact-wrapper">
+
+            <!-- CONTACT FORM -->
+
+            <div class="contact-form-box">
+
+                <h2>Send Us a Message</h2>
+
+                <form method="POST" action="{% url 'contact' %}">
+
+                    {% csrf_token %}
+
+                    <div class="form-group">
+
+                        <label>Full Name</label>
+
+                        {{ form.name }}
+
+                        {{ form.name.errors }}
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Email Address</label>
+
+                        {{ form.email }}
+
+                        {{ form.email.errors }}
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Subject</label>
+
+                        {{ form.subject }}
+
+                        {{ form.subject.errors }}
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Message</label>
+
+                        {{ form.message }}
+
+                        {{ form.message.errors }}
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+
+                        Send Message
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- CONTACT INFO -->
+
+            <div class="contact-info">
+
+                <h2>Contact Information</h2>
+
+                <div class="info-card">
+
+                    <h3>Email</h3>
+
+                    <p>oshari.itns@gmail.com</p>
+
+                </div>
+
+                <div class="info-card">
+
+                    <h3>Phone</h3>
+
+                    <p>+234 806 658 4424</p>
+
+                </div>
+
+                <div class="info-card">
+
+                    <h3>Business Hours</h3>
+
+                    <p>Monday - Sunday</p>
+
+                    <p>24 Hours</p>
+
+                </div>
+
+                <div class="info-card">
+
+                    <h3>Delivery</h3>
+
+                    <p>
+                        Delivery fee depends on your location.
+                        After payment, our team will contact you
+                        to arrange delivery.
+                    </p>
+
+                </div>
+
+                <div class="social-links">
+
+                    <a href="https://www.instagram.com/oshari_itns?utm_source=qr" target="_blank"> 
+
+                        Instagram
+
+                    </a>
+
+                    <a href="https://www.tiktok.com/@oshari_itns?_r=1&_t=ZS-98ZkL3XI4F2" target="_blank">
+
+                        TikTok
+
+                    </a>
+
+                    <a href="https://wa.me/qr/AJQ7VK3W5UVBK1" target="_blank">
+
+                        WhatsApp
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

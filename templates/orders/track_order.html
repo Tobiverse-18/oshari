@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Track Order | OSHARI ITNS
+{% endblock %}
+
+{% block content %}
+
+<section class="track-order">
+
+    <div class="container">
+
+        <div class="track-header">
+
+            <h1>Track Your Order</h1>
+
+            <p>Enter your order number below to check your order status.</p>
+
+        </div>
+
+        <div class="track-card">
+
+            <form method="GET">
+
+                <div class="form-group">
+
+                    <label for="order">
+                        Order Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="order"
+                        name="order"
+                        placeholder="Example: OSH000015"
+                        value="{{ request.GET.order }}"
+                        required
+                    >
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+
+                    Track Order
+
+                </button>
+
+            </form>
+
+        </div>
+
+        {% if searched %}
+
+            {% if order %}
+
+                <div class="track-result success">
+
+                    <h2>Order Found</h2>
+
+                    <div class="result-row">
+
+                        <span>Order Number</span>
+
+                        <strong>{{ order.order_number }}</strong>
+
+                    </div>
+
+                    <div class="result-row">
+
+                        <span>Customer</span>
+
+                        <strong>{{ order.full_name }}</strong>
+
+                    </div>
+
+                    <div class="result-row">
+
+                        <span>Status</span>
+
+                        <strong>{{ order.status }}</strong>
+
+                    </div>
+
+                    <div class="result-row">
+
+                        <span>Payment</span>
+
+                        <strong>
+
+                            {% if order.paid %}
+                                Paid ✅
+                            {% else %}
+                                Pending ⏳
+                            {% endif %}
+
+                        </strong>
+
+                    </div>
+
+                    <div class="result-row">
+
+                        <span>Total</span>
+
+                        <strong>₦{{ order.total }}</strong>
+
+                    </div>
+
+                    <div class="result-row">
+
+                        <span>Date</span>
+
+                        <strong>{{ order.created_at|date:"F d, Y" }}</strong>
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div class="track-result error">
+
+                    <h2>Order Not Found</h2>
+
+                    <p>
+                        We couldn't find any order with that order number.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

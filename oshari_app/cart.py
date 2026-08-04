@@ -4,19 +4,21 @@ from .models import Product
 class Cart:
 
     def __init__(self, request):
+
         self.session = request.session
 
-        cart = self.session.get("cart")
+        self.cart = self.session.get("cart")
 
-        if cart is None:
-            cart = {}
-            self.session["cart"] = cart
+        if self.cart is None:
 
-        self.cart = cart
+            self.cart = {}
+
+            self.session["cart"] = self.cart
 
     def add(self, product, quantity=1):
 
         product_id = str(product.id)
+
         quantity = int(quantity)
 
         if product_id not in self.cart:
@@ -34,6 +36,7 @@ class Cart:
     def update(self, product, quantity):
 
         product_id = str(product.id)
+
         quantity = int(quantity)
 
         if product_id in self.cart:
@@ -54,11 +57,15 @@ class Cart:
 
     def clear(self):
 
-        self.session["cart"] = {}
+        self.cart = {}
 
-        self.save()
+        self.session["cart"] = self.cart
+
+        self.session.modified = True
 
     def save(self):
+
+        self.session["cart"] = self.cart
 
         self.session.modified = True
 
