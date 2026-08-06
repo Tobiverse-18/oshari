@@ -1,0 +1,301 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}
+
+Order Details
+
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+
+            Order Details
+
+        </h1>
+
+        <p>
+
+            {{ order.order_number }}
+
+        </p>
+
+    </div>
+
+</div>
+
+<div class="order-details-grid">
+
+    <!-- Customer -->
+
+    <div class="order-card">
+
+        <h3>
+
+            Customer Information
+
+        </h3>
+
+        <div class="info-item">
+
+            <strong>Name</strong>
+
+            <span>{{ order.full_name }}</span>
+
+        </div>
+
+        <div class="info-item">
+
+            <strong>Email</strong>
+
+            <span>{{ order.email }}</span>
+
+        </div>
+
+        <div class="info-item">
+
+            <strong>Phone</strong>
+
+            <span>{{ order.phone }}</span>
+
+        </div>
+
+        <div class="info-item">
+
+            <strong>State</strong>
+
+            <span>{{ order.state }}</span>
+
+        </div>
+
+        <div class="info-item">
+
+            <strong>City</strong>
+
+            <span>{{ order.city }}</span>
+
+        </div>
+
+        <div class="info-item">
+
+            <strong>Address</strong>
+
+            <span>{{ order.address }}</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- Order -->
+
+    <div class="order-card">
+
+        <h3>
+
+            Order Summary
+
+        </h3>
+
+        <div class="info-item">
+
+            <strong>Order Number</strong>
+
+            <span>{{ order.order_number }}</span>
+
+        </div>
+
+        <div class="info-item">
+
+            <strong>Total</strong>
+
+            <span>₦{{ order.total }}</span>
+
+        </div>
+
+        <div class="info-item">
+
+            <strong>Payment</strong>
+
+            <span>
+
+                {% if order.paid %}
+
+                    Paid ✅
+
+                {% else %}
+
+                    Unpaid ❌
+
+                {% endif %}
+
+            </span>
+
+        </div>
+
+        <div class="info-item">
+
+            <strong>Status</strong>
+
+            <span class="status {{ order.status|lower }}">
+
+                {{ order.status }}
+
+            </span>
+
+        </div>
+
+        <div class="info-item">
+
+            <strong>Date</strong>
+
+            <span>{{ order.created_at }}</span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="order-card">
+
+    <h3>
+
+        Ordered Products
+
+    </h3>
+
+    <table class="dashboard-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Image</th>
+
+                <th>Product</th>
+
+                <th>Qty</th>
+
+                <th>Price</th>
+
+                <th>Subtotal</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for item in order_items %}
+
+            <tr>
+
+                <td>
+
+                    <img
+                        src="{{ item.product.image.url }}"
+                        class="order-product-image"
+                    >
+
+                </td>
+
+                <td>
+
+                    {{ item.product.name }}
+
+                </td>
+
+                <td>
+
+                    {{ item.quantity }}
+
+                </td>
+
+                <td>
+
+                    ₦{{ item.price }}
+
+                </td>
+
+                <td>
+
+                    ₦{{ item.subtotal }}
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="5">
+
+                    No products in this order.
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<div class="order-card">
+
+    <h3>
+
+        Update Order Status
+
+    </h3>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="status-update">
+
+            <select name="status">
+
+                {% for status, value in order.STATUS_CHOICES %}
+
+                    <option value="{{ status }}"
+
+                    {% if order.status == status %}
+
+                        selected
+
+                    {% endif %}>
+
+                        {{ value }}
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+            <button class="primary-btn">
+
+                Save Changes
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

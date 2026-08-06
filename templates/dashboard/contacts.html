@@ -1,0 +1,219 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}
+
+Contact Messages
+
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+
+            Contact Messages
+
+        </h1>
+
+        <p>
+
+            View and manage customer enquiries.
+
+        </p>
+
+    </div>
+
+    <div class="page-count">
+
+        <strong>
+
+            {{ page_obj.paginator.count }}
+
+        </strong>
+
+        Messages
+
+    </div>
+
+</div>
+
+<div class="toolbar">
+
+    <form method="GET">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Search messages..."
+            value="{{ request.GET.q }}"
+        >
+
+        <button type="submit">
+
+            Search
+
+        </button>
+
+    </form>
+
+</div>
+
+<div class="table-card">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Subject</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for contact in contacts %}
+
+<tr>
+
+<td>
+
+{{ contact.name }}
+
+</td>
+
+<td>
+
+{{ contact.email }}
+
+</td>
+
+<td>
+
+{{ contact.subject }}
+
+</td>
+
+<td>
+
+{% if contact.is_read %}
+
+<span class="status delivered">
+
+Read
+
+</span>
+
+{% else %}
+
+<span class="status pending">
+
+New
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+{{ contact.created_at|date:"M d, Y" }}
+
+</td>
+
+<td>
+
+    <div class="action-buttons">
+
+        <a
+            href="{% url 'dashboard_contact_detail' contact.id %}"
+            class="view-btn"
+        >
+            View
+        </a>
+
+        <a
+            href="{% url 'dashboard_delete_contact' contact.id %}"
+            class="delete-btn"
+            onclick="return confirm('Delete this message?')"
+        >
+            Delete
+        </a>
+
+    </div>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="6" class="empty-table">
+
+No contact messages found.
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% if page_obj.has_other_pages %}
+
+<div class="pagination">
+
+{% if page_obj.has_previous %}
+
+<a href="?page={{ page_obj.previous_page_number }}">
+
+Previous
+
+</a>
+
+{% endif %}
+
+<span>
+
+Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+</span>
+
+{% if page_obj.has_next %}
+
+<a href="?page={{ page_obj.next_page_number }}">
+
+Next
+
+</a>
+
+{% endif %}
+
+</div>
+
+{% endif %}
+
+{% endblock %}

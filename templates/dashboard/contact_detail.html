@@ -1,0 +1,142 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}
+
+Message Details
+
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+
+            Customer Message
+
+        </h1>
+
+        <p>
+
+            View the complete enquiry.
+
+        </p>
+
+    </div>
+
+</div>
+
+<div class="message-card">
+
+    <div class="message-info">
+
+        <div>
+
+            <label>
+
+                Customer
+
+            </label>
+
+            <h3>
+
+                {{ contact.name }}
+
+            </h3>
+
+        </div>
+
+        <div>
+
+            <label>
+
+                Email
+
+            </label>
+
+            <p>
+
+                {{ contact.email }}
+
+            </p>
+
+        </div>
+
+        <div>
+
+            <label>
+
+                Subject
+
+            </label>
+
+            <p>
+
+                {{ contact.subject }}
+
+            </p>
+
+        </div>
+
+        <div>
+
+            <label>
+
+                Received
+
+            </label>
+
+            <p>
+
+                {{ contact.created_at|date:"F d, Y • H:i" }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="message-body">
+
+        <h2>
+
+            Message
+
+        </h2>
+
+        <div class="message-text">
+
+            {{ contact.message|linebreaks }}
+
+        </div>
+
+    </div>
+
+    <div class="message-actions">
+
+        <a
+            href="{% url 'dashboard_contacts' %}"
+            class="secondary-btn"
+        >
+
+            Back
+
+        </a>
+
+        <a
+            href="{% url 'dashboard_delete_contact' contact.id %}"
+            class="delete-btn"
+            onclick="return confirm('Delete this message?')"
+        >
+
+            Delete
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

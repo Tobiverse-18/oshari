@@ -1,0 +1,100 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>Add Product</h1>
+    <p>Create a new product for your store.</p>
+</div>
+
+<div class="form-card">
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Product Name</label>
+                {{ form.name }}
+                {{ form.name.errors }}
+            </div>
+
+            <div class="form-group">
+                <label>Slug</label>
+                {{ form.slug }}
+                {{ form.slug.errors }}
+            </div>
+
+            <div class="form-group">
+                <label>Price</label>
+                {{ form.price }}
+                {{ form.price.errors }}
+            </div>
+
+            <div class="form-group">
+                <label>Stock</label>
+                {{ form.stock }}
+                {{ form.stock.errors }}
+            </div>
+
+            <div class="form-group full">
+                <label>Description</label>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+
+            <div class="form-group full">
+                <label>Main Image</label>
+                {{ form.image }}
+                {{ form.image.errors }}
+            </div>
+
+            <div class="form-group full">
+
+                <label>Gallery Images</label>
+
+                <input
+                    type="file"
+                    name="gallery_images"
+                    accept="image/*"
+                    multiple>
+
+            </div>
+
+            <div class="checkbox-group">
+                <label>{{ form.is_available }} Available</label>
+            </div>
+
+            <div class="checkbox-group">
+                <label>{{ form.is_new_drop }} New Drop</label>
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <button class="primary-btn" type="submit" id="saveProductBtn">
+
+                Save Product
+
+            </button>
+
+            <a href="{% url 'dashboard_products' %}" class="secondary-btn">
+
+                Cancel
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

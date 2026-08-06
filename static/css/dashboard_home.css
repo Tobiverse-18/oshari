@@ -1,0 +1,262 @@
+/* ==========================================
+   DASHBOARD HOME
+========================================== */
+
+.dashboard-page{
+
+    padding:35px;
+
+}
+
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+.page-header h1{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+
+.page-header p{
+
+    margin-top:8px;
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+
+/* ==========================================
+   STATS
+========================================== */
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:25px;
+
+    margin-bottom:40px;
+
+}
+
+.stat-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:28px;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.06);
+
+    transition:.3s;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.stat-card h2{
+
+    font-size:34px;
+
+    color:#111827;
+
+    margin-bottom:10px;
+
+}
+
+.stat-card p{
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+
+/* ==========================================
+   CONTENT GRID
+========================================== */
+
+.grid-2{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:25px;
+
+}
+
+.card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.06);
+
+}
+
+.card-title{
+
+    font-size:20px;
+
+    margin-bottom:25px;
+
+    color:#111827;
+
+}
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.dashboard-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.dashboard-table th{
+
+    text-align:left;
+
+    padding:15px;
+
+    background:#f3f4f6;
+
+    font-size:14px;
+
+}
+
+.dashboard-table td{
+
+    padding:18px 15px;
+
+    border-bottom:1px solid #eee;
+
+    font-size:15px;
+
+}
+
+
+/* ==========================================
+   MESSAGES
+========================================== */
+
+.message-item{
+
+    padding:18px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.message-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.message-item strong{
+
+    display:block;
+
+    color:#111827;
+
+    margin-bottom:6px;
+
+}
+
+.message-item p{
+
+    color:#555;
+
+    margin-bottom:6px;
+
+}
+
+.message-item small{
+
+    color:#888;
+
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:1100px){
+
+    .stats-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .grid-2{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .dashboard-page{
+
+        padding:20px;
+
+    }
+
+    .page-header h1{
+
+        font-size:25px;
+
+    }
+
+    .stats-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .dashboard-table{
+
+        display:block;
+
+        overflow-x:auto;
+
+    }
+
+}

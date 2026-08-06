@@ -1,0 +1,57 @@
+.page-count{
+
+    background:#111827;
+
+    color:#fff;
+
+    padding:14px 22px;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+}
+
+.page-count strong{
+
+    font-size:22px;
+
+    display:block;
+
+}
+
+.delete-btn{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+.delete-btn:hover{
+
+    text-decoration:underline;
+
+}
+
+.empty-table{
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#6b7280;
+
+}
+
+@media(max-width:768px){
+
+    .page-count{
+
+        margin-top:20px;
+
+    }
+
+}

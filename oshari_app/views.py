@@ -24,6 +24,19 @@ from .forms import ContactForm
 
 from django.contrib import messages
 
+from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
+
+from .models import (
+    Product,
+    Order,
+    NewsletterSubscriber,
+    ContactMessage,
+)
+
+from django.contrib import messages
+from django.shortcuts import redirect
+
 
 # ==========================================
 # HOME
@@ -550,6 +563,10 @@ def contact(request):
 
             return redirect("contact")
 
+        else:
+
+            print(form.errors)   # <-- Add this
+
     else:
 
         form = ContactForm()
@@ -571,4 +588,556 @@ def privacy_policy(request):
 
         "pages/privacy_policy.html",
 
+    )
+
+
+# ==========================================
+# All my dashboard views start from here
+# ==========================================
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+from django.shortcuts import (
+    render,
+    redirect,
+    get_object_or_404,
+)
+
+from django.core.paginator import Paginator
+
+from django.db.models import Sum
+
+from .models import (
+    Product,
+    Order,
+    NewsletterSubscriber,
+    ContactMessage,
+)
+
+from .forms import ProductForm
+
+from .models import ProductImage
+
+
+# ==========================================
+# DASHBOARD LOGIN
+# ==========================================
+
+def dashboard_login(request):
+
+    if request.user.is_authenticated:
+        return redirect("dashboard")
+
+    if request.method == "POST":
+
+        username = request.POST.get("username")
+
+        password = request.POST.get("password")
+
+        user = authenticate(
+            request,
+            username=username,
+            password=password,
+        )
+
+        if user:
+
+            login(request, user)
+
+            return redirect("dashboard")
+
+        messages.error(
+            request,
+            "Invalid username or password.",
+        )
+
+    return render(
+        request,
+        "dashboard/login.html",
+    )
+
+
+# ==========================================
+# DASHBOARD LOGOUT
+# ==========================================
+
+@login_required
+def dashboard_logout(request):
+
+    logout(request)
+
+    return redirect("dashboard_login")
+
+
+# ==========================================
+# DASHBOARD HOME
+# ==========================================
+
+@login_required
+def dashboard(request):
+
+    total_products = Product.objects.count()
+
+    total_orders = Order.objects.count()
+
+    total_subscribers = NewsletterSubscriber.objects.count()
+
+    total_messages = ContactMessage.objects.count()
+
+    total_revenue = (
+        Order.objects
+        .filter(paid=True)
+        .aggregate(total=Sum("total"))
+    )["total"] or 0
+
+    recent_orders = Order.objects.order_by(
+        "-created_at"
+    )[:5]
+
+    recent_messages = ContactMessage.objects.order_by(
+        "-created_at"
+    )[:5]
+
+    context = {
+
+        "total_products": total_products,
+
+        "total_orders": total_orders,
+
+        "total_subscribers": total_subscribers,
+
+        "total_messages": total_messages,
+
+        "total_revenue": total_revenue,
+
+        "recent_orders": recent_orders,
+
+        "recent_messages": recent_messages,
+
+    }
+
+    return render(
+        request,
+        "dashboard/dashboard.html",
+        context,
+    )
+
+
+# ==========================================
+# PRODUCTS
+# ==========================================
+
+@login_required
+def dashboard_products(request):
+
+    products = Product.objects.all().order_by(
+        "-created_at"
+    )
+
+    q = request.GET.get("q")
+
+    if q:
+
+        products = products.filter(
+            name__icontains=q
+        )
+
+    paginator = Paginator(products, 10)
+
+    page_number = request.GET.get("page")
+
+    page_obj = paginator.get_page(page_number)
+
+    return render(
+        request,
+        "dashboard/products.html",
+        {
+            "products": page_obj,
+            "page_obj": page_obj,
+        },
+    )
+
+
+# ==========================================
+# ADD PRODUCT
+# ==========================================
+
+@login_required
+def dashboard_add_product(request):
+
+    if request.method == "POST":
+
+        form = ProductForm(
+            request.POST,
+            request.FILES,
+        )
+
+        if form.is_valid():
+
+            product = form.save()
+
+            gallery_images = request.FILES.getlist("gallery_images")
+
+            for image in gallery_images:
+
+                ProductImage.objects.create(
+                    product=product,
+                    image=image
+                )
+
+            messages.success(
+                request,
+                "Product added successfully."
+            )
+
+            return redirect("dashboard_products")
+
+    else:
+
+        form = ProductForm()
+
+    return render(
+        request,
+        "dashboard/add_product.html",
+        {
+            "form": form,
+        },
+    )
+
+
+# ==========================================
+# EDIT PRODUCT
+# ==========================================
+
+@login_required
+def dashboard_edit_product(request, product_id):
+
+    product = get_object_or_404(
+        Product,
+        id=product_id,
+    )
+
+    if request.method == "POST":
+
+        form = ProductForm(
+            request.POST,
+            request.FILES,
+            instance=product,
+        )
+
+        if form.is_valid():
+
+            product = form.save()
+
+            gallery_images = request.FILES.getlist(
+                "gallery_images"
+            )
+
+            for image in gallery_images:
+
+                ProductImage.objects.create(
+                    product=product,
+                    image=image,
+                )
+
+            messages.success(
+                request,
+                "Product updated successfully."
+            )
+
+            return redirect(
+                "dashboard_products"
+            )
+
+    else:
+
+        form = ProductForm(
+            instance=product
+        )
+
+    return render(
+        request,
+        "dashboard/edit_product.html",
+        {
+            "form": form,
+            "product": product,
+            "gallery": product.gallery.all(),
+        },
+    )
+
+
+# ==========================================
+# DELETE PRODUCT
+# ==========================================
+
+@login_required
+def dashboard_delete_product(request, product_id):
+
+    product = get_object_or_404(Product, pk=product_id)
+
+    if request.method == "POST":
+
+        product.delete()
+
+        messages.success(
+            request,
+            "Product deleted successfully."
+        )
+
+        return redirect("dashboard_products")
+
+    return render(
+        request,
+        "dashboard/delete_product.html",
+        {
+            "product": product,
+        },
+    )
+
+
+# ==========================================
+# ORDERS
+# ==========================================
+
+@login_required
+def dashboard_orders(request):
+
+    return render(
+        request,
+        "dashboard/orders.html",
+    )
+
+
+# ==========================================
+# NEWSLETTER
+# ==========================================
+
+@login_required
+def dashboard_newsletter(request):
+
+    subscribers = NewsletterSubscriber.objects.all().order_by("-subscribed_at")
+
+    q = request.GET.get("q")
+
+    if q:
+
+        subscribers = subscribers.filter(
+            email__icontains=q
+        )
+
+    paginator = Paginator(subscribers, 10)
+
+    page_number = request.GET.get("page")
+
+    page_obj = paginator.get_page(page_number)
+
+    return render(
+        request,
+        "dashboard/newsletter.html",
+        {
+            "subscribers": page_obj,
+            "page_obj": page_obj,
+        },
+    )
+
+
+@login_required
+def dashboard_delete_subscriber(request, subscriber_id):
+
+    subscriber = get_object_or_404(
+        NewsletterSubscriber,
+        id=subscriber_id,
+    )
+
+    subscriber.delete()
+
+    messages.success(
+        request,
+        "Subscriber deleted successfully.",
+    )
+
+    return redirect("dashboard_newsletter")
+
+
+# ==========================================
+# CONTACTS
+# ==========================================
+
+@login_required
+def dashboard_contacts(request):
+
+    contacts = ContactMessage.objects.all()
+
+    q = request.GET.get("q")
+
+    if q:
+
+        contacts = contacts.filter(
+            name__icontains=q
+        ) | ContactMessage.objects.filter(
+            email__icontains=q
+        ) | ContactMessage.objects.filter(
+            subject__icontains=q
+        )
+
+    paginator = Paginator(
+        contacts.order_by("-created_at"),
+        10
+    )
+
+    page = request.GET.get("page")
+
+    page_obj = paginator.get_page(page)
+
+    return render(
+        request,
+        "dashboard/contacts.html",
+        {
+            "contacts": page_obj,
+            "page_obj": page_obj,
+        },
+    )
+
+@login_required
+def dashboard_contact_detail(request, contact_id):
+
+    contact = get_object_or_404(
+        ContactMessage,
+        id=contact_id
+    )
+
+    if not contact.is_read:
+
+        contact.is_read = True
+
+        contact.save()
+
+    return render(
+        request,
+        "dashboard/contact_detail.html",
+        {
+            "contact": contact
+        }
+    )
+
+@login_required
+def dashboard_delete_contact(request, contact_id):
+
+    contact = get_object_or_404(
+        ContactMessage,
+        id=contact_id
+    )
+
+    contact.delete()
+
+    messages.success(
+        request,
+        "Message deleted successfully."
+    )
+
+    return redirect(
+        "dashboard_contacts"
+    )
+
+
+# ==========================================
+# SETTINGS
+# ==========================================
+
+@login_required
+def dashboard_settings(request):
+
+    return render(
+        request,
+        "dashboard/settings.html",
+    )
+
+@login_required
+def dashboard_delete_gallery_image(request, image_id):
+
+    image = get_object_or_404(
+        ProductImage,
+        id=image_id,
+    )
+
+    product_id = image.product.id
+
+    image.delete()
+
+    messages.success(
+        request,
+        "Gallery image deleted successfully."
+    )
+
+    return redirect(
+        "dashboard_edit_product",
+        product_id=product_id,
+    )
+
+@login_required
+def dashboard_orders(request):
+
+    orders = Order.objects.all().order_by("-created_at")
+
+    q = request.GET.get("q")
+
+    if q:
+
+        orders = orders.filter(
+            order_number__icontains=q
+        ) | Order.objects.filter(
+            full_name__icontains=q
+        )
+
+    paginator = Paginator(orders, 10)
+
+    page_number = request.GET.get("page")
+
+    page_obj = paginator.get_page(page_number)
+
+    return render(
+        request,
+        "dashboard/orders.html",
+        {
+            "orders": page_obj,
+            "page_obj": page_obj,
+        },
+    )
+
+
+@login_required
+def dashboard_order_detail(request, order_id):
+
+    order = get_object_or_404(
+        Order,
+        id=order_id,
+    )
+
+    if request.method == "POST":
+
+        order.status = request.POST.get("status")
+
+        order.save()
+
+        messages.success(
+            request,
+            "Order updated successfully."
+        )
+
+        return redirect(
+            "dashboard_order_detail",
+            order_id=order.id,
+        )
+
+    order_items = order.items.all()
+
+    return render(
+        request,
+        "dashboard/order_detail.html",
+        {
+            "order": order,
+            "order_items": order_items,
+        },
     )

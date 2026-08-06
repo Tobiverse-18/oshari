@@ -1,0 +1,221 @@
+/* ==========================================
+   TOPBAR
+========================================== */
+
+.topbar{
+
+    height:80px;
+
+    background:#fff;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 35px;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+/* LEFT */
+
+.topbar-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.page-title h1{
+
+    font-size:30px;
+
+    color:#111827;
+
+    margin-bottom:4px;
+
+}
+
+.page-title p{
+
+    color:#6b7280;
+
+    font-size:14px;
+
+}
+
+/* SEARCH */
+
+.top-search input{
+
+    width:300px;
+
+    height:46px;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:10px;
+
+    padding:0 18px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.top-search input:focus{
+
+    border-color:#111827;
+
+}
+
+/* RIGHT */
+
+.topbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+/* NOTIFICATION */
+
+.notification-btn{
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#f3f4f6;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    transition:.3s;
+
+}
+
+.notification-btn:hover{
+
+    background:#111827;
+
+    color:#fff;
+
+}
+
+/* PROFILE */
+
+.admin-profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.admin-profile img{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid #e5e7eb;
+
+}
+
+.admin-profile h4{
+
+    color:#111827;
+
+    font-size:16px;
+
+}
+
+.admin-profile span{
+
+    color:#6b7280;
+
+    font-size:13px;
+
+}
+
+/* MOBILE BUTTON */
+
+.menu-toggle{
+
+    display:none;
+
+    width:45px;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#111827;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:22px;
+
+}
+
+/* MOBILE */
+
+@media(max-width:992px){
+
+    .menu-toggle{
+
+        display:block;
+
+    }
+
+    .top-search{
+
+        display:none;
+
+    }
+
+    .page-title p{
+
+        display:none;
+
+    }
+
+    .page-title h1{
+
+        font-size:22px;
+
+    }
+
+    .admin-profile div{
+
+        display:none;
+
+    }
+
+}

@@ -1,0 +1,77 @@
+{% load static %}
+
+<header class="topbar">
+
+    <div class="topbar-left">
+
+        <button id="menu-toggle" class="menu-toggle">
+
+            ☰
+
+        </button>
+
+        <div class="page-title">
+
+            <h1>
+
+                {% block page_title %}
+                Dashboard
+                {% endblock %}
+
+            </h1>
+
+            <p>
+
+                Welcome back, Admin
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="topbar-right">
+
+        <form class="top-search">
+
+            <input
+                type="text"
+                placeholder="Search..."
+            >
+
+        </form>
+
+        <button class="notification-btn">
+
+            🔔
+
+        </button>
+
+        <div class="admin-profile">
+
+            <img
+                src="{% static 'images/logo.png' %}"
+                alt="Admin"
+            >
+
+            <div>
+
+                <h4>
+
+                    Admin
+
+                </h4>
+
+                <span>
+
+                    Super Admin
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>

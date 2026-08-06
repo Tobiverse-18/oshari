@@ -1,0 +1,224 @@
+{% extends "dashboard/base.html" %}
+
+{% load static %}
+
+{% block title %}
+
+Products
+
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-page">
+
+    <!-- ==========================
+         PAGE HEADER
+    =========================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+
+                Products
+
+            </h1>
+
+            <p>
+
+                Manage all your products from one place.
+
+            </p>
+
+        </div>
+
+        <a href="{% url 'dashboard_add_product' %}" class="primary-btn">
+
+            + Add Product
+
+        </a>
+
+    </div>
+
+    <!-- ==========================
+         SEARCH
+    =========================== -->
+
+    <form method="GET" class="search-box">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Search product..."
+            value="{{ request.GET.q }}"
+        >
+
+        <button type="submit">
+
+            Search
+
+        </button>
+
+    </form>
+
+    <!-- ==========================
+         PRODUCTS TABLE
+    =========================== -->
+
+    <div class="table-wrapper">
+
+        <table class="dashboard-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Image</th>
+
+                    <th>Name</th>
+
+                    <th>Price</th>
+
+                    <th>Stock</th>
+
+                    <th>Status</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for product in products %}
+
+                <tr>
+
+                    <td>
+
+                        <img
+                            src="{{ product.image.url }}"
+                            alt="{{ product.name }}"
+                            class="product-image"
+                        >
+
+                    </td>
+
+                    <td>
+
+                        {{ product.name }}
+
+                    </td>
+
+                    <td>
+
+                        ₦{{ product.price }}
+
+                    </td>
+
+                    <td>
+
+                        {{ product.stock }}
+
+                    </td>
+
+                    <td>
+
+                        {% if product.is_available %}
+
+                        <span class="badge success">
+
+                            Available
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge danger">
+
+                            Out of Stock
+
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td class="actions">
+
+                        <a href="{% url 'dashboard_edit_product' product.id %}" class="edit-btn">
+
+                            Edit
+
+                        </a>
+
+                        <a href="{% url 'dashboard_delete_product' product.id %}" class="delete-btn">
+
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="6" class="empty">
+
+                        No products found.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- ==========================
+         PAGINATION
+    =========================== -->
+
+    <div class="pagination">
+
+        {% if page_obj.has_previous %}
+
+        <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+
+            ← Previous
+
+        </a>
+
+        {% endif %}
+
+        <span>
+
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+        </span>
+
+        {% if page_obj.has_next %}
+
+        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+
+            Next →
+
+        </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,237 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}
+
+Dashboard
+
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-page">
+
+    <!-- ==========================
+         PAGE HEADER
+    =========================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+
+                Dashboard
+
+            </h1>
+
+            <p>
+
+                Welcome back 👋 Here's what's happening in your store today.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================
+         STATISTICS
+    =========================== -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <h2>
+
+                {{ total_products }}
+
+            </h2>
+
+            <p>
+
+                Products
+
+            </p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2>
+
+                {{ total_orders }}
+
+            </h2>
+
+            <p>
+
+                Orders
+
+            </p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2>
+
+                {{ total_subscribers }}
+
+            </h2>
+
+            <p>
+
+                Subscribers
+
+            </p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2>
+
+                ₦{{ total_revenue }}
+
+            </h2>
+
+            <p>
+
+                Revenue
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================
+         CONTENT GRID
+    =========================== -->
+
+    <div class="grid-2">
+
+        <!-- Recent Orders -->
+
+        <div class="card">
+
+            <h3 class="card-title">
+
+                Recent Orders
+
+            </h3>
+
+            <table class="dashboard-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Order</th>
+
+                        <th>Customer</th>
+
+                        <th>Total</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for order in recent_orders %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ order.order_number }}
+
+                        </td>
+
+                        <td>
+
+                            {{ order.full_name }}
+
+                        </td>
+
+                        <td>
+
+                            ₦{{ order.total }}
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="3">
+
+                            No orders yet.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- Recent Messages -->
+
+        <div class="card">
+
+            <h3 class="card-title">
+
+                Recent Messages
+
+            </h3>
+
+            {% for message in recent_messages %}
+
+            <div class="message-item">
+
+                <strong>
+
+                    {{ message.name }}
+
+                </strong>
+
+                <p>
+
+                    {{ message.subject }}
+
+                </p>
+
+                <small>
+
+                    {{ message.created_at|date:"M d, Y" }}
+
+                </small>
+
+            </div>
+
+            {% empty %}
+
+            <p>
+
+                No messages.
+
+            </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

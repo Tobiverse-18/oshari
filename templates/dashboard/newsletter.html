@@ -1,0 +1,178 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}
+
+Newsletter
+
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+
+            Newsletter Subscribers
+
+        </h1>
+
+        <p>
+
+            Manage everyone subscribed to your newsletter.
+
+        </p>
+
+    </div>
+
+    <div class="page-count">
+
+        <strong>
+
+            {{ page_obj.paginator.count }}
+
+        </strong>
+
+        Subscribers
+
+    </div>
+
+</div>
+
+<div class="toolbar">
+
+    <form method="GET">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Search email..."
+            value="{{ request.GET.q }}"
+        >
+
+        <button type="submit">
+
+            Search
+
+        </button>
+
+    </form>
+
+</div>
+
+<div class="table-card">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>#</th>
+
+<th>Email Address</th>
+
+<th>Subscribed</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for subscriber in subscribers %}
+
+<tr>
+
+<td>
+
+{{ forloop.counter }}
+
+</td>
+
+<td>
+
+{{ subscriber.email }}
+
+</td>
+
+<td>
+
+{{ subscriber.subscribed_at|date:"M d, Y • H:i" }}
+
+</td>
+
+<td>
+
+<a
+href="{% url 'dashboard_delete_subscriber' subscriber.id %}"
+class="delete-btn"
+onclick="return confirm('Delete this subscriber?')"
+>
+
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="4" class="empty-table">
+
+No newsletter subscribers found.
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% if page_obj.has_other_pages %}
+
+<div class="pagination">
+
+{% if page_obj.has_previous %}
+
+<a href="?page={{ page_obj.previous_page_number }}">
+
+Previous
+
+</a>
+
+{% endif %}
+
+<span>
+
+Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+</span>
+
+{% if page_obj.has_next %}
+
+<a href="?page={{ page_obj.next_page_number }}">
+
+Next
+
+</a>
+
+{% endif %}
+
+</div>
+
+{% endif %}
+
+{% endblock %}

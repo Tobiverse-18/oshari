@@ -131,3 +131,24 @@ class ContactForm(forms.ModelForm):
             }),
 
         }
+
+
+from .models import Product
+
+class ProductForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Product
+
+        fields = [
+            "name",
+            "slug",
+            "price",
+            "stock",
+            "description",
+            "image",
+            "is_available",
+            "is_new_drop",
+            "notify_subscribers",
+        ]

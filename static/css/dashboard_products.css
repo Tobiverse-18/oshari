@@ -1,0 +1,374 @@
+/* ==========================================
+   PRODUCTS PAGE
+========================================== */
+
+.table-wrapper{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.06);
+
+    margin-top:25px;
+
+}
+
+
+/* ==========================================
+   ADD BUTTON
+========================================== */
+
+.primary-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:14px 26px;
+
+    background:#111827;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.primary-btn:hover{
+
+    background:#000;
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+.search-box{
+
+    display:flex;
+
+    gap:15px;
+
+    margin:30px 0;
+
+}
+
+.search-box input{
+
+    flex:1;
+
+    padding:15px 18px;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.search-box input:focus{
+
+    border-color:#111827;
+
+}
+
+.search-box button{
+
+    padding:15px 28px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#111827;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.search-box button:hover{
+
+    background:#000;
+
+}
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.dashboard-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.dashboard-table thead{
+
+    background:#f8fafc;
+
+}
+
+.dashboard-table th{
+
+    padding:18px;
+
+    text-align:left;
+
+    font-size:14px;
+
+    color:#555;
+
+    text-transform:uppercase;
+
+}
+
+.dashboard-table td{
+
+    padding:18px;
+
+    border-top:1px solid #eee;
+
+    vertical-align:middle;
+
+}
+
+.dashboard-table tbody tr{
+
+    transition:.3s;
+
+}
+
+.dashboard-table tbody tr:hover{
+
+    background:#fafafa;
+
+}
+
+
+/* ==========================================
+   PRODUCT IMAGE
+========================================== */
+
+.product-image{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:12px;
+
+    object-fit:cover;
+
+}
+
+
+/* ==========================================
+   STATUS BADGES
+========================================== */
+
+.badge{
+
+    padding:7px 14px;
+
+    border-radius:50px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.success{
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+}
+
+.danger{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.actions{
+
+    white-space:nowrap;
+
+}
+
+.edit-btn{
+
+    display:inline-block;
+
+    padding:9px 18px;
+
+    background:#2563eb;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    margin-right:8px;
+
+    transition:.3s;
+
+}
+
+.edit-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+.delete-btn{
+
+    display:inline-block;
+
+    padding:9px 18px;
+
+    background:#dc2626;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    transition:.3s;
+
+}
+
+.delete-btn:hover{
+
+    background:#b91c1c;
+
+}
+
+
+/* ==========================================
+   EMPTY
+========================================== */
+
+.empty{
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#888;
+
+}
+
+
+/* ==========================================
+   PAGINATION
+========================================== */
+
+.pagination{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:25px;
+
+    margin-top:35px;
+
+}
+
+.pagination a{
+
+    text-decoration:none;
+
+    padding:10px 20px;
+
+    background:#111827;
+
+    color:#fff;
+
+    border-radius:10px;
+
+}
+
+.pagination span{
+
+    font-weight:600;
+
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:900px){
+
+    .search-box{
+
+        flex-direction:column;
+
+    }
+
+    .dashboard-table{
+
+        display:block;
+
+        overflow-x:auto;
+
+        white-space:nowrap;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .primary-btn{
+
+        width:100%;
+
+    }
+
+}

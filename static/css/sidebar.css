@@ -1,0 +1,211 @@
+/* ==========================================
+   SIDEBAR
+========================================== */
+
+.sidebar{
+
+    width:270px;
+
+    height:100vh;
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    background:#111827;
+
+    color:#fff;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    overflow-y:auto;
+
+    z-index:999;
+
+}
+
+/* HEADER */
+
+.sidebar-header{
+
+    padding:30px 25px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    color:#fff;
+
+}
+
+.logo img{
+
+    width:50px;
+
+    height:50px;
+
+    object-fit:contain;
+
+}
+
+.logo h2{
+
+    font-size:22px;
+
+    margin-bottom:4px;
+
+}
+
+.logo span{
+
+    color:#9ca3af;
+
+    font-size:13px;
+
+}
+
+/* MENU */
+
+.sidebar-menu{
+
+    padding:25px 15px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.menu-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:15px 18px;
+
+    border-radius:12px;
+
+    color:#d1d5db;
+
+    transition:.3s;
+
+    font-weight:500;
+
+}
+
+.menu-item:hover{
+
+    background:#1f2937;
+
+    color:#fff;
+
+    transform:translateX(5px);
+
+}
+
+.icon{
+
+    font-size:20px;
+
+}
+
+/* FOOTER */
+
+.sidebar-footer{
+
+    padding:20px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.visit-site,
+
+.logout-btn{
+
+    text-align:center;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.visit-site{
+
+    background:#2563eb;
+
+    color:#fff;
+
+}
+
+.visit-site:hover{
+
+    background:#1d4ed8;
+
+}
+
+.logout-btn{
+
+    background:#dc2626;
+
+    color:#fff;
+
+}
+
+.logout-btn:hover{
+
+    background:#b91c1c;
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media(max-width:992px){
+
+    .sidebar{
+
+        left:-280px;
+
+        transition:.35s;
+
+    }
+
+    .sidebar.show{
+
+        left:0;
+
+    }
+
+}

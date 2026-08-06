@@ -1,0 +1,91 @@
+{% load static %}
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <a href="{% url 'dashboard' %}" class="logo">
+
+            <img src="{% static 'images/logo.png' %}" alt="OSHARI">
+
+            <div>
+
+                <h2>OSHARI</h2>
+
+                <span>Dashboard</span>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <nav class="sidebar-menu">
+
+        <a href="{% url 'dashboard' %}" class="menu-item">
+
+            <span class="icon">🏠</span>
+
+            <span>Dashboard</span>
+
+        </a>
+
+        <a href="{% url 'dashboard_products' %}" class="menu-item">
+
+            <span class="icon">🛍️</span>
+
+            <span>Products</span>
+
+        </a>
+
+        <a href="{% url 'dashboard_orders' %}" class="menu-item">
+
+            <span class="icon">📦</span>
+
+            <span>Orders</span>
+
+        </a>
+
+        <a href="{% url 'dashboard_newsletter' %}" class="menu-item">
+
+            <span class="icon">📧</span>
+
+            <span>Newsletter</span>
+
+        </a>
+
+        <a href="{% url 'dashboard_contacts' %}" class="menu-item">
+
+            <span class="icon">💬</span>
+
+            <span>Messages</span>
+
+        </a>
+
+        <a href="{% url 'dashboard_settings' %}" class="menu-item">
+
+            <span class="icon">⚙️</span>
+
+            <span>Settings</span>
+
+        </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+
+        <a href="{% url 'home' %}" class="visit-site">
+
+            🌐 Visit Website
+
+        </a>
+
+        <a href="{% url 'dashboard_logout' %}" class="logout-btn">
+
+            🚪 Logout
+
+        </a>
+
+    </div>
+
+</aside>

@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        {% block title %}OSHARI Dashboard{% endblock %}
+
+    </title>
+
+    <!-- Dashboard CSS -->
+
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/topbar.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/dashboard_home.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/dashboard_products.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/dashboard_add_product.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/dashboard_orders.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/dashboard_newsletter.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/dashboard_contacts.css' %}">
+
+    {% block extra_css %}
+
+    {% endblock %}
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+
+    {% include "dashboard/includes/sidebar.html" %}
+
+    <!-- Main Content -->
+
+    <div class="dashboard-content">
+
+        <!-- Topbar -->
+
+        {% include "dashboard/includes/topbar.html" %}
+
+        <!-- Success / Error Messages -->
+
+        {% if messages %}
+
+        <div class="messages-container">
+
+            {% for message in messages %}
+
+            <div class="message {{ message.tags }}">
+
+                <div class="message-left">
+
+                    {% if message.tags == "success" %}
+
+                        ✅
+
+                    {% elif message.tags == "error" %}
+
+                        ❌
+
+                    {% elif message.tags == "warning" %}
+
+                        ⚠️
+
+                    {% else %}
+
+                        ℹ️
+
+                    {% endif %}
+
+                </div>
+
+                <div class="message-right">
+
+                    {{ message }}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+        <!-- Page Content -->
+
+        <main class="dashboard-page">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </main>
+
+    </div>
+
+</div>
+
+<!-- Dashboard JavaScript -->
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+{% block extra_js %}
+
+{% endblock %}
+
+</body>
+
+</html>

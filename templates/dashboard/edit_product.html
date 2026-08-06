@@ -1,0 +1,259 @@
+{% extends "dashboard/base.html" %}
+
+{% load static %}
+
+{% block title %}
+
+Edit Product
+
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+
+                Edit Product
+
+            </h1>
+
+            <p>
+
+                Update your product information.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="form-card">
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            {% csrf_token %}
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+
+                        Product Name
+
+                    </label>
+
+                    {{ form.name }}
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+
+                        Slug
+
+                    </label>
+
+                    {{ form.slug }}
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+
+                        Price (₦)
+
+                    </label>
+
+                    {{ form.price }}
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+
+                        Stock
+
+                    </label>
+
+                    {{ form.stock }}
+
+                </div>
+
+                <div class="form-group full">
+
+                    <label>
+
+                        Description
+
+                    </label>
+
+                    {{ form.description }}
+
+                </div>
+
+                <div class="form-group full">
+
+                    <label>
+
+                        Current Main Image
+
+                    </label>
+
+                    {% if product.image %}
+
+                    <img
+                        src="{{ product.image.url }}"
+                        class="current-product-image"
+                        alt="{{ product.name }}"
+                    >
+
+                    {% endif %}
+
+                </div>
+
+                <div class="form-group full">
+
+                    <label>
+
+                        Replace Main Image
+
+                    </label>
+
+                    {{ form.image }}
+
+                </div>
+
+                <div class="form-group full">
+
+                    <label>
+
+                        Current Gallery Images
+
+                    </label>
+
+                    <div class="gallery-grid">
+
+                        {% for image in gallery %}
+
+                        <div class="gallery-card">
+
+                            <img
+                                src="{{ image.image.url }}"
+                                alt="Gallery Image"
+                            >
+
+                            <a
+                                href="{% url 'dashboard_delete_gallery_image' image.id %}"
+                                class="delete-gallery-btn"
+                            >
+
+                                Delete
+
+                            </a>
+
+                        </div>
+
+                        {% empty %}
+
+                        <p>
+
+                            No gallery images added yet.
+
+                        </p>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                <div class="form-group full">
+
+                    <label>
+
+                        Add More Gallery Images
+
+                    </label>
+
+                    <input
+                        type="file"
+                        name="gallery_images"
+                        multiple
+                        accept="image/*"
+                    >
+
+                    <small>
+
+                        Hold Ctrl (Windows) or Cmd (Mac) to select multiple images.
+
+                    </small>
+
+                </div>
+
+                <div class="checkbox-group">
+
+                    <label>
+
+                        {{ form.is_available }}
+
+                        Available
+
+                    </label>
+
+                </div>
+
+                <div class="checkbox-group">
+
+                    <label>
+
+                        {{ form.is_new_drop }}
+
+                        New Drop
+
+                    </label>
+
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+
+                    Update Product
+
+                </button>
+
+                <a
+                    href="{% url 'dashboard_products' %}"
+                    class="secondary-btn"
+                >
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

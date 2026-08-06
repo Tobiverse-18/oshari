@@ -1,0 +1,182 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}
+
+Orders
+
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+
+            Orders
+
+        </h1>
+
+        <p>
+
+            Manage customer orders.
+
+        </p>
+
+    </div>
+
+</div>
+
+<div class="toolbar">
+
+    <form method="GET">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Search orders..."
+            value="{{ request.GET.q }}"
+        >
+
+        <button type="submit">
+
+            Search
+
+        </button>
+
+    </form>
+
+</div>
+
+<div class="table-card">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Order</th>
+
+<th>Customer</th>
+
+<th>Total</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for order in orders %}
+
+<tr>
+
+<td>
+
+{{ order.order_number }}
+
+</td>
+
+<td>
+
+{{ order.full_name }}
+
+</td>
+
+<td>
+
+₦{{ order.total }}
+
+</td>
+
+<td>
+
+<span class="status {{ order.status|lower }}">
+
+{{ order.status }}
+
+</span>
+
+</td>
+
+<td>
+
+{{ order.created_at|date:"M d, Y" }}
+
+</td>
+
+<td>
+
+<a href="{% url 'dashboard_order_detail' order.id %}">
+
+View
+
+</a>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="6">
+
+No orders found.
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% if page_obj.has_other_pages %}
+
+<div class="pagination">
+
+{% if page_obj.has_previous %}
+
+<a href="?page={{ page_obj.previous_page_number }}">
+
+Previous
+
+</a>
+
+{% endif %}
+
+<span>
+
+Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+</span>
+
+{% if page_obj.has_next %}
+
+<a href="?page={{ page_obj.next_page_number }}">
+
+Next
+
+</a>
+
+{% endif %}
+
+</div>
+
+{% endif %}
+
+{% endblock %}
