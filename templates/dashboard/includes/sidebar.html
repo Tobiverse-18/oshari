@@ -24,49 +24,85 @@
 
         <a href="{% url 'dashboard' %}" class="menu-item">
 
-            <span class="icon">🏠</span>
+            <div class="menu-left">
 
-            <span>Dashboard</span>
+                <span class="icon">🏠</span>
+
+                <span>Dashboard</span>
+
+            </div>
 
         </a>
 
         <a href="{% url 'dashboard_products' %}" class="menu-item">
 
-            <span class="icon">🛍️</span>
+            <div class="menu-left">
 
-            <span>Products</span>
+                <span class="icon">🛍️</span>
 
-        </a>
+                <span>Products</span>
 
-        <a href="{% url 'dashboard_orders' %}" class="menu-item">
-
-            <span class="icon">📦</span>
-
-            <span>Orders</span>
+            </div>
 
         </a>
 
-        <a href="{% url 'dashboard_newsletter' %}" class="menu-item">
+        <a href="{% url 'dashboard_orders' %}" class="menu-item has-badge">
 
-            <span class="icon">📧</span>
+            <div class="menu-left">
 
-            <span>Newsletter</span>
+                <span class="icon">🛒</span>
+
+                <span>Orders</span>
+
+            </div>
+
+            {% if new_orders > 0 %}
+            <span class="sidebar-badge">
+
+                {{ new_orders }}
+
+            </span>
+            {% endif %}
 
         </a>
 
-        <a href="{% url 'dashboard_contacts' %}" class="menu-item">
+        <a href="{% url 'dashboard_newsletter' %}" class="menu-item has-badge">
 
-            <span class="icon">💬</span>
+            <div class="menu-left">
 
-            <span>Messages</span>
+                <span class="icon">✉️</span>
+
+                <span>Newsletter</span>
+
+            </div>
+
+            {% if new_subscribers > 0 %}
+            <span class="sidebar-badge">
+
+                {{ new_subscribers }}
+
+            </span>
+            {% endif %}
 
         </a>
 
-        <a href="{% url 'dashboard_settings' %}" class="menu-item">
+        <a href="{% url 'dashboard_contacts' %}" class="menu-item has-badge">
 
-            <span class="icon">⚙️</span>
+            <div class="menu-left">
 
-            <span>Settings</span>
+                <span class="icon">💬</span>
+
+                <span>Contacts</span>
+
+            </div>
+
+            {% if new_messages > 0 %}
+            <span class="sidebar-badge">
+
+                {{ new_messages }}
+
+            </span>
+            {% endif %}
 
         </a>
 

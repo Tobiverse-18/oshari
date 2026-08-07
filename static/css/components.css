@@ -239,3 +239,61 @@ FLOATING CART
     }
 
 }
+
+#toast{
+
+    position:fixed;
+
+    top:25px;
+
+    right:25px;
+
+    width:340px;
+
+    background:#fff;
+
+    border-radius:16px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.18);
+
+    display:flex;
+
+    gap:15px;
+
+    padding:18px;
+
+    z-index:99999;
+
+    transform:translateX(420px);
+
+    opacity:0;
+
+    transition:.4s;
+
+}
+
+#toast.show{
+
+    transform:translateX(0);
+
+    opacity:1;
+
+}
+
+#toast.success{
+
+    border-left:5px solid #22c55e;
+
+}
+
+#toast.error{
+
+    border-left:5px solid #ef4444;
+
+}
+
+#toast.info{
+
+    border-left:5px solid #3b82f6;
+
+}

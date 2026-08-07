@@ -37,6 +37,8 @@ from .models import (
 from django.contrib import messages
 from django.shortcuts import redirect
 
+from django.http import HttpResponse
+
 
 # ==========================================
 # HOME
@@ -904,9 +906,73 @@ def dashboard_delete_product(request, product_id):
 @login_required
 def dashboard_orders(request):
 
+    Order.objects.filter(
+        is_read=False
+    ).update(
+        is_read=True
+    )
+
+    orders = Order.objects.all().order_by("-created_at")
+
+    q = request.GET.get("q")
+
+    if q:
+
+        orders = orders.filter(
+            order_number__icontains=q
+        ) | Order.objects.filter(
+            full_name__icontains=q
+        )
+
+    paginator = Paginator(orders, 10)
+
+    page_number = request.GET.get("page")
+
+    page_obj = paginator.get_page(page_number)
+
     return render(
         request,
         "dashboard/orders.html",
+        {
+            "orders": page_obj,
+            "page_obj": page_obj,
+        },
+    )
+
+
+@login_required
+def dashboard_order_detail(request, order_id):
+
+    order = get_object_or_404(
+        Order,
+        id=order_id,
+    )
+
+    if request.method == "POST":
+
+        order.status = request.POST.get("status")
+
+        order.save()
+
+        messages.success(
+            request,
+            "Order updated successfully."
+        )
+
+        return redirect(
+            "dashboard_order_detail",
+            order_id=order.id,
+        )
+
+    order_items = order.items.all()
+
+    return render(
+        request,
+        "dashboard/order_detail.html",
+        {
+            "order": order,
+            "order_items": order_items,
+        },
     )
 
 
@@ -916,6 +982,12 @@ def dashboard_orders(request):
 
 @login_required
 def dashboard_newsletter(request):
+
+    NewsletterSubscriber.objects.filter(
+        is_read=False
+    ).update(
+        is_read=True
+    )
 
     subscribers = NewsletterSubscriber.objects.all().order_by("-subscribed_at")
 
@@ -967,6 +1039,12 @@ def dashboard_delete_subscriber(request, subscriber_id):
 
 @login_required
 def dashboard_contacts(request):
+
+    ContactMessage.objects.filter(
+        is_read=False
+    ).update(
+        is_read=True
+    )
 
     contacts = ContactMessage.objects.all()
 
@@ -1076,68 +1154,12 @@ def dashboard_delete_gallery_image(request, image_id):
         product_id=product_id,
     )
 
-@login_required
-def dashboard_orders(request):
 
-    orders = Order.objects.all().order_by("-created_at")
-
-    q = request.GET.get("q")
-
-    if q:
-
-        orders = orders.filter(
-            order_number__icontains=q
-        ) | Order.objects.filter(
-            full_name__icontains=q
-        )
-
-    paginator = Paginator(orders, 10)
-
-    page_number = request.GET.get("page")
-
-    page_obj = paginator.get_page(page_number)
-
-    return render(
-        request,
-        "dashboard/orders.html",
-        {
-            "orders": page_obj,
-            "page_obj": page_obj,
-        },
-    )
-
-
-@login_required
-def dashboard_order_detail(request, order_id):
-
-    order = get_object_or_404(
-        Order,
-        id=order_id,
-    )
-
-    if request.method == "POST":
-
-        order.status = request.POST.get("status")
-
-        order.save()
-
-        messages.success(
-            request,
-            "Order updated successfully."
-        )
-
-        return redirect(
-            "dashboard_order_detail",
-            order_id=order.id,
-        )
-
-    order_items = order.items.all()
-
-    return render(
-        request,
-        "dashboard/order_detail.html",
-        {
-            "order": order,
-            "order_items": order_items,
-        },
-    )
+def robots_txt(request):
+    lines = [
+        "User-Agent: *",
+        "Allow: /",
+        "",
+        f"Sitemap: {request.scheme}://{request.get_host()}/sitemap.xml",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")

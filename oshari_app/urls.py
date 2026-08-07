@@ -1,5 +1,12 @@
 from django.urls import path
 from . import views
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticViewSitemap, ProductSitemap
+
+sitemaps = {
+    "static": StaticViewSitemap,
+    "products": ProductSitemap,
+}
 
 urlpatterns = [
 
@@ -112,13 +119,24 @@ urlpatterns = [
     "dashboard/gallery/delete/<int:image_id>/",
     views.dashboard_delete_gallery_image,
     name="dashboard_delete_gallery_image",
-),
+    ),
 
-path(
-    "dashboard/orders/<int:order_id>/",
-    views.dashboard_order_detail,
-    name="dashboard_order_detail",
-),
+    path(
+        "dashboard/orders/<int:order_id>/",
+        views.dashboard_order_detail,
+        name="dashboard_order_detail",
+    ),
+
+    # ALL YOUR EXISTING URLS HERE
+
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="sitemap",
+    ),
+
+    path("robots.txt", views.robots_txt, name="robots_txt"),
 
 ]
 

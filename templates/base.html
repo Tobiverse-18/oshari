@@ -9,26 +9,96 @@
     =========================================== -->
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="{% block description %}OSHARI ITNS - Premium Urban Fashion & Luxury Streetwear{% endblock %}">
-    <meta name="keywords" content="Streetwear, Fashion, Clothing, Urban Fashion, Oshari ITNS">
-    <meta name="author" content="OSHARI ITNS">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}OSHARI ITNS{% endblock %}</title>
+    <title>
+        {% block title %}
+        OSHARI ITNS | Premium Streetwear in Nigeria
+        {% endblock %}
+    </title>
 
-    <!-- Favicon -->
+    <meta name="description"
+          content="{% block description %}OSHARI ITNS - Premium Urban Fashion & Luxury Streetwear in Nigeria. Shop premium oversized hoodies, joggers, t-shirts and exclusive new drops.{% endblock %}">
 
-    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+    <meta name="keywords"
+          content="OSHARI ITNS, Streetwear Nigeria, Urban Fashion, Luxury Fashion, Oversized Clothing, Hoodies, Joggers, T-Shirts">
 
-    <!-- Google Fonts -->
+    <meta name="author"
+          content="OSHARI ITNS">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta name="robots"
+          content="index,follow">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="theme-color"
+          content="#111827">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="canonical"
+          href="{{ request.build_absolute_uri }}">
 
+    <!-- ==========================================
+         OPEN GRAPH
+    =========================================== -->
+
+    <meta property="og:type"
+          content="website">
+
+    <meta property="og:title"
+          content="OSHARI ITNS | Premium Streetwear">
+
+    <meta property="og:description"
+          content="Luxury streetwear made for the bold. Shop premium oversized fashion and exclusive new drops.">
+
+    <meta property="og:image"
+          content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}">
+
+    <meta property="og:url"
+          content="{{ request.build_absolute_uri }}">
+
+    <meta property="og:site_name"
+          content="OSHARI ITNS">
+
+    <!-- ==========================================
+         TWITTER
+    =========================================== -->
+
+    <meta name="twitter:card"
+          content="summary_large_image">
+
+    <meta name="twitter:title"
+          content="OSHARI ITNS | Premium Streetwear">
+
+    <meta name="twitter:description"
+          content="Luxury streetwear made for the bold.">
+
+    <meta name="twitter:image"
+          content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}">
+
+    <!-- ==========================================
+         FAVICON
+    =========================================== -->
+
+    <link rel="icon"
+          href="{% static 'images/logo.png' %}"
+          type="image/png">
+
+    <link rel="apple-touch-icon"
+          href="{% static 'images/logo.png' %}">
+
+    <!-- ==========================================
+         GOOGLE FONTS
+    =========================================== -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
 
     <!-- ==========================================
          GLOBAL CSS
@@ -41,9 +111,8 @@
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 
-
     <!-- ==========================================
-         HOME PAGE CSS
+         PAGE CSS
     =========================================== -->
 
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
@@ -60,9 +129,7 @@
     <link rel="stylesheet" href="{% static 'css/track_order.css' %}">
     <link rel="stylesheet" href="{% static 'css/about.css' %}">
     <link rel="stylesheet" href="{% static 'css/contact.css' %}">
-
-
-    <!-- Extra CSS -->
+    <link rel="stylesheet" href="{% static 'css/error.css' %}">
 
     {% block extra_css %}
 
@@ -72,20 +139,17 @@
 
 <body>
 
-
     <!-- ==========================================
          LOADER
     =========================================== -->
 
     <div id="loader"></div>
 
-
     <!-- ==========================================
          NAVBAR
     =========================================== -->
 
-    {% include 'includes/navbar.html' %}
-
+    {% include "includes/navbar.html" %}
 
     <!-- ==========================================
          MAIN CONTENT
@@ -99,126 +163,151 @@
 
     </main>
 
+        <!-- ==========================================
+            FOOTER
+        =========================================== -->
 
-    <!-- ==========================================
-         FOOTER
-    =========================================== -->
+        {% include "includes/footer.html" %}
 
-    {% include 'includes/footer.html' %}
+        <!-- ==========================================
+            LUCIDE ICONS
+        =========================================== -->
 
+        <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- ==========================================
-         LUCIDE ICONS
-    =========================================== -->
+        <!-- ==========================================
+            GLOBAL JAVASCRIPT
+        =========================================== -->
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+        <script src="{% static 'js/theme.js' %}"></script>
+        <script src="{% static 'js/navbar.js' %}"></script>
+        <script src="{% static 'js/animations.js' %}"></script>
+        <script src="{% static 'js/scroll.js' %}"></script>
+        <script src="{% static 'js/cart.js' %}"></script>
+        <script src="{% static 'js/product_detail.js' %}"></script>
+        <script src="{% static 'js/product_gallery.js' %}"></script>
 
+        <!-- ==========================================
+            HOME PAGE JAVASCRIPT
+        =========================================== -->
 
-    <!-- ==========================================
-         GLOBAL JAVASCRIPT
-    =========================================== -->
+        <script src="{% static 'js/hero.js' %}"></script>
+        <script src="{% static 'js/brand_story.js' %}"></script>
+        <script src="{% static 'js/newsletter.js' %}"></script>
 
-    <script src="{% static 'js/main.js' %}"></script>
+        <!-- ==========================================
+            PAGE SPECIFIC JAVASCRIPT
+        =========================================== -->
 
-    <script src="{% static 'js/theme.js' %}"></script>
+        {% block extra_js %}
 
-    <script src="{% static 'js/navbar.js' %}"></script>
+        {% endblock %}
 
-    <script src="{% static 'js/animations.js' %}"></script>
+        <!-- ==========================================
+            TOAST
+        =========================================== -->
 
-    <script src="{% static 'js/scroll.js' %}"></script>
+        <div id="toast">
 
-    <script src="{% static 'js/cart.js' %}"></script>
+            <div class="toast-icon">
 
-    <script src="{% static 'js/product_detail.js' %}"></script>
+                ✓
 
-    <script src="{% static 'js/product_gallery.js' %}"></script>
+            </div>
 
+            <div class="toast-content">
 
-    <!-- ==========================================
-         HOME PAGE JAVASCRIPT
-    =========================================== -->
+                <h4 id="toast-title">
 
-    <script src="{% static 'js/hero.js' %}"></script>
+                    Added to Cart
 
-    <script src="{% static 'js/brand_story.js' %}"></script>
+                </h4>
 
-    <script src="{% static 'js/newsletter.js' %}"></script>
+                <p id="toast-product">
 
+                    Product Name
 
-    <!-- ==========================================
-         INITIALIZE LUCIDE
-    =========================================== -->
+                </p>
 
-    <script>
+                <small id="toast-quantity">
 
-        lucide.createIcons();
+                    1 item added
 
-    </script>
+                </small>
 
+                <a href="{% url 'cart' %}"
+                class="toast-link">
 
-    <!-- ==========================================
-         PAGE SPECIFIC JAVASCRIPT
-    =========================================== -->
+                    View Cart →
 
-    {% block extra_js %}
+                </a>
 
-    {% endblock %}
-
-    <div id="toast">
-
-        <div class="toast-icon">
-
-            ✓
-
-        </div>
-
-        <div class="toast-content">
-
-            <h4 id="toast-title">
-
-                Added to Cart
-
-            </h4>
-
-            <p id="toast-product">
-
-                Product Name
-
-            </p>
-
-            <small id="toast-quantity">
-
-                1 item added
-
-            </small>
-
-            <a
-                href="{% url 'cart' %}"
-                class="toast-link"
-            >
-
-                View Cart →
-
-            </a>
+            </div>
 
         </div>
 
-    </div>
+        <!-- ==========================================
+            FLOATING CART
+        =========================================== -->
 
+        <a href="{% url 'cart' %}"
+        id="floating-cart">
 
-    <a href="{% url 'cart' %}" id="floating-cart">
+            <i data-lucide="shopping-bag"></i>
 
-        <i data-lucide="shopping-bag"></i>
+            <span id="floating-cart-count">
 
-        <span id="floating-cart-count">
+                {{ request.session.cart|length|default:"0" }}
 
-            {{ request.session.cart|length|default:"0" }}
+            </span>
 
-        </span>
+        </a>
 
-    </a>
+        <!-- ==========================================
+            DJANGO MESSAGES
+        =========================================== -->
 
-</body>
+        {% if messages %}
 
-</html>
+            {% for message in messages %}
+
+                <script>
+
+                    document.addEventListener("DOMContentLoaded", function () {
+
+                        if (typeof showToast === "function") {
+
+                            showToast(
+                                "{{ message|escapejs }}",
+                                "{{ message.tags }}"
+                            );
+
+                        } else {
+
+                            alert("{{ message|escapejs }}");
+
+                        }
+
+                    });
+
+                </script>
+
+            {% endfor %}
+
+        {% endif %}
+
+        <!-- ==========================================
+            INITIALIZE ICONS
+        =========================================== -->
+
+        <script>
+
+            lucide.createIcons();
+
+        </script>
+
+    </body>
+
+    </html>
+
