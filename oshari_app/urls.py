@@ -3,6 +3,10 @@ from . import views
 from django.contrib.sitemaps.views import sitemap
 from .sitemaps import StaticViewSitemap, ProductSitemap
 
+from .views import (
+    paystack_webhook,
+)
+
 sitemaps = {
     "static": StaticViewSitemap,
     "products": ProductSitemap,
@@ -137,6 +141,8 @@ urlpatterns = [
     ),
 
     path("robots.txt", views.robots_txt, name="robots_txt"),
+
+    path("payment/webhook/", paystack_webhook, name="paystack_webhook"),
 
 ]
 

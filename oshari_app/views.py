@@ -494,6 +494,96 @@ def payment_failed(request):
         "checkout/payment_failed.html",
     )
 
+import hashlib
+import hmac
+import json
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+
+
+@csrf_exempt
+def paystack_webhook(request):
+
+    if request.method != "POST":
+        return JsonResponse(
+            {"message": "Method not allowed"},
+            status=405
+        )
+
+    # Get Paystack signature
+    signature = request.headers.get("x-paystack-signature")
+
+    if not signature:
+        return JsonResponse(
+            {"message": "Missing signature"},
+            status=400
+        )
+
+    # Verify that the request really came from Paystack
+    computed_signature = hmac.new(
+        settings.PAYSTACK_SECRET_KEY.encode("utf-8"),
+        request.body,
+        hashlib.sha512
+    ).hexdigest()
+
+    if not hmac.compare_digest(
+        computed_signature,
+        signature
+    ):
+        return JsonResponse(
+            {"message": "Invalid signature"},
+            status=400
+        )
+
+    try:
+
+        payload = json.loads(request.body)
+
+    except json.JSONDecodeError:
+
+        return JsonResponse(
+            {"message": "Invalid JSON"},
+            status=400
+        )
+
+    # Only process successful charges
+    if payload.get("event") == "charge.success":
+
+        reference = payload.get("data", {}).get("reference")
+
+        if reference:
+
+            try:
+
+                order = Order.objects.get(
+                    order_number=reference
+                )
+
+                if not order.paid:
+
+                    order.paid = True
+                    order.status = "Paid"
+
+                    order.save(
+                        update_fields=[
+                            "paid",
+                            "status"
+                        ]
+                    )
+
+                    send_order_confirmation(order)
+                    send_admin_notification(order)
+
+            except Order.DoesNotExist:
+
+                pass
+
+    return JsonResponse(
+        {"status": "success"}
+    )
+
 
 def track_order(request):
 
