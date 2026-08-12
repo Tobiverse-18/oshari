@@ -2,5 +2,9 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/osharico/oshari/
-    - /bin/rsync -a --exclude='.git' --exclude='virtualenv' --exclude='ssl' --exclude='tmp' ./ $DEPLOYPATH
-    - /usr/bin/touch $DEPLOYPATH/tmp/restart.txt
+    - /bin/cp -R oshari $DEPLOYPATH
+    - /bin/cp -R oshari_app $DEPLOYPATH
+    - /bin/cp -R static $DEPLOYPATH
+    - /bin/cp -R templates $DEPLOYPATH
+    - /bin/cp manage.py $DEPLOYPATH
+    - /bin/cp requirements.txt $DEPLOYPATH
