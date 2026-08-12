@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/osharico/oshari/
+    - /bin/rsync -a --exclude='.git' --exclude='virtualenv' --exclude='ssl' --exclude='tmp' ./ $DEPLOYPATH
+    - /usr/bin/touch $DEPLOYPATH/tmp/restart.txt
