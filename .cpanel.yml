@@ -9,4 +9,5 @@ deployment:
     - /bin/cp ./manage.py $DEPLOYPATH
     - /bin/cp ./requirements.txt $DEPLOYPATH
     - /bin/cp ./build.sh $DEPLOYPATH
+    - cd $DEPLOYPATH && /home/osharico/virtualenv/oshari/3.13/bin/python manage.py collectstatic --noinput
     - /bin/touch $DEPLOYPATH/tmp/restart.txt
