@@ -14,6 +14,8 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     ".onrender.com",
+    "oshari.com.ng",
+    "www.oshari.com.ng",
 ]
 
 INSTALLED_APPS = [
