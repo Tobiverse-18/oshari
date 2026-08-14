@@ -1,0 +1,317 @@
+/* ==========================================
+   NEWSLETTER POPUP
+========================================== */
+
+.newsletter-popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.68);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
+}
+
+.newsletter-popup-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* ==========================================
+   POPUP CARD
+========================================== */
+
+.newsletter-popup {
+    position: relative;
+
+    width: min(520px, 100%);
+
+    background: var(--card-bg);
+    color: var(--text-color);
+
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+
+    padding: 48px 42px 38px;
+
+    box-shadow: var(--shadow-md);
+
+    transform: translateY(25px) scale(0.96);
+
+    transition:
+        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.newsletter-popup-overlay.show .newsletter-popup {
+    transform: translateY(0) scale(1);
+}
+
+
+/* ==========================================
+   CLOSE BUTTON
+========================================== */
+
+.newsletter-popup-close {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+
+    background: var(--surface-color);
+    color: var(--text-color);
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+.newsletter-popup-close:hover {
+    background: var(--heading-color);
+    color: var(--background-color);
+
+    transform: rotate(90deg);
+}
+
+.newsletter-popup-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.newsletter-popup-content {
+    text-align: center;
+}
+
+.newsletter-popup-label {
+    display: inline-block;
+
+    margin-bottom: 16px;
+
+    color: var(--text-light);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.newsletter-popup h2 {
+    margin: 0 0 14px;
+
+    color: var(--heading-color);
+
+    font-size: clamp(32px, 6vw, 46px);
+
+    line-height: 0.95;
+
+    font-weight: 800;
+
+    letter-spacing: -0.04em;
+}
+
+.newsletter-popup-content > p {
+    max-width: 390px;
+
+    margin: 0 auto 28px;
+
+    color: var(--text-light);
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* ==========================================
+   FORM
+========================================== */
+
+#newsletterPopupForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.newsletter-input-wrapper input {
+    width: 100%;
+
+    height: 52px;
+
+    padding: 0 16px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+
+    outline: none;
+
+    background: var(--surface-color);
+    color: var(--text-color);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    transition: var(--transition);
+}
+
+.newsletter-input-wrapper input:focus {
+    border-color: var(--secondary-color);
+
+    box-shadow:
+        0 0 0 4px var(--secondary-light);
+}
+
+.newsletter-input-wrapper input::placeholder {
+    color: var(--text-light);
+}
+
+
+/* ==========================================
+   SUBSCRIBE BUTTON
+========================================== */
+
+.newsletter-popup-submit {
+    width: 100%;
+    height: 52px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: var(--heading-color);
+    color: var(--background-color);
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+.newsletter-popup-submit:hover {
+    opacity: 0.86;
+    transform: translateY(-1px);
+}
+
+.newsletter-popup-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+.newsletter-popup-message {
+    min-height: 20px;
+
+    margin: 12px 0 0 !important;
+
+    color: var(--text-color);
+
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+}
+
+.newsletter-popup-message.success {
+    color: var(--success-color);
+}
+
+.newsletter-popup-message.error {
+    color: var(--danger-color);
+}
+
+
+/* ==========================================
+   DON'T REMIND ME
+========================================== */
+
+.newsletter-dont-remind {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 20px;
+
+    color: var(--text-light);
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.newsletter-dont-remind input {
+    width: 14px;
+    height: 14px;
+
+    accent-color: var(--secondary-color);
+
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+    .newsletter-popup-overlay {
+        padding: 16px;
+    }
+
+    .newsletter-popup {
+        padding: 42px 24px 28px;
+
+        border-radius: 16px;
+    }
+
+    .newsletter-popup h2 {
+        font-size: 34px;
+    }
+
+    .newsletter-popup-content > p {
+        font-size: 13px;
+    }
+
+}

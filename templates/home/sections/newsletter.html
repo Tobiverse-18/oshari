@@ -1,59 +1,82 @@
 {% load static %}
 
-<section class="newsletter">
+<div class="newsletter-popup-overlay" id="newsletterPopup">
 
-    <div class="container">
+    <div class="newsletter-popup">
 
-        <div class="newsletter-wrapper">
+        <button
+            type="button"
+            class="newsletter-popup-close"
+            id="newsletterClose"
+            aria-label="Close newsletter popup"
+        >
+            <i data-lucide="x"></i>
+        </button>
 
-            <span class="section-tag">
-                JOIN THE COMMUNITY
+        <div class="newsletter-popup-content">
+
+            <span class="newsletter-popup-label">
+                OSHARI ITNS
             </span>
 
             <h2>
-                Never Miss a Drop.
+                Stay in the loop.
             </h2>
 
             <p>
-                Be the first to know about new collections, exclusive releases,
-                members-only offers and premium streetwear updates from OSHARI ITNS.
+                Be the first to know about new drops, exclusive pieces
+                and important Oshari updates.
             </p>
 
-            <form class="newsletter-form">
+            <form id="newsletterPopupForm">
 
                 {% csrf_token %}
 
-                <input
-                    type="email"
-                    name="email"
-                    class="newsletter-input"
-                    placeholder="Enter your email address"
-                    required
-                >
+                <div class="newsletter-input-wrapper">
+
+                    <input
+                        type="email"
+                        id="newsletterPopupEmail"
+                        name="email"
+                        placeholder="Enter your email address"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
 
                 <button
                     type="submit"
-                    class="btn btn-primary"
+                    class="newsletter-popup-submit"
                 >
                     Subscribe
                 </button>
 
             </form>
 
-            <p class="newsletter-message"></p>
+            <p
+                class="newsletter-popup-message"
+                id="newsletterPopupMessage"
+                role="status"
+            ></p>
 
-            <div class="newsletter-features">
+            <label class="newsletter-dont-remind">
 
-                <span>✓ Exclusive Drops</span>
+                <input
+                    type="checkbox"
+                    id="newsletterDontRemind"
+                >
 
-                <span>✓ Early Access</span>
+                <span>
+                    Don't remind me again
+                </span>
 
-                <span>✓ No Spam</span>
-
-            </div>
+            </label>
 
         </div>
 
     </div>
 
-</section>
+</div>
+
+<script src="{% static 'js/newsletter.js' %}"></script>

@@ -1,85 +1,263 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const forms = document.querySelectorAll(".newsletter-form");
+    const overlay = document.getElementById("newsletterPopup");
 
-    forms.forEach(form => {
+    if (!overlay) {
+        return;
+    }
 
-        const input = form.querySelector("input");
+    const form = document.getElementById("newsletterPopupForm");
+    const emailInput = document.getElementById("newsletterPopupEmail");
+    const message = document.getElementById("newsletterPopupMessage");
 
-        const button = form.querySelector("button");
+    const closeButton = document.getElementById("newsletterClose");
+    const dontRemindCheckbox = document.getElementById("newsletterDontRemind");
 
-        const message = form.querySelector(".newsletter-message");
+    const DONT_REMIND_KEY = "oshari_newsletter_dont_remind";
 
-        const csrf = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
-        form.addEventListener("submit", async function(e){
+    /* ==========================================
+       OPEN POPUP
+    ========================================== */
 
-            e.preventDefault();
+    function openPopup() {
 
-            button.disabled = true;
+        const dontRemind =
+            localStorage.getItem(DONT_REMIND_KEY);
 
-            button.textContent = "Subscribing...";
+        if (dontRemind === "true") {
+            return;
+        }
 
-            if(message){
+        overlay.classList.add("show");
 
-                message.textContent = "";
+        document.body.style.overflow = "hidden";
+    }
 
-                message.className = "newsletter-message";
 
-            }
+    /* ==========================================
+       CLOSE POPUP
+    ========================================== */
 
-            const response = await fetch("/newsletter/subscribe/",{
+    function closePopup() {
 
-                method:"POST",
+        overlay.classList.remove("show");
 
-                headers:{
+        document.body.style.overflow = "";
+    }
 
-                    "X-CSRFToken": csrf,
 
-                },
+    /* ==========================================
+       CLOSE BUTTON
+    ========================================== */
 
-                body:new FormData(form)
+    if (closeButton) {
 
-            });
+        closeButton.addEventListener(
+            "click",
+            closePopup
+        );
 
-            const data = await response.json();
+    }
 
-            if(message){
 
-                if(data.success){
+    /* ==========================================
+       CLICK OUTSIDE POPUP
+    ========================================== */
 
-                    message.classList.add("success");
+    overlay.addEventListener("click", (event) => {
 
-                    input.value = "";
+        if (event.target === overlay) {
+            closePopup();
+        }
 
-                }else{
+    });
 
-                    message.classList.add("error");
+
+    /* ==========================================
+       DON'T REMIND ME AGAIN
+    ========================================== */
+
+    if (dontRemindCheckbox) {
+
+        dontRemindCheckbox.addEventListener(
+            "change",
+            () => {
+
+                if (dontRemindCheckbox.checked) {
+
+                    localStorage.setItem(
+                        DONT_REMIND_KEY,
+                        "true"
+                    );
+
+                    closePopup();
 
                 }
 
-                message.textContent = data.message;
+            }
+        );
+
+    }
+
+
+    /* ==========================================
+       SUBSCRIBE
+    ========================================== */
+
+    if (form) {
+
+        form.addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+                const email =
+                    emailInput.value.trim();
+
+                if (!email) {
+
+                    message.textContent =
+                        "Please enter your email.";
+
+                    message.className =
+                        "newsletter-popup-message error";
+
+                    return;
+
+                }
+
+
+                const csrfInput =
+                    form.querySelector(
+                        "[name=csrfmiddlewaretoken]"
+                    );
+
+                if (!csrfInput) {
+
+                    message.textContent =
+                        "Security token missing. Please refresh the page.";
+
+                    message.className =
+                        "newsletter-popup-message error";
+
+                    return;
+
+                }
+
+
+                const submitButton =
+                    form.querySelector(
+                        ".newsletter-popup-submit"
+                    );
+
+                const originalText =
+                    submitButton.textContent;
+
+
+                submitButton.disabled = true;
+
+                submitButton.textContent =
+                    "Subscribing...";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/newsletter/subscribe/",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "X-CSRFToken":
+                                        csrfInput.value,
+
+                                    "X-Requested-With":
+                                        "XMLHttpRequest",
+
+                                    "Content-Type":
+                                        "application/x-www-form-urlencoded"
+                                },
+
+                                body:
+                                    `email=${encodeURIComponent(email)}`
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (data.success) {
+
+                        message.textContent =
+                            data.message;
+
+                        message.className =
+                            "newsletter-popup-message success";
+
+                        form.reset();
+
+                        localStorage.setItem(
+                            DONT_REMIND_KEY,
+                            "true"
+                        );
+
+
+                        setTimeout(() => {
+                            closePopup();
+                        }, 1500);
+
+
+                    } else {
+
+                        message.textContent =
+                            data.message;
+
+                        message.className =
+                            "newsletter-popup-message error";
+
+                    }
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Newsletter error:",
+                        error
+                    );
+
+                    message.textContent =
+                        "Something went wrong. Please try again.";
+
+                    message.className =
+                        "newsletter-popup-message error";
+
+
+                } finally {
+
+                    submitButton.disabled = false;
+
+                    submitButton.textContent =
+                        originalText;
+
+                }
 
             }
+        );
 
-            button.disabled = false;
+    }
 
-            button.textContent = "Subscribe";
 
-            if(message){
+    /* ==========================================
+       SHOW AFTER DELAY
+    ========================================== */
 
-                setTimeout(()=>{
-
-                    message.textContent="";
-
-                    message.className="newsletter-message";
-
-                },5000);
-
-            }
-
-        });
-
-    });
+    setTimeout(() => {
+        openPopup();
+    }, 2000);
 
 });
