@@ -76,28 +76,35 @@ def home(request):
 @require_POST
 def subscribe_newsletter(request):
 
-    email = request.POST.get("email")
+    email = request.POST.get("email", "").strip().lower()
 
     if not email:
-
         return JsonResponse({
             "success": False,
             "message": "Please enter your email."
-        })
+        }, status=400)
 
-    if NewsletterSubscriber.objects.filter(email=email).exists():
+    try:
+        subscriber, created = NewsletterSubscriber.objects.get_or_create(
+            email=email
+        )
+
+        if not created:
+            return JsonResponse({
+                "success": False,
+                "message": "You're already subscribed."
+            }, status=200)
 
         return JsonResponse({
+            "success": True,
+            "message": "Thanks for subscribing!"
+        }, status=200)
+
+    except Exception:
+        return JsonResponse({
             "success": False,
-            "message": "You're already subscribed."
-        })
-
-    NewsletterSubscriber.objects.create(email=email)
-
-    return JsonResponse({
-        "success": True,
-        "message": "Thanks for subscribing!"
-    })
+            "message": "Something went wrong. Please try again later."
+        }, status=500)
 
 
 # ==========================================
