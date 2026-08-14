@@ -2,5 +2,11 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/osharico/oshari/
-    - /bin/rsync -av --exclude='.git' --exclude='.cpanel.yml' ./ $DEPLOYPATH
+    - /bin/cp -R ./oshari $DEPLOYPATH
+    - /bin/cp -R ./oshari_app $DEPLOYPATH
+    - /bin/cp -R ./templates $DEPLOYPATH
+    - /bin/cp -R ./static $DEPLOYPATH
+    - /bin/cp ./manage.py $DEPLOYPATH
+    - /bin/cp ./requirements.txt $DEPLOYPATH
+    - /bin/cp ./build.sh $DEPLOYPATH
     - /bin/touch $DEPLOYPATH/tmp/restart.txt
