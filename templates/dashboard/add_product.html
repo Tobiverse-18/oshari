@@ -67,25 +67,48 @@
 
             </div>
 
+            <!-- PRODUCT OPTIONS -->
+
             <div class="checkbox-group">
-                <label>{{ form.is_available }} Available</label>
+                <label>
+                    {{ form.is_available }}
+                    Available
+                </label>
+                {{ form.is_available.errors }}
             </div>
 
             <div class="checkbox-group">
-                <label>{{ form.is_new_drop }} New Drop</label>
+                <label>
+                    {{ form.is_new_drop }}
+                    New Drop
+                </label>
+                {{ form.is_new_drop.errors }}
+            </div>
+
+            <div class="checkbox-group">
+                <label>
+                    {{ form.notify_subscribers }}
+                    Notify Newsletter Subscribers
+                </label>
+                {{ form.notify_subscribers.errors }}
             </div>
 
         </div>
 
         <div class="form-actions">
 
-            <button class="primary-btn" type="submit" id="saveProductBtn">
+            <button
+                class="primary-btn"
+                type="submit"
+                id="saveProductBtn">
 
                 Save Product
 
             </button>
 
-            <a href="{% url 'dashboard_products' %}" class="secondary-btn">
+            <a
+                href="{% url 'dashboard_products' %}"
+                class="secondary-btn">
 
                 Cancel
 

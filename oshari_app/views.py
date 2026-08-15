@@ -867,6 +867,15 @@ def dashboard_products(request):
 # ADD PRODUCT
 # ==========================================
 
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.shortcuts import render, redirect
+
+from .forms import ProductForm
+from .models import ProductImage
+from .emails import send_new_product_notification
+
+
 @login_required
 def dashboard_add_product(request):
 
@@ -889,6 +898,14 @@ def dashboard_add_product(request):
                     product=product,
                     image=image
                 )
+
+            # ==========================================
+            # NEWSLETTER NOTIFICATION
+            # ==========================================
+
+            if product.notify_subscribers:
+
+                send_new_product_notification(product)
 
             messages.success(
                 request,
