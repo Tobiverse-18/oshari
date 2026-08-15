@@ -86,22 +86,17 @@ def send_order_confirmation(order):
             "subject": f"Order Confirmed — {order.order_number}",
 
             "html": f"""
-
 <!DOCTYPE html>
 
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>Order Confirmed</title>
-
+    <title>Order Confirmed</title>
 </head>
-
 
 <body style="
     margin:0;
@@ -110,7 +105,6 @@ def send_order_confirmation(order):
     font-family:Arial,Helvetica,sans-serif;
     color:#111111;
 ">
-
 
 <table
     width="100%"
@@ -123,7 +117,6 @@ def send_order_confirmation(order):
 <tr>
 
 <td align="center" style="padding:30px 15px;">
-
 
 <table
     width="100%"
@@ -138,7 +131,6 @@ def send_order_confirmation(order):
     "
 >
 
-
 <!-- HEADER -->
 
 <tr>
@@ -150,8 +142,7 @@ def send_order_confirmation(order):
     "
 >
 
-<a href="{SITE_URL}"
-   style="text-decoration:none;">
+<a href="{SITE_URL}" style="text-decoration:none;">
 
 <img
     src="{LOGO_URL}"
@@ -178,9 +169,6 @@ def send_order_confirmation(order):
 <tr>
 
 <td style="padding:40px 35px;">
-
-
-<!-- SUCCESS ICON -->
 
 <div style="
     width:52px;
@@ -231,6 +219,7 @@ Hi {customer_name},
 ">
 
 Thank you for shopping with <strong>OSHARI ITNS</strong>.
+
 Your payment has been received successfully and your order is now being processed.
 
 </p>
@@ -252,9 +241,7 @@ Your payment has been received successfully and your order is now being processe
 
 <tr>
 
-<td style="
-    padding:18px;
-">
+<td style="padding:18px;">
 
 <span style="
     display:block;
@@ -333,60 +320,52 @@ Order Summary
 
 <tr>
 
-<th
-    style="
-        padding:10px 0;
-        text-align:left;
-        border-bottom:2px solid #111111;
-        font-size:12px;
-        color:#555555;
-    "
->
+<th style="
+    padding:10px 0;
+    text-align:left;
+    border-bottom:2px solid #111111;
+    font-size:12px;
+    color:#555555;
+">
 
 PRODUCT
 
 </th>
 
 
-<th
-    style="
-        padding:10px 8px;
-        text-align:center;
-        border-bottom:2px solid #111111;
-        font-size:12px;
-        color:#555555;
-    "
->
+<th style="
+    padding:10px 8px;
+    text-align:center;
+    border-bottom:2px solid #111111;
+    font-size:12px;
+    color:#555555;
+">
 
 QTY
 
 </th>
 
 
-<th
-    style="
-        padding:10px 0;
-        text-align:right;
-        border-bottom:2px solid #111111;
-        font-size:12px;
-        color:#555555;
-    "
->
+<th style="
+    padding:10px 0;
+    text-align:right;
+    border-bottom:2px solid #111111;
+    font-size:12px;
+    color:#555555;
+">
 
 PRICE
 
 </th>
 
 
-<th
-    style="
-        padding:10px 0;
-        text-align:right;
-        border-bottom:2px solid #111111;
-        font-size:12px;
-        color:#555555;
-    "
->
+<th style="
+    padding:10px 0;
+    text-align:right;
+    border-bottom:2px solid #111111;
+    font-size:12px;
+    color:#555555;
+">
 
 TOTAL
 
@@ -470,7 +449,7 @@ Phone: {escape(order.phone)}
 </div>
 
 
-<!-- TRACK ORDER BUTTON -->
+<!-- TRACK ORDER -->
 
 <div style="
     text-align:center;
@@ -528,7 +507,6 @@ We'll notify you as soon as your order ships.
     "
 >
 
-
 <p style="
     margin:0 0 8px;
     color:#ffffff;
@@ -563,26 +541,21 @@ Urban Fashion · Luxury Streetwear
 
 </p>
 
-
-</td>
-
-</tr>
-
-
-</table>
-
-
 </td>
 
 </tr>
 
 </table>
 
+</td>
+
+</tr>
+
+</table>
 
 </body>
 
 </html>
-
             """
 
         })
@@ -642,7 +615,6 @@ def send_admin_notification(order):
             "subject": f"🛍️ New Paid Order — {order.order_number}",
 
             "html": f"""
-
 <!DOCTYPE html>
 
 <html>
@@ -700,7 +672,6 @@ def send_admin_notification(order):
 
 <div style="padding:35px;">
 
-
 <h1 style="
     margin:0 0 10px;
     font-size:25px;
@@ -739,8 +710,11 @@ A customer has successfully completed payment.
 <p style="margin:0;">
 
 <strong>Status:</strong>
+
 <span style="color:#16803c;">
+
 PAID ✓
+
 </span>
 
 </p>
@@ -911,7 +885,6 @@ OSHARI ITNS · Internal Order Notification
 </body>
 
 </html>
-
             """
 
         })
@@ -919,3 +892,221 @@ OSHARI ITNS · Internal Order Notification
     except Exception as e:
 
         print(f"Admin email failed: {e}")
+
+
+# ==========================================
+# CONTACT FORM NOTIFICATION
+# ==========================================
+
+def send_contact_notification(contact):
+
+    try:
+
+        resend.Emails.send({
+
+            "from": f"OSHARI ITNS <{settings.RESEND_FROM_EMAIL}>",
+
+            "to": [settings.ADMIN_ORDER_EMAIL],
+
+            "subject": f"New Contact Message — {contact.subject}",
+
+            "html": f"""
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>New Contact Message</title>
+
+</head>
+
+
+<body style="
+    margin:0;
+    padding:30px 15px;
+    background:#f5f5f5;
+    font-family:Arial,Helvetica,sans-serif;
+">
+
+
+<div style="
+    max-width:620px;
+    margin:auto;
+    background:#ffffff;
+    border-radius:12px;
+    overflow:hidden;
+">
+
+
+<!-- HEADER -->
+
+<div style="
+    background:#111111;
+    padding:25px;
+    text-align:center;
+">
+
+<img
+    src="{LOGO_URL}"
+    alt="OSHARI ITNS"
+    style="
+        max-width:150px;
+        max-height:60px;
+    "
+>
+
+</div>
+
+
+<!-- CONTENT -->
+
+<div style="padding:35px;">
+
+<h1 style="
+    margin:0 0 10px;
+    font-size:25px;
+    color:#111111;
+">
+
+New Contact Message
+
+</h1>
+
+
+<p style="
+    margin:0 0 25px;
+    color:#666666;
+">
+
+Someone has submitted a message through the Oshari website.
+
+</p>
+
+
+<!-- SENDER -->
+
+<div style="
+    background:#f7f7f7;
+    padding:20px;
+    border-radius:8px;
+    margin-bottom:25px;
+">
+
+<p style="margin:0 0 8px;">
+
+<strong>Name:</strong>
+
+{escape(contact.name)}
+
+</p>
+
+
+<p style="margin:0 0 8px;">
+
+<strong>Email:</strong>
+
+{escape(contact.email)}
+
+</p>
+
+
+<p style="margin:0;">
+
+<strong>Subject:</strong>
+
+{escape(contact.subject)}
+
+</p>
+
+</div>
+
+
+<!-- MESSAGE -->
+
+<h2 style="
+    font-size:18px;
+    color:#111111;
+">
+
+Message
+
+</h2>
+
+
+<div style="
+    background:#f7f7f7;
+    padding:20px;
+    border-radius:8px;
+    line-height:1.7;
+    color:#444444;
+    white-space:pre-line;
+">
+
+{escape(contact.message)}
+
+</div>
+
+
+<!-- DASHBOARD BUTTON -->
+
+<div style="
+    text-align:center;
+    margin-top:30px;
+">
+
+<a
+    href="{SITE_URL}/dashboard/contacts/view/{contact.id}/"
+    style="
+        display:inline-block;
+        padding:14px 25px;
+        background:#111111;
+        color:#ffffff;
+        text-decoration:none;
+        border-radius:6px;
+        font-weight:bold;
+    "
+>
+
+View Message in Dashboard
+
+</a>
+
+</div>
+
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div style="
+    padding:20px;
+    background:#111111;
+    text-align:center;
+    color:#888888;
+    font-size:11px;
+">
+
+OSHARI ITNS · Contact Notification
+
+</div>
+
+
+</div>
+
+</body>
+
+</html>
+            """
+
+        })
+
+    except Exception as e:
+
+        print(f"Contact email failed: {e}")

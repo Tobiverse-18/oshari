@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, request
 from django.views.decorators.http import require_POST
 from django.db.models import Q
+from .emails import send_contact_notification
 
 from .models import Product, NewsletterSubscriber
 from .forms import NewsletterForm
@@ -653,7 +654,10 @@ def contact(request):
 
         if form.is_valid():
 
-            form.save()
+            contact = form.save()
+
+            # Send email notification to admin
+            send_contact_notification(contact)
 
             messages.success(
                 request,
@@ -664,7 +668,7 @@ def contact(request):
 
         else:
 
-            print(form.errors)   # <-- Add this
+            print(form.errors)
 
     else:
 
