@@ -3,7 +3,7 @@
 =========================== */
 
 .about-hero{
-    padding:120px 0 90px;
+    padding:120px 0 50px;
     text-align:center;
     background:var(--bg-color);
 }
@@ -29,7 +29,7 @@
 =========================== */
 
 .about-story{
-    padding:90px 0;
+    padding:30px 0;
     background:var(--card-bg);
 }
 
@@ -57,7 +57,7 @@
 =========================== */
 
 .about-values{
-    padding:100px 0;
+    padding:70px 0;
 }
 
 .about-values h2{
@@ -105,7 +105,7 @@
 =========================== */
 
 .about-choose{
-    padding:100px 0;
+    padding:70px 0 15px;
     background:var(--card-bg);
 }
 
@@ -136,7 +136,7 @@
 =========================== */
 
 .about-cta{
-    padding:100px 0;
+    padding:70px 0;
     text-align:center;
 }
 
@@ -160,7 +160,7 @@
 @media(max-width:768px){
 
     .about-hero{
-        padding:90px 0 70px;
+        padding:90px 0 40px;
     }
 
     .about-hero h1{

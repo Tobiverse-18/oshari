@@ -252,6 +252,15 @@ RESPONSIVE
 
 @media(max-width:768px){
 
+.shop-page{
+
+    padding:100px 0;
+
+    background:var(--background-color);
+
+}
+
+
 .shop-header h1{
 
     font-size:2.2rem;
