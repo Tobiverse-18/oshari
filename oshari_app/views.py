@@ -1056,23 +1056,11 @@ def dashboard_add_product(request):
 
         if form.is_valid():
 
+            # ==========================================
+            # SAVE PRODUCT + SIZES
+            # ==========================================
+
             product = form.save()
-
-            # ==========================================
-            # SAVE PRODUCT SIZES
-            # ==========================================
-
-            selected_sizes = form.cleaned_data.get(
-                "available_sizes",
-                []
-            )
-
-            for size in selected_sizes:
-
-                ProductSize.objects.create(
-                    product=product,
-                    size=size
-                )
 
             # ==========================================
             # SAVE GALLERY IMAGES
@@ -1102,7 +1090,9 @@ def dashboard_add_product(request):
                 "Product added successfully."
             )
 
-            return redirect("dashboard_products")
+            return redirect(
+                "dashboard_products"
+            )
 
     else:
 
