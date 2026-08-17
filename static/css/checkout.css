@@ -437,3 +437,77 @@ body.dark-mode .buy-now-badge{
     color:var(--text-light);
 
 }
+
+
+/* ==========================================
+   CHECKOUT PRODUCT SUMMARY
+========================================== */
+
+.summary-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.summary-product{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:5px;
+
+}
+
+.summary-product strong{
+
+    color:#111827;
+
+    font-size:15px;
+
+}
+
+.summary-product span{
+
+    color:#6b7280;
+
+    font-size:13px;
+
+}
+
+.summary-price{
+
+    font-weight:700;
+
+    color:#111827;
+
+    white-space:nowrap;
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media(max-width:600px){
+
+    .summary-item{
+
+        align-items:flex-start;
+
+    }
+
+    .summary-price{
+
+        font-size:14px;
+
+    }
+
+}

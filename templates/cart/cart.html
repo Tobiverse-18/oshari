@@ -12,25 +12,51 @@ Shopping Cart | OSHARI ITNS
 
     <div class="container">
 
+        <!-- ========================================== -->
+        <!-- HEADER -->
+        <!-- ========================================== -->
+
         <div class="cart-header">
 
-            <h1>Shopping Cart</h1>
+            <h1>
+                Shopping Cart
+            </h1>
 
-            <p>Review your items before checkout.</p>
+            <p>
+                Review your items before checkout.
+            </p>
 
         </div>
+
 
         {% if cart %}
 
         <div class="cart-wrapper">
 
-        <form style="display:none;">
-            {% csrf_token %}
-        </form>
+
+            <!-- CSRF TOKEN FOR JAVASCRIPT REQUESTS -->
+
+            <form style="display:none;">
+
+                {% csrf_token %}
+
+            </form>
+
+
+            <!-- ========================================== -->
+            <!-- CART ITEMS -->
+            <!-- ========================================== -->
 
             {% for item in cart %}
 
-            <div class="cart-item" data-cart-item="{{ item.product.id }}">
+            <div 
+                class="cart-item"
+                data-cart-item="{{ item.product.id }}"
+                data-size="{{ item.size|default:'' }}"
+            >
+
+
+                <!-- PRODUCT IMAGE -->
 
                 <div class="cart-image">
 
@@ -41,13 +67,15 @@ Shopping Cart | OSHARI ITNS
 
                 </div>
 
+
+                <!-- PRODUCT INFORMATION -->
+
                 <div class="cart-info">
 
                     <h3>
-
                         {{ item.product.name }}
-
                     </h3>
+
 
                     <span class="cart-price">
 
@@ -55,17 +83,47 @@ Shopping Cart | OSHARI ITNS
 
                     </span>
 
+
+                    <!-- SELECTED SIZE -->
+
+                    {% if item.size %}
+
+                    <div class="cart-size">
+
+                        <strong>
+                            Size:
+                        </strong>
+
+                        <span>
+                            {{ item.size }}
+                        </span>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    <!-- QUANTITY -->
+
                     <div class="cart-quantity">
 
-                        Quantity
+                        <span>
+                            Quantity
+                        </span>
 
-                        <div class="quantity-box" data-id="{{ item.product.id }}">
+                        <div
+                            class="quantity-box"
+                            data-id="{{ item.product.id }}"
+                            data-size="{{ item.size|default:'' }}"
+                        >
 
-                            <button type="button" class="qty-btn minus">
-
-                                -
-
+                            <button
+                                type="button"
+                                class="qty-btn minus"
+                            >
+                                −
                             </button>
+
 
                             <input
                                 type="number"
@@ -74,10 +132,12 @@ Shopping Cart | OSHARI ITNS
                                 readonly
                             >
 
-                            <button type="button" class="qty-btn plus">
 
+                            <button
+                                type="button"
+                                class="qty-btn plus"
+                            >
                                 +
-
                             </button>
 
                         </div>
@@ -86,21 +146,38 @@ Shopping Cart | OSHARI ITNS
 
                 </div>
 
+
+                <!-- ========================================== -->
+                <!-- RIGHT SIDE -->
+                <!-- ========================================== -->
+
                 <div class="cart-right">
 
-                    <span class="subtotal" data-subtotal="{{ item.product.id }}">
 
+                    <!-- SUBTOTAL -->
+
+                    <span
+                        class="subtotal"
+                        data-subtotal="{{ item.product.id }}"
+                        data-size="{{ item.size|default:'' }}"
+                    >
 
                         ₦{{ item.total_price|naira }}
 
                     </span>
 
+
+                    <!-- REMOVE -->
+
                     <button
                         type="button"
                         class="remove"
                         data-remove="{{ item.product.id }}"
+                        data-size="{{ item.size|default:'' }}"
                     >
+
                         Remove
+
                     </button>
 
                 </div>
@@ -109,12 +186,15 @@ Shopping Cart | OSHARI ITNS
 
             {% endfor %}
 
+
+            <!-- ========================================== -->
+            <!-- TOTAL -->
+            <!-- ========================================== -->
+
             <div class="cart-total">
 
                 <h2>
-
                     Total
-
                 </h2>
 
                 <span id="cart-total">
@@ -125,7 +205,13 @@ Shopping Cart | OSHARI ITNS
 
             </div>
 
+
+            <!-- ========================================== -->
+            <!-- BUTTONS -->
+            <!-- ========================================== -->
+
             <div class="cart-buttons">
+
 
                 <a
                     href="{% url 'shop' %}"
@@ -136,39 +222,41 @@ Shopping Cart | OSHARI ITNS
 
                 </a>
 
+
                 <a
                     href="{% url 'checkout' %}"
                     class="btn btn-primary"
                 >
+
                     Proceed to Checkout
+
                 </a>
 
             </div>
 
         </div>
 
+
         {% else %}
+
+
+        <!-- ========================================== -->
+        <!-- EMPTY CART -->
+        <!-- ========================================== -->
 
         <div class="empty-cart">
 
             <h2>
-
                 Your cart is empty
-
             </h2>
 
             <p>
-
                 Start shopping to add products.
-
             </p>
 
             <a
-
                 href="{% url 'shop' %}"
-
                 class="btn btn-primary"
-
             >
 
                 Shop Now

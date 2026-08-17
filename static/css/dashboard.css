@@ -475,3 +475,82 @@ button{
     }
 
 }
+
+/* ==========================================
+   MOBILE HORIZONTAL SCROLL FIX
+========================================== */
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+
+/* Prevent dashboard content from exceeding viewport */
+
+.dashboard-page {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   PRODUCT TABLE MOBILE
+========================================== */
+
+.table-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* Make sure the table itself can actually
+   become wider than the wrapper */
+
+.dashboard-table {
+    min-width: 850px;
+}
+
+
+/* ==========================================
+   SEARCH MOBILE
+========================================== */
+
+.search-box {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.search-box input {
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 900px) {
+
+    .table-wrapper {
+        overflow-x: auto;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .dashboard-table {
+        display: table;
+        width: 850px;
+        min-width: 850px;
+        white-space: nowrap;
+    }
+
+}

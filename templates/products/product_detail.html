@@ -13,7 +13,9 @@
 
         <div class="product-grid">
 
-            <!-- PRODUCT IMAGE -->
+            <!-- ========================================== -->
+            <!-- PRODUCT GALLERY -->
+            <!-- ========================================== -->
 
             <div class="product-gallery">
 
@@ -56,132 +58,223 @@
 
             </div>
 
-            <!-- PRODUCT INFO -->
+
+            <!-- ========================================== -->
+            <!-- PRODUCT INFORMATION -->
+            <!-- ========================================== -->
 
             <div class="product-info">
 
-                <h1>{{ product.name }}</h1>
+                <h1>
+                    {{ product.name }}
+                </h1>
 
                 <h2 class="price">
                     ₦{{ product.price }}
                 </h2>
+
+
+                <!-- ========================================== -->
+                <!-- STOCK -->
+                <!-- ========================================== -->
 
                 {% if product.track_stock %}
 
                     {% if product.stock > 0 %}
 
                         <div class="stock in-stock">
-
                             In Stock ({{ product.stock }} left)
-
                         </div>
 
                     {% else %}
 
                         <div class="stock out-stock">
-
                             Out of Stock
-
                         </div>
 
                     {% endif %}
 
                 {% endif %}
 
+
                 {% if not product.track_stock or product.stock > 0 %}
 
-                <!-- QUANTITY -->
 
-                <div class="quantity">
+                    <!-- ========================================== -->
+                    <!-- SIZE SELECTION -->
+                    <!-- ========================================== -->
 
-                    <label>Quantity</label>
+                    {% if product.sizes.exists %}
 
-                    <div class="quantity-box">
+                        <div class="product-sizes">
 
-                        <button type="button" class="qty-btn minus">−</button>
+                            <label class="size-title">
+                                Size
+                            </label>
 
-                        <input
-                            type="number"
-                            id="quantity"
-                            value="1"
-                            min="1"
-                        >
+                            <div class="size-options">
 
-                        <button type="button" class="qty-btn plus">+</button>
+                                {% for product_size in product.sizes.all %}
+
+                                    <label class="size-option">
+
+                                        <input
+                                            type="radio"
+                                            name="size"
+                                            value="{{ product_size.size }}"
+                                            required
+                                        >
+
+                                        <span>
+                                            {{ product_size.size }}
+                                        </span>
+
+                                    </label>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- ========================================== -->
+                    <!-- QUANTITY -->
+                    <!-- ========================================== -->
+
+                    <div class="quantity">
+
+                        <label>
+                            Quantity
+                        </label>
+
+                        <div class="quantity-box">
+
+                            <button
+                                type="button"
+                                class="qty-btn minus"
+                            >
+                                −
+                            </button>
+
+                            <input
+                                type="number"
+                                id="quantity"
+                                value="1"
+                                min="1"
+                            >
+
+                            <button
+                                type="button"
+                                class="qty-btn plus"
+                            >
+                                +
+                            </button>
+
+                        </div>
 
                     </div>
 
-                </div>
 
-                <!-- ADD TO CART -->
+                    <!-- ========================================== -->
+                    <!-- ADD TO CART -->
+                    <!-- ========================================== -->
 
-                <form
-                    action="{% url 'add_to_cart' product.id %}"
-                    method="POST"
-                    id="add-to-cart-form"
-                >
-
-                    {% csrf_token %}
-
-                    <input
-                        type="hidden"
-                        name="quantity"
-                        id="hidden-quantity"
-                        value="1"
+                    <form
+                        action="{% url 'add_to_cart' product.id %}"
+                        method="POST"
+                        id="add-to-cart-form"
                     >
 
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
+                        {% csrf_token %}
+
+                        <input
+                            type="hidden"
+                            name="quantity"
+                            id="hidden-quantity"
+                            value="1"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="size"
+                            id="cart-size"
+                            value=""
+                        >
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            Add to Cart
+                        </button>
+
+                    </form>
+
+
+                    <!-- ========================================== -->
+                    <!-- BUY NOW -->
+                    <!-- ========================================== -->
+
+                    <form
+                        action="{% url 'buy_now' product.id %}"
+                        method="POST"
+                        id="buy-now-form"
                     >
-                        Add to Cart
-                    </button>
 
-                </form>
+                        {% csrf_token %}
 
-                <!-- BUY NOW -->
+                        <input
+                            type="hidden"
+                            name="quantity"
+                            id="buy-now-quantity"
+                            value="1"
+                        >
 
-                <form
-                    action="{% url 'buy_now' product.id %}"
-                    method="POST"
-                >
+                        <input
+                            type="hidden"
+                            name="size"
+                            id="buy-now-size"
+                            value=""
+                        >
 
-                    {% csrf_token %}
+                        <button
+                            type="submit"
+                            class="btn btn-secondary"
+                        >
+                            Buy Now
+                        </button>
 
-                    <input
-                        type="hidden"
-                        name="quantity"
-                        id="buy-now-quantity"
-                        value="1"
-                    >
+                    </form>
 
-                    <button
-                        type="submit"
-                        class="btn btn-secondary"
-                    >
-                        Buy Now
-                    </button>
-
-                </form>
 
                 {% else %}
 
-                <button
-                    class="btn btn-disabled"
-                    disabled
-                >
-                    Out of Stock
-                </button>
+                    <button
+                        class="btn btn-disabled"
+                        disabled
+                    >
+                        Out of Stock
+                    </button>
 
                 {% endif %}
 
+
+                <!-- ========================================== -->
                 <!-- DESCRIPTION -->
+                <!-- ========================================== -->
 
                 <div class="description">
 
-                    <h3>Description</h3>
+                    <h3>
+                        Description
+                    </h3>
 
-                    <p>{{ product.description }}</p>
+                    <p>
+                        {{ product.description }}
+                    </p>
 
                 </div>
 
@@ -193,53 +286,248 @@
 
 </section>
 
+
+<!-- ========================================== -->
+<!-- PRODUCT PAGE JAVASCRIPT -->
+<!-- ========================================== -->
+
 <script>
 
-const quantityInput = document.getElementById("quantity");
+document.addEventListener("DOMContentLoaded", function () {
 
-const hiddenQuantity = document.getElementById("hidden-quantity");
+    const quantityInput =
+        document.getElementById("quantity");
 
-const buyNowQuantity = document.getElementById("buy-now-quantity");
+    const hiddenQuantity =
+        document.getElementById("hidden-quantity");
 
-const minus = document.querySelector(".minus");
+    const buyNowQuantity =
+        document.getElementById("buy-now-quantity");
 
-const plus = document.querySelector(".plus");
+    const cartSize =
+        document.getElementById("cart-size");
 
-if (minus && plus) {
+    const buyNowSize =
+        document.getElementById("buy-now-size");
 
-    minus.addEventListener("click", () => {
+    const minus =
+        document.querySelector(".minus");
 
-        if (quantityInput.value > 1) {
+    const plus =
+        document.querySelector(".plus");
 
-            quantityInput.value--;
 
-            hiddenQuantity.value = quantityInput.value;
+    /* ==========================================
+       SIZE
+    ========================================== */
 
-            buyNowQuantity.value = quantityInput.value;
+    const sizeInputs =
+        document.querySelectorAll(
+            'input[name="size"]'
+        );
+
+
+    function updateSelectedSize() {
+
+        const selectedSize =
+            document.querySelector(
+                'input[name="size"]:checked'
+            );
+
+        if (selectedSize) {
+
+            if (cartSize) {
+                cartSize.value =
+                    selectedSize.value;
+            }
+
+            if (buyNowSize) {
+                buyNowSize.value =
+                    selectedSize.value;
+            }
 
         }
 
-    });
+    }
 
-    plus.addEventListener("click", () => {
 
-        quantityInput.value++;
+    sizeInputs.forEach(function (input) {
 
-        hiddenQuantity.value = quantityInput.value;
-
-        buyNowQuantity.value = quantityInput.value;
-
-    });
-
-    quantityInput.addEventListener("input", () => {
-
-        hiddenQuantity.value = quantityInput.value;
-
-        buyNowQuantity.value = quantityInput.value;
+        input.addEventListener(
+            "change",
+            updateSelectedSize
+        );
 
     });
 
-}
+
+    /* ==========================================
+       QUANTITY
+    ========================================== */
+
+    if (
+        minus &&
+        plus &&
+        quantityInput
+    ) {
+
+        minus.addEventListener(
+            "click",
+            function () {
+
+                let quantity =
+                    parseInt(
+                        quantityInput.value
+                    ) || 1;
+
+                if (quantity > 1) {
+
+                    quantity--;
+
+                    quantityInput.value =
+                        quantity;
+
+                    if (hiddenQuantity) {
+                        hiddenQuantity.value =
+                            quantity;
+                    }
+
+                    if (buyNowQuantity) {
+                        buyNowQuantity.value =
+                            quantity;
+                    }
+
+                }
+
+            }
+        );
+
+
+        plus.addEventListener(
+            "click",
+            function () {
+
+                let quantity =
+                    parseInt(
+                        quantityInput.value
+                    ) || 1;
+
+                quantity++;
+
+                quantityInput.value =
+                    quantity;
+
+                if (hiddenQuantity) {
+                    hiddenQuantity.value =
+                        quantity;
+                }
+
+                if (buyNowQuantity) {
+                    buyNowQuantity.value =
+                        quantity;
+                }
+
+            }
+        );
+
+
+        quantityInput.addEventListener(
+            "input",
+            function () {
+
+                let quantity =
+                    parseInt(
+                        quantityInput.value
+                    ) || 1;
+
+                if (quantity < 1) {
+
+                    quantity = 1;
+
+                    quantityInput.value =
+                        1;
+
+                }
+
+                if (hiddenQuantity) {
+                    hiddenQuantity.value =
+                        quantity;
+                }
+
+                if (buyNowQuantity) {
+                    buyNowQuantity.value =
+                        quantity;
+                }
+
+            }
+        );
+
+    }
+
+
+    /* ==========================================
+       PREVENT ADD TO CART WITHOUT SIZE
+    ========================================== */
+
+    const addToCartForm =
+        document.getElementById(
+            "add-to-cart-form"
+        );
+
+    const buyNowForm =
+        document.getElementById(
+            "buy-now-form"
+        );
+
+
+    function validateSize(event) {
+
+        if (sizeInputs.length === 0) {
+            return true;
+        }
+
+        const selectedSize =
+            document.querySelector(
+                'input[name="size"]:checked'
+            );
+
+        if (!selectedSize) {
+
+            event.preventDefault();
+
+            alert(
+                "Please select a size before continuing."
+            );
+
+            return false;
+        }
+
+        updateSelectedSize();
+
+        return true;
+    }
+
+
+    if (addToCartForm) {
+
+        addToCartForm.addEventListener(
+            "submit",
+            validateSize
+        );
+
+    }
+
+
+    if (buyNowForm) {
+
+        buyNowForm.addEventListener(
+            "submit",
+            validateSize
+        );
+
+    }
+
+});
 
 </script>
 

@@ -13,109 +13,132 @@ Order Details
     <div>
 
         <h1>
-
             Order Details
-
         </h1>
 
         <p>
-
             {{ order.order_number }}
-
         </p>
 
     </div>
 
 </div>
 
+
+<!-- ==========================================
+     CUSTOMER + ORDER SUMMARY
+========================================== -->
+
 <div class="order-details-grid">
 
-    <!-- Customer -->
+
+    <!-- CUSTOMER -->
 
     <div class="order-card">
 
         <h3>
-
             Customer Information
-
         </h3>
+
 
         <div class="info-item">
 
             <strong>Name</strong>
 
-            <span>{{ order.full_name }}</span>
+            <span>
+                {{ order.full_name }}
+            </span>
 
         </div>
+
 
         <div class="info-item">
 
             <strong>Email</strong>
 
-            <span>{{ order.email }}</span>
+            <span>
+                {{ order.email }}
+            </span>
 
         </div>
+
 
         <div class="info-item">
 
             <strong>Phone</strong>
 
-            <span>{{ order.phone }}</span>
+            <span>
+                {{ order.phone }}
+            </span>
 
         </div>
+
 
         <div class="info-item">
 
             <strong>State</strong>
 
-            <span>{{ order.state }}</span>
+            <span>
+                {{ order.state }}
+            </span>
 
         </div>
+
 
         <div class="info-item">
 
             <strong>City</strong>
 
-            <span>{{ order.city }}</span>
+            <span>
+                {{ order.city }}
+            </span>
 
         </div>
+
 
         <div class="info-item">
 
             <strong>Address</strong>
 
-            <span>{{ order.address }}</span>
+            <span>
+                {{ order.address }}
+            </span>
 
         </div>
 
     </div>
 
 
-    <!-- Order -->
+    <!-- ORDER SUMMARY -->
 
     <div class="order-card">
 
         <h3>
-
             Order Summary
-
         </h3>
+
 
         <div class="info-item">
 
             <strong>Order Number</strong>
 
-            <span>{{ order.order_number }}</span>
+            <span>
+                {{ order.order_number }}
+            </span>
 
         </div>
+
 
         <div class="info-item">
 
             <strong>Total</strong>
 
-            <span>₦{{ order.total }}</span>
+            <span>
+                ₦{{ order.total }}
+            </span>
 
         </div>
+
 
         <div class="info-item">
 
@@ -137,6 +160,7 @@ Order Details
 
         </div>
 
+
         <div class="info-item">
 
             <strong>Status</strong>
@@ -149,11 +173,16 @@ Order Details
 
         </div>
 
+
         <div class="info-item">
 
             <strong>Date</strong>
 
-            <span>{{ order.created_at }}</span>
+            <span>
+
+                {{ order.created_at }}
+
+            </span>
 
         </div>
 
@@ -162,107 +191,177 @@ Order Details
 </div>
 
 
+<!-- ==========================================
+     ORDERED PRODUCTS
+========================================== -->
+
 <div class="order-card">
 
     <h3>
-
         Ordered Products
-
     </h3>
 
-    <table class="dashboard-table">
 
-        <thead>
+    <div class="order-table-wrapper">
 
-            <tr>
+        <table class="dashboard-table">
 
-                <th>Image</th>
+            <thead>
 
-                <th>Product</th>
+                <tr>
 
-                <th>Qty</th>
+                    <th>
+                        Image
+                    </th>
 
-                <th>Price</th>
+                    <th>
+                        Product
+                    </th>
 
-                <th>Subtotal</th>
+                    <th>
+                        Size
+                    </th>
 
-            </tr>
+                    <th>
+                        Qty
+                    </th>
 
-        </thead>
+                    <th>
+                        Price
+                    </th>
 
-        <tbody>
+                    <th>
+                        Subtotal
+                    </th>
 
-            {% for item in order_items %}
+                </tr>
 
-            <tr>
+            </thead>
 
-                <td>
 
-                    <img
-                        src="{{ item.product.image.url }}"
-                        class="order-product-image"
-                    >
+            <tbody>
 
-                </td>
+                {% for item in order_items %}
 
-                <td>
+                <tr>
 
-                    {{ item.product.name }}
 
-                </td>
+                    <!-- IMAGE -->
 
-                <td>
+                    <td>
 
-                    {{ item.quantity }}
+                        <img
+                            src="{{ item.product.image.url }}"
+                            alt="{{ item.product.name }}"
+                            class="order-product-image"
+                        >
 
-                </td>
+                    </td>
 
-                <td>
 
-                    ₦{{ item.price }}
+                    <!-- PRODUCT -->
 
-                </td>
+                    <td>
 
-                <td>
+                        <strong>
+                            {{ item.product.name }}
+                        </strong>
 
-                    ₦{{ item.subtotal }}
+                    </td>
 
-                </td>
 
-            </tr>
+                    <!-- SIZE -->
 
-            {% empty %}
+                    <td>
 
-            <tr>
+                        {% if item.size %}
 
-                <td colspan="5">
+                            <span class="order-size">
 
-                    No products in this order.
+                                {{ item.size }}
 
-                </td>
+                            </span>
 
-            </tr>
+                        {% else %}
 
-            {% endfor %}
+                            <span class="no-size">
 
-        </tbody>
+                                No Size
 
-    </table>
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- QUANTITY -->
+
+                    <td>
+
+                        {{ item.quantity }}
+
+                    </td>
+
+
+                    <!-- PRICE -->
+
+                    <td>
+
+                        ₦{{ item.price }}
+
+                    </td>
+
+
+                    <!-- SUBTOTAL -->
+
+                    <td>
+
+                        ₦{{ item.subtotal }}
+
+                    </td>
+
+                </tr>
+
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="6">
+
+                        No products in this order.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </div>
 
 
+<!-- ==========================================
+     UPDATE STATUS
+========================================== -->
+
 <div class="order-card">
 
     <h3>
-
         Update Order Status
-
     </h3>
+
 
     <form method="POST">
 
         {% csrf_token %}
+
 
         <div class="status-update">
 
@@ -270,13 +369,12 @@ Order Details
 
                 {% for status, value in order.STATUS_CHOICES %}
 
-                    <option value="{{ status }}"
-
-                    {% if order.status == status %}
-
-                        selected
-
-                    {% endif %}>
+                    <option
+                        value="{{ status }}"
+                        {% if order.status == status %}
+                            selected
+                        {% endif %}
+                    >
 
                         {{ value }}
 
@@ -286,7 +384,11 @@ Order Details
 
             </select>
 
-            <button class="primary-btn">
+
+            <button
+                type="submit"
+                class="primary-btn"
+            >
 
                 Save Changes
 

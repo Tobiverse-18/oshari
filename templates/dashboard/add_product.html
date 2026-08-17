@@ -67,6 +67,30 @@
 
             </div>
 
+            <div class="form-group full">
+
+                <label>Available Sizes</label>
+
+                <div class="size-options">
+
+                    {% for checkbox in form.available_sizes %}
+
+                        <label class="size-option">
+
+                            {{ checkbox.tag }}
+
+                            <span>{{ checkbox.choice_label }}</span>
+
+                        </label>
+
+                    {% endfor %}
+
+                </div>
+
+                {{ form.available_sizes.errors }}
+
+            </div>
+
             <!-- PRODUCT OPTIONS -->
 
             <div class="checkbox-group">

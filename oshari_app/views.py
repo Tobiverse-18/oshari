@@ -179,24 +179,95 @@ def add_to_cart(request, product_id):
         is_available=True,
     )
 
+    # ==========================================
+    # STOCK CHECK
+    # ==========================================
+
     if product.track_stock and product.stock <= 0:
+
         return JsonResponse({
             "success": False,
             "message": "Sorry, this product is out of stock."
         })
 
-    quantity = int(request.POST.get("quantity", 1))
+    # ==========================================
+    # QUANTITY
+    # ==========================================
+
+    try:
+
+        quantity = int(
+            request.POST.get("quantity", 1)
+        )
+
+    except (TypeError, ValueError):
+
+        quantity = 1
+
+    if quantity < 1:
+
+        quantity = 1
+
+    # ==========================================
+    # SIZE
+    # ==========================================
+
+    size = request.POST.get(
+        "size",
+        ""
+    ).strip()
+
+    # ==========================================
+    # REQUIRE SIZE IF PRODUCT HAS SIZES
+    # ==========================================
+
+    if product.sizes.exists() and not size:
+
+        return JsonResponse({
+            "success": False,
+            "message": "Please select a size."
+        })
+
+    # ==========================================
+    # VALIDATE SIZE
+    # ==========================================
+
+    if size and not product.sizes.filter(
+        size=size
+    ).exists():
+
+        return JsonResponse({
+            "success": False,
+            "message": "Invalid size selected."
+        })
+
+    # ==========================================
+    # ADD TO CART
+    # ==========================================
 
     cart.add(
         product=product,
         quantity=quantity,
+        size=size or None,
     )
 
+    # ==========================================
+    # RESPONSE
+    # ==========================================
+
     return JsonResponse({
+
         "success": True,
+
         "product": product.name,
+
         "quantity": quantity,
-        "cart_count": cart.get_total_items(),
+
+        "size": size or None,
+
+        "cart_count":
+            cart.get_total_items(),
+
     })
 
 
@@ -223,13 +294,30 @@ def remove_from_cart(request, product_id):
         id=product_id,
     )
 
-    cart.remove(product)
+    size = request.POST.get(
+        "size",
+        ""
+    ).strip()
+
+    cart.remove(
+        product=product,
+        size=size or None,
+    )
 
     return JsonResponse({
+
         "success": True,
-        "total": cart.get_total_price(),
-        "items": cart.get_total_items(),
-        "empty": cart.get_total_items() == 0,
+
+        "total": str(
+            cart.get_total_price()
+        ),
+
+        "items":
+            cart.get_total_items(),
+
+        "empty":
+            cart.get_total_items() == 0,
+
     })
 
 
@@ -237,26 +325,46 @@ def remove_from_cart(request, product_id):
 def update_cart(request):
 
     product_id = request.POST.get("product_id")
+    quantity_raw = request.POST.get("quantity")
+    size = request.POST.get("size", "").strip()
 
-    quantity = int(request.POST.get("quantity"))
+    # ==========================================
+    # VALIDATE QUANTITY
+    # ==========================================
+
+    try:
+        quantity = int(quantity_raw)
+    except (TypeError, ValueError):
+        quantity = 1
+
+    if quantity < 1:
+        quantity = 1
+
+    # ==========================================
+    # CART
+    # ==========================================
 
     cart = Cart(request)
 
     product = get_object_or_404(
-
         Product,
-
-        id=product_id
-
+        id=product_id,
+        is_available=True,
     )
+
+    # ==========================================
+    # UPDATE PRODUCT + SIZE
+    # ==========================================
 
     cart.update(
-
-        product,
-
-        quantity
-
+        product=product,
+        quantity=quantity,
+        size=size or None,
     )
+
+    # ==========================================
+    # RESPONSE
+    # ==========================================
 
     subtotal = product.price * quantity
 
@@ -264,11 +372,14 @@ def update_cart(request):
 
         "success": True,
 
-        "subtotal": subtotal,
+        "subtotal": str(subtotal),
 
-        "total": cart.get_total_price(),
+        "total": str(
+            cart.get_total_price()
+        ),
 
-        "items": cart.get_total_items()
+        "items":
+            cart.get_total_items(),
 
     })
 
@@ -282,6 +393,10 @@ def checkout(request):
     checkout_items = []
     total = Decimal("0.00")
 
+    # ==========================================
+    # BUY NOW
+    # ==========================================
+
     if buy_now:
 
         product = get_object_or_404(
@@ -292,15 +407,22 @@ def checkout(request):
 
         quantity = buy_now["quantity"]
 
+        size = buy_now.get("size")
+
         item_total = product.price * quantity
 
         checkout_items.append({
             "product": product,
             "quantity": quantity,
+            "size": size,
             "total_price": item_total,
         })
 
         total = item_total
+
+    # ==========================================
+    # NORMAL CART CHECKOUT
+    # ==========================================
 
     else:
 
@@ -311,6 +433,10 @@ def checkout(request):
         checkout_items = list(cart)
 
         total = cart.get_total_price()
+
+    # ==========================================
+    # CREATE ORDER
+    # ==========================================
 
     if request.method == "POST":
 
@@ -326,7 +452,13 @@ def checkout(request):
 
             order.order_number = f"OSH{order.id:06d}"
 
-            order.save(update_fields=["order_number"])
+            order.save(
+                update_fields=["order_number"]
+            )
+
+            # ==========================================
+            # CREATE ORDER ITEMS
+            # ==========================================
 
             for item in checkout_items:
 
@@ -336,17 +468,26 @@ def checkout(request):
 
                     product=item["product"],
 
+                    size=item.get("size"),
+
                     quantity=item["quantity"],
 
                     price=item["product"].price,
 
                 )
 
+            # ==========================================
+            # CLEAR BUY NOW
+            # ==========================================
+
             if buy_now:
 
                 del request.session["buy_now"]
 
-            return redirect("payment", order.id)
+            return redirect(
+                "payment",
+                order.id
+            )
 
     else:
 
@@ -628,13 +769,38 @@ def buy_now(request, product_id):
     )
 
     if product.track_stock and product.stock <= 0:
-        return redirect("product_detail", pk=product.id)
 
-    quantity = int(request.POST.get("quantity", 1))
+        return redirect(
+            "product_detail",
+            pk=product.id
+        )
+
+    quantity = int(
+        request.POST.get("quantity", 1)
+    )
+
+    size = request.POST.get("size")
+
+    if product.sizes.exists() and not size:
+
+        messages.error(
+            request,
+            "Please select a size."
+        )
+
+        return redirect(
+            "product_detail",
+            pk=product.id
+        )
 
     request.session["buy_now"] = {
+
         "product_id": product.id,
+
         "quantity": quantity,
+
+        "size": size,
+
     }
 
     return redirect("checkout")
@@ -722,6 +888,8 @@ from .models import (
 from .forms import ProductForm
 
 from .models import ProductImage
+
+from .models import ProductSize
 
 
 # ==========================================
@@ -890,7 +1058,29 @@ def dashboard_add_product(request):
 
             product = form.save()
 
-            gallery_images = request.FILES.getlist("gallery_images")
+            # ==========================================
+            # SAVE PRODUCT SIZES
+            # ==========================================
+
+            selected_sizes = form.cleaned_data.get(
+                "available_sizes",
+                []
+            )
+
+            for size in selected_sizes:
+
+                ProductSize.objects.create(
+                    product=product,
+                    size=size
+                )
+
+            # ==========================================
+            # SAVE GALLERY IMAGES
+            # ==========================================
+
+            gallery_images = request.FILES.getlist(
+                "gallery_images"
+            )
 
             for image in gallery_images:
 

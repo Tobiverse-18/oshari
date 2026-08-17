@@ -1,10 +1,8 @@
 from django import forms
-
 from .models import NewsletterSubscriber
-
 from .models import Order
-
 from .models import ContactMessage
+from .models import ProductSize
 
 
 class NewsletterForm(forms.ModelForm):
@@ -133,9 +131,19 @@ class ContactForm(forms.ModelForm):
         }
 
 
-from .models import Product
+from django import forms
+
+from .models import Product, ProductSize
+
 
 class ProductForm(forms.ModelForm):
+
+    available_sizes = forms.MultipleChoiceField(
+        choices=ProductSize.SIZE_CHOICES,
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        label="Available Sizes",
+    )
 
     class Meta:
 
@@ -151,4 +159,49 @@ class ProductForm(forms.ModelForm):
             "is_available",
             "is_new_drop",
             "notify_subscribers",
+            "available_sizes",
         ]
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        if self.instance.pk:
+
+            self.fields["available_sizes"].initial = (
+                self.instance.sizes
+                .values_list(
+                    "size",
+                    flat=True
+                )
+            )
+
+    def save(self, commit=True):
+
+        product = super().save(
+            commit=commit
+        )
+
+        if commit:
+
+            selected_sizes = self.cleaned_data.get(
+                "available_sizes",
+                []
+            )
+
+            # Remove sizes that are no longer selected
+
+            product.sizes.exclude(
+                size__in=selected_sizes
+            ).delete()
+
+            # Add newly selected sizes
+
+            for size in selected_sizes:
+
+                ProductSize.objects.get_or_create(
+                    product=product,
+                    size=size
+                )
+
+        return product

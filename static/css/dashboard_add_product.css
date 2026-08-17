@@ -659,3 +659,610 @@ input[name="gallery_images"]{
     background:#dc2626;
 
 }
+
+
+/* ==========================================
+   EDIT PRODUCT PAGE
+========================================== */
+
+.dashboard-page {
+    width: 100%;
+}
+
+
+/* ==========================================
+   PAGE HEADER
+========================================== */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    margin: 0;
+    color: #111827;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.page-header p {
+    margin: 8px 0 0;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+
+/* ==========================================
+   FORM CARD
+========================================== */
+
+.form-card {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07);
+}
+
+
+/* ==========================================
+   FORM GRID
+========================================== */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+
+/* ==========================================
+   FORM GROUP
+========================================== */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+
+/* ==========================================
+   LABELS
+========================================== */
+
+.form-group label {
+    margin-bottom: 9px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   INPUTS
+========================================== */
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="url"],
+.form-group input[type="file"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #111827;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: border-color .25s ease,
+                box-shadow .25s ease,
+                background .25s ease;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   TEXTAREA
+========================================== */
+
+.form-group textarea {
+    min-height: 160px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+
+/* ==========================================
+   INPUT FOCUS
+========================================== */
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #111827;
+    box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.08);
+}
+
+
+/* ==========================================
+   FILE INPUT
+========================================== */
+
+.form-group input[type="file"] {
+    padding: 11px 14px;
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   HELP TEXT
+========================================== */
+
+.form-group small {
+    display: block;
+    margin-top: 8px;
+    color: #6b7280;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* ==========================================
+   AVAILABLE SIZES
+========================================== */
+
+.size-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+
+/* ==========================================
+   SIZE OPTION
+========================================== */
+
+.size-option {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #374151;
+    cursor: pointer;
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        color .25s ease,
+        transform .2s ease,
+        box-shadow .25s ease;
+}
+
+
+/* ==========================================
+   SIZE HOVER
+========================================== */
+
+.size-option:hover {
+    border-color: #111827;
+    background: #f9fafb;
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   SIZE CHECKBOX
+========================================== */
+
+.size-option input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    accent-color: #111827;
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   SIZE TEXT
+========================================== */
+
+.size-option span {
+    color: #374151;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   SELECTED SIZE
+========================================== */
+
+.size-option:has(input[type="checkbox"]:checked) {
+    border-color: #111827;
+    background: #111827;
+    box-shadow: 0 5px 15px rgba(17, 24, 39, 0.15);
+}
+
+
+.size-option:has(input[type="checkbox"]:checked) span {
+    color: #ffffff;
+}
+
+
+/* ==========================================
+   IMAGE SECTION
+========================================== */
+
+.current-product-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    padding: 5px;
+}
+
+
+/* ==========================================
+   GALLERY
+========================================== */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 10px;
+}
+
+
+/* ==========================================
+   GALLERY CARD
+========================================== */
+
+.gallery-card {
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 15px;
+    padding: 8px;
+    transition: transform .25s ease,
+                box-shadow .25s ease;
+}
+
+
+.gallery-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+}
+
+
+/* ==========================================
+   GALLERY IMAGE
+========================================== */
+
+.gallery-card img {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+/* ==========================================
+   DELETE GALLERY BUTTON
+========================================== */
+
+.delete-gallery-btn {
+    display: block;
+    margin-top: 8px;
+    padding: 9px 12px;
+    border-radius: 9px;
+    background: #fee2e2;
+    color: #991b1b;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: .25s ease;
+}
+
+
+.delete-gallery-btn:hover {
+    background: #fecaca;
+    color: #7f1d1d;
+}
+
+
+/* ==========================================
+   CHECKBOX GROUP
+========================================== */
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    padding: 14px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+}
+
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: #111827;
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   FORM ERRORS
+========================================== */
+
+.errorlist {
+    margin: 7px 0 0;
+    padding: 0;
+    list-style: none;
+    color: #dc2626;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* ==========================================
+   NON-FIELD ERRORS
+========================================== */
+
+.form-card > form > .errorlist {
+    margin-bottom: 20px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+
+/* ==========================================
+   FORM ACTIONS
+========================================== */
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid #f1f5f9;
+}
+
+
+/* ==========================================
+   PRIMARY BUTTON
+========================================== */
+
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 13px 28px;
+    border: none;
+    border-radius: 12px;
+    background: #111827;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background .25s ease,
+        transform .2s ease,
+        box-shadow .25s ease;
+}
+
+
+.primary-btn:hover {
+    background: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+}
+
+
+/* ==========================================
+   SECONDARY BUTTON
+========================================== */
+
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 13px 28px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #374151;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        color .25s ease;
+}
+
+
+.secondary-btn:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+    color: #111827;
+}
+
+
+/* ==========================================
+   DISABLED INPUT
+========================================== */
+
+.form-group input:disabled,
+.form-group textarea:disabled,
+.form-group select:disabled {
+    background: #f3f4f6;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+
+/* ==========================================
+   RESPONSIVE — TABLET
+========================================== */
+
+@media (max-width: 1000px) {
+
+    .form-card {
+        padding: 28px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ==========================================
+   RESPONSIVE — MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+    .page-header {
+        margin-bottom: 22px;
+    }
+
+    .page-header h1 {
+        font-size: 25px;
+    }
+
+    .form-card {
+        padding: 22px;
+        border-radius: 16px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .gallery-card img {
+        height: 150px;
+    }
+
+    .current-product-image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+    }
+
+}
+
+
+/* ==========================================
+   RESPONSIVE — SMALL MOBILE
+========================================== */
+
+@media (max-width: 480px) {
+
+    .form-card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .page-header h1 {
+        font-size: 22px;
+    }
+
+    .page-header p {
+        font-size: 14px;
+    }
+
+    .size-checkboxes {
+        gap: 8px;
+    }
+
+    .size-option {
+        padding: 10px 13px;
+    }
+
+    .size-option span {
+        font-size: 13px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .gallery-card img {
+        height: 120px;
+    }
+
+    .current-product-image {
+        width: 130px;
+        height: 130px;
+    }
+
+}
+
+

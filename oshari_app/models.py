@@ -43,6 +43,39 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+# ==========================================
+# PRODUCT SIZES
+# ==========================================
+
+class ProductSize(models.Model):
+
+    SIZE_CHOICES = (
+        ("XS", "XS"),
+        ("S", "S"),
+        ("M", "M"),
+        ("L", "L"),
+        ("XL", "XL"),
+        ("XXL", "XXL"),
+    )
+
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="sizes"
+    )
+
+    size = models.CharField(
+        max_length=10,
+        choices=SIZE_CHOICES
+    )
+
+    class Meta:
+        ordering = ["id"]
+        unique_together = ("product", "size")
+
+    def __str__(self):
+        return f"{self.product.name} - {self.size}"
+
 
 # ==========================================
 # PRODUCT GALLERY
@@ -161,6 +194,12 @@ class OrderItem(models.Model):
 
     quantity = models.PositiveIntegerField()
 
+    size = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True
+    )
+
     price = models.DecimalField(
         max_digits=15,
         decimal_places=2
@@ -170,6 +209,9 @@ class OrderItem(models.Model):
         return self.price * self.quantity
 
     def __str__(self):
+        if self.size:
+            return f"{self.product.name} - {self.size} × {self.quantity}"
+
         return f"{self.product.name} × {self.quantity}"
 
 

@@ -548,3 +548,87 @@
     }
 
 }
+
+
+
+/* ==========================================
+   ORDER TABLE WRAPPER
+========================================== */
+
+.order-table-wrapper{
+
+    width:100%;
+
+    overflow-x:auto;
+
+}
+
+
+/* ==========================================
+   ORDER SIZE
+========================================== */
+
+.order-size{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:42px;
+
+    padding:7px 12px;
+
+    border-radius:8px;
+
+    background:#111827;
+
+    color:#fff;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+.no-size{
+
+    color:#9ca3af;
+
+    font-size:13px;
+
+}
+
+
+/* ==========================================
+   PRODUCT NAME
+========================================== */
+
+.dashboard-table td strong{
+
+    color:#111827;
+
+}
+
+
+/* ==========================================
+   MOBILE ORDER TABLE
+========================================== */
+
+@media(max-width:768px){
+
+    .order-table-wrapper{
+
+        overflow-x:auto;
+
+    }
+
+    .dashboard-table{
+
+        min-width:800px;
+
+    }
+
+}

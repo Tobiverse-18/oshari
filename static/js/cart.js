@@ -1,10 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const csrf = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    const csrfInput = document.querySelector(
+        "[name=csrfmiddlewaretoken]"
+    );
 
-    // ==========================
+    if (!csrfInput) {
+        console.error("CSRF token not found.");
+        return;
+    }
+
+    const csrf = csrfInput.value;
+
+
+    // ==========================================
     // QUANTITY UPDATE
-    // ==========================
+    // ==========================================
 
     document.querySelectorAll(".quantity-box").forEach(box => {
 
@@ -12,9 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const plus = box.querySelector(".plus");
         const input = box.querySelector("input");
 
-        const id = box.dataset.id;
+        const productId = box.dataset.id;
+        const size = box.dataset.size || "";
+
 
         function updateCart() {
+
+            const quantity =
+                parseInt(input.value) || 1;
+
 
             fetch("/cart/update/", {
 
@@ -23,136 +39,306 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: {
 
                     "X-CSRFToken": csrf,
-                    "Content-Type": "application/x-www-form-urlencoded",
+
+                    "Content-Type":
+                        "application/x-www-form-urlencoded",
 
                 },
 
                 body: new URLSearchParams({
 
-                    product_id: id,
-                    quantity: input.value,
+                    product_id: productId,
+
+                    quantity: quantity,
+
+                    size: size,
 
                 })
 
             })
 
-            .then(res => res.json())
+            .then(response => {
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Cart update request failed."
+                    );
+                }
+
+                return response.json();
+
+            })
 
             .then(data => {
 
-                document.querySelector(
-                    `[data-subtotal="${id}"]`
-                ).textContent =
-                "₦" + Number(data.subtotal).toLocaleString();
+                if (!data.success) {
 
-                document.getElementById(
-                    "cart-total"
-                ).textContent =
-                "₦" + Number(data.total).toLocaleString();
+                    alert(
+                        data.message ||
+                        "Unable to update cart."
+                    );
 
-                const badge = document.getElementById(
-                    "floating-cart-count"
-                );
-
-                if (badge) {
-
-                    badge.textContent = data.items;
+                    return;
 
                 }
 
-            });
 
-        }
+                // ==================================
+                // SUBTOTAL
+                // ==================================
 
-        plus.addEventListener("click", () => {
+                const subtotal =
+                    document.querySelector(
+                        `[data-subtotal="${productId}"][data-size="${CSS.escape(size)}"]`
+                    );
 
-            input.value++;
 
-            updateCart();
+                if (subtotal) {
 
-        });
+                    subtotal.textContent =
+                        "₦" +
+                        Number(
+                            data.subtotal
+                        ).toLocaleString();
 
-        minus.addEventListener("click", () => {
+                }
 
-            if (parseInt(input.value) > 1) {
 
-                input.value--;
+                // ==================================
+                // CART TOTAL
+                // ==================================
 
-                updateCart();
+                const cartTotal =
+                    document.getElementById(
+                        "cart-total"
+                    );
 
-            }
 
-        });
+                if (cartTotal) {
 
-    });
+                    cartTotal.textContent =
+                        "₦" +
+                        Number(
+                            data.total
+                        ).toLocaleString();
 
-    // ==========================
-    // REMOVE ITEM
-    // ==========================
+                }
 
-    document.querySelectorAll(".remove").forEach(button => {
 
-        button.addEventListener("click", function () {
+                // ==================================
+                // CART BADGE
+                // ==================================
 
-            const id = this.dataset.remove;
+                const badge =
+                    document.getElementById(
+                        "floating-cart-count"
+                    );
 
-            fetch(`/cart/remove/${id}/`, {
 
-                method: "POST",
+                if (badge) {
 
-                headers: {
-
-                    "X-CSRFToken": csrf,
+                    badge.textContent =
+                        data.items;
 
                 }
 
             })
 
-            .then(res => res.json())
+            .catch(error => {
 
-            .then(data => {
-
-                const item = document.querySelector(
-
-                    `[data-cart-item="${id}"]`
-
+                console.error(
+                    "Cart update error:",
+                    error
                 );
-
-                if (item) {
-
-                    item.remove();
-
-                }
-
-                document.getElementById(
-
-                    "cart-total"
-
-                ).textContent =
-                "₦" + Number(data.total).toLocaleString();
-
-                const badge = document.getElementById(
-
-                    "floating-cart-count"
-
-                );
-
-                if (badge) {
-
-                    badge.textContent = data.items;
-
-                }
-
-                if (data.empty) {
-
-                    location.reload();
-
-                }
 
             });
 
-        });
+        }
+
+
+        // ==========================================
+        // PLUS
+        // ==========================================
+
+        if (plus) {
+
+            plus.addEventListener(
+                "click",
+                () => {
+
+                    let quantity =
+                        parseInt(input.value) || 1;
+
+                    quantity++;
+
+                    input.value = quantity;
+
+                    updateCart();
+
+                }
+            );
+
+        }
+
+
+        // ==========================================
+        // MINUS
+        // ==========================================
+
+        if (minus) {
+
+            minus.addEventListener(
+                "click",
+                () => {
+
+                    let quantity =
+                        parseInt(input.value) || 1;
+
+
+                    if (quantity > 1) {
+
+                        quantity--;
+
+                        input.value =
+                            quantity;
+
+                        updateCart();
+
+                    }
+
+                }
+            );
+
+        }
 
     });
+
+
+    // ==========================================
+    // REMOVE ITEM
+    // ==========================================
+
+    document.querySelectorAll(".remove").forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const productId =
+                        this.dataset.remove;
+
+                    const size =
+                        this.dataset.size || "";
+
+
+                    fetch(
+                        `/cart/remove/${productId}/`,
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "X-CSRFToken":
+                                    csrf,
+
+                                "Content-Type":
+                                    "application/x-www-form-urlencoded",
+
+                            },
+
+                            body:
+                                new URLSearchParams({
+
+                                    size: size,
+
+                                })
+
+                        }
+                    )
+
+                    .then(response => response.json())
+
+                    .then(data => {
+
+                        if (!data.success) {
+
+                            alert(
+                                data.message ||
+                                "Unable to remove item."
+                            );
+
+                            return;
+
+                        }
+
+
+                        const item =
+                            document.querySelector(
+                                `[data-cart-item="${productId}"][data-size="${CSS.escape(size)}"]`
+                            );
+
+
+                        if (item) {
+
+                            item.remove();
+
+                        }
+
+
+                        const cartTotal =
+                            document.getElementById(
+                                "cart-total"
+                            );
+
+
+                        if (cartTotal) {
+
+                            cartTotal.textContent =
+                                "₦" +
+                                Number(
+                                    data.total
+                                ).toLocaleString();
+
+                        }
+
+
+                        const badge =
+                            document.getElementById(
+                                "floating-cart-count"
+                            );
+
+
+                        if (badge) {
+
+                            badge.textContent =
+                                data.items;
+
+                        }
+
+
+                        if (data.empty) {
+
+                            location.reload();
+
+                        }
+
+                    })
+
+                    .catch(error => {
+
+                        console.error(
+                            "Remove cart error:",
+                            error
+                        );
+
+                    });
+
+                }
+            );
+
+        }
+    );
 
 });

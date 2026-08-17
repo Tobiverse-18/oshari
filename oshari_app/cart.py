@@ -15,45 +15,84 @@ class Cart:
 
             self.session["cart"] = self.cart
 
-    def add(self, product, quantity=1):
+
+    # ==========================================
+    # ADD PRODUCT
+    # ==========================================
+
+    def add(self, product, quantity=1, size=None):
 
         product_id = str(product.id)
 
         quantity = int(quantity)
 
-        if product_id not in self.cart:
+        # Create a unique cart item based on
+        # product + size
 
-            self.cart[product_id] = {
-                "quantity": quantity
+        cart_key = f"{product_id}_{size or 'no-size'}"
+
+
+        if cart_key not in self.cart:
+
+            self.cart[cart_key] = {
+
+                "product_id": product_id,
+
+                "quantity": quantity,
+
+                "size": size,
+
             }
 
         else:
 
-            self.cart[product_id]["quantity"] += quantity
+            self.cart[cart_key]["quantity"] += quantity
+
 
         self.save()
 
-    def update(self, product, quantity):
+
+    # ==========================================
+    # UPDATE
+    # ==========================================
+
+    def update(self, product, quantity, size=None):
 
         product_id = str(product.id)
 
         quantity = int(quantity)
 
-        if product_id in self.cart:
+        cart_key = f"{product_id}_{size or 'no-size'}"
 
-            self.cart[product_id]["quantity"] = quantity
+
+        if cart_key in self.cart:
+
+            self.cart[cart_key]["quantity"] = quantity
 
             self.save()
 
-    def remove(self, product):
+
+    # ==========================================
+    # REMOVE
+    # ==========================================
+
+    def remove(self, product, size=None):
 
         product_id = str(product.id)
 
-        if product_id in self.cart:
+        cart_key = f"{product_id}_{size or 'no-size'}"
 
-            del self.cart[product_id]
+
+        if cart_key in self.cart:
+
+            del self.cart[cart_key]
 
             self.save()
+
+
+    # ==========================================
+    # CLEAR
+    # ==========================================
 
     def clear(self):
 
@@ -63,39 +102,85 @@ class Cart:
 
         self.session.modified = True
 
+
+    # ==========================================
+    # SAVE
+    # ==========================================
+
     def save(self):
 
         self.session["cart"] = self.cart
 
         self.session.modified = True
 
+
+    # ==========================================
+    # ITERATE CART
+    # ==========================================
+
     def __iter__(self):
 
-        product_ids = self.cart.keys()
+        product_ids = [
 
-        products = Product.objects.filter(id__in=product_ids)
+            item["product_id"]
 
-        for product in products:
+            for item in self.cart.values()
 
-            item = self.cart[str(product.id)].copy()
+        ]
+
+
+        products = Product.objects.filter(
+
+            id__in=product_ids
+
+        )
+
+
+        products_by_id = {
+
+            str(product.id): product
+
+            for product in products
+
+        }
+
+
+        for cart_item in self.cart.values():
+
+            product_id = cart_item["product_id"]
+
+            product = products_by_id.get(product_id)
+
+
+            if not product:
+
+                continue
+
+
+            item = cart_item.copy()
 
             item["product"] = product
 
             item["total_price"] = (
-                product.price * item["quantity"]
+
+                product.price *
+
+                item["quantity"]
+
             )
+
 
             yield item
 
+
+    # ==========================================
+    # TOTAL ITEMS
+    # ==========================================
+
     def __len__(self):
 
-        return sum(
+        return self.get_total_items()
 
-            item["quantity"]
-
-            for item in self.cart.values()
-
-        )
 
     def get_total_items(self):
 
@@ -107,9 +192,15 @@ class Cart:
 
         )
 
+
     def get_total_quantity(self):
 
         return self.get_total_items()
+
+
+    # ==========================================
+    # TOTAL PRICE
+    # ==========================================
 
     def get_total_price(self):
 
@@ -118,5 +209,6 @@ class Cart:
         for item in self:
 
             total += item["total_price"]
+
 
         return total
