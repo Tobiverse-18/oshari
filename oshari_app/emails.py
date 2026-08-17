@@ -1121,7 +1121,7 @@ def send_new_product_notification(product):
         )
 
         product_url = (
-            f"{SITE_URL}/products/{product.slug}/"
+            f"{SITE_URL}/product/{product.pk}/"
         )
 
 
